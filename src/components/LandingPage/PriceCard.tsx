@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
-import CheckmarkCirle from "../ui/icons";
+import { CheckmarkCircle } from "../ui/icons";
 
 interface Props {
   category: string;
@@ -62,7 +62,7 @@ const PriceCard: React.FC<Props> = ({
             key={index}
             className="text-[#737373 text-[15px] flex items-center gap-2"
           >
-            <CheckmarkCirle color={checkmarkColor} />
+            <CheckmarkCircle color={checkmarkColor} />
             <p className="underline">{item}</p>
           </div>
         ))}
