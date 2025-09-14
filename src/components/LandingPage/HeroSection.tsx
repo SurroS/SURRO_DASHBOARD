@@ -7,9 +7,9 @@ import Image from "next/image";
 const HeroSection = () => {
   return (
     <div>
-      <div className="grid grid-cols-2 items-center pl-[100px] gap-10 mt-30">
+      <div className="lg:grid grid-cols-2 items-center px-10 lg:pl-[100px] gap-10 mt-10 lg:mt-30">
         <div className="mb-10">
-          <h1 className="text-[72px] font-bold  bg-gradient-to-r from-[#012770] via-[#3651BB] to-[#6C6CD3] bg-clip-text text-transparent leading-20">
+          <h1 className="text-[48px] lg:text-[72px] font-bold  bg-gradient-to-r from-[#012770] via-[#3651BB] to-[#6C6CD3] bg-clip-text text-transparent leading-20">
             Connecting Intended Parents with Verified Surrogates{" "}
           </h1>
           <p className="text-[#212121] text-[24px] mt-3 w-[90%]">
@@ -84,7 +84,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className="h-[300px] flex self-end w-fit bg-gradient-to-r from-[#3651BB] from-20% to-[#6C6CD3]">
+        <div className="hidden lg:flex h-[300px] self-end w-fit bg-gradient-to-r from-[#3651BB] from-20% to-[#6C6CD3]">
           <Image
             src={"/images/mother 1.svg"}
             alt=""

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -6,7 +7,9 @@ const Navabar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white h-[var(--navbar-height)] flex items-center justify-between p-5 px-10 border-b border-[#D2D1D0] z-50">
       <div className="w-[200px]">
-        <h3 className="font-[600] text-[32px] ">Surro</h3>
+        <h3 className="font-[600] text-[32px] ">
+          <Image src="/icons/logo-no-bg.png" alt="" width={100} height={100} />
+        </h3>
       </div>
       <div className="flex items-end gap-[24px] font-semibold text-[16px]">
         <Link href="/">Home</Link>

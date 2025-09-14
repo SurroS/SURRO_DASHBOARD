@@ -10,7 +10,7 @@ interface Props {
 
 const StepCard = (props: Props) => {
   return (
-    <div className="border border-[#EBF4FE] rounded-[8px] w-fit p-5 grid grid-cols-2 gap-5">
+    <div className="border border-[#EBF4FE] rounded-[8px] w-full lg:w-fit p-5 grid grid-cols-2 gap-5">
       <div className="flex flex-col justify-between">
         <div className="bg-[#EBF4FE] w-fit text-[#163C63] text-[12px] px-3 py-1 rounded-[10px]">
           Step {props.step}

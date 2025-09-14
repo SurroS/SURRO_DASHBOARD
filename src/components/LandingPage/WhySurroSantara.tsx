@@ -4,14 +4,14 @@ import React from "react";
 const WhySurroSantara = () => {
   return (
     <div className="flex items-center justify-center h-[90vh]">
-      <div className="p-10 grid grid-cols-2 gap-20">
+      <div className="p-10 lg:grid grid-cols-2 gap-20">
         <div className="w-[650px]">
           <Image
             src="/images/question.svg"
             alt=""
             width={500}
             height={300}
-            className="w-full"
+            className="w-full h-[200px] lg:h-[25rem]"
           />
           <p className="text-primary text-[48px] font-bold">
             Why SurroSantara?

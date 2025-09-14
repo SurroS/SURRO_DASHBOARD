@@ -87,7 +87,7 @@ const Pricing = () => {
         </button>
       </div>
 
-      <div className="flex items-center gap-8">
+      <div className="flex flex-col lg:flex-row items-center gap-8">
         <PriceCard
           features={["One month subscription", "Benefit One", "Benefit One"]}
           price="92,000"

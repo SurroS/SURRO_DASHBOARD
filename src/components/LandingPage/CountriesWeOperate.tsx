@@ -4,20 +4,20 @@ import { Ellipse } from "../ui/icons";
 
 const CountriesWeOperate = () => {
   return (
-    <div className="grid grid-cols-2 my-[10rem]">
+    <div className="grid lg:grid-cols-2 my-[10rem]">
       <Image
         src="/images/world_map.svg"
         alt=""
         width={1200}
         height={650}
-        className="w-full"
+        className="w-full hidden lg:block"
       />
 
-      <div className="mr-[10rem] place-self-center">
-        <h4 className="text-primary text-[48px] font-bold">
+      <div className="lg:mr-[10rem]  place-self-center p-10">
+        <h4 className="text-primary text-[48px] text-center lg:text-left font-bold">
           Countries We Operate In
         </h4>
-        <p className="text-[20px] text-[#212121]">
+        <p className="text-[20px] text-[#212121] text-center lg:text-left">
           Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
           vulputate libero et velit interdum, ac aliquet odio mattis.{" "}
         </p>

@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0E0E55] flex justify-between items-start text-white p-20">
+    <footer className="bg-[#0E0E55] flex flex-col lg:flex-row justify-between items-start text-white p-20">
       <div>
         <h1 className="text-4xl font-bold bg-gradient-to-b from-white to-[#FBBC04] bg-clip-text text-transparent">
           Surro

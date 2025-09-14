@@ -40,12 +40,12 @@ const Testimonals = () => {
       <h2 className="text-center text-[48px] font-bold">
         What users are saying
       </h2>
-      <p className="text-[#737373] text-center text-[20px] w-[40%] mx-auto font-[400]">
+      <p className="text-[#737373] text-center text-[20px] lg:w-[40%] mx-auto font-[400]">
         Vorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
         libero et velit interdum, ac aliquet odio mattis.
       </p>
       <div className="flex items-center justify-center">
-        <div className="grid grid-cols-3 gap-7 p-10">
+        <div className="grid lg:grid-cols-3 gap-7 p-10">
           {Testimonals.map((testimonal, index) => (
             <TestimonalCard
               key={index}
@@ -58,7 +58,7 @@ const Testimonals = () => {
       </div>
 
       <div className="mt-20 bg-[#0E0E55] flex flex-col items-center justify-center p-10 py-15 rounded-[23px] -mb-10 border border-amber-200">
-        <p className="bg-gradient-to-r from-white from-30% to-[#FCDF78] bg-clip-text text-transparent text-center text-[48px] font-bold w-[60%] leading-[120%]">
+        <p className="bg-gradient-to-r from-white from-30% to-[#FCDF78] bg-clip-text text-transparent text-center text-[48px] font-bold lg:w-[60%] leading-[120%]">
           Join the First Transparent Surrogacy Match Platform Today
         </p>
         <p className="font-[400] text-[20px] text-white w-[60%] text-center my-5">
