@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 
 export default function SettingsPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState({
     current: false,
     new: false,
@@ -48,6 +50,16 @@ export default function SettingsPage() {
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
+
+  const handleLogout = () => {
+    // Clear any stored authentication data
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userData");
+
+    // Redirect to login page
+    router.push("/login");
+  };
 
   const togglePasswordVisibility = (field: keyof typeof showPassword) => {
     setShowPassword((prev) => ({
@@ -394,6 +406,10 @@ export default function SettingsPage() {
             <Button
               variant="destructive"
               className="bg-red-600 hover:bg-red-700"
+              onClick={() => {
+                setShowLogoutModal(false);
+                handleLogout();
+              }}
             >
               Logout
             </Button>
