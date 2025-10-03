@@ -47,7 +47,13 @@ export default function LoginPage() {
       const success = await login(email, password);
       if (success) {
         toast({ title: "Login Successful", description: "Welcome back!" });
-        router.push("/dashboard");
+
+        // Redirect based on role
+        if (role === "investor_admin") {
+          router.push("/investors-dashboard");
+        } else {
+          router.push("/hrms/dashboard");
+        }
       } else {
         setError("Invalid email or password");
         toast({
