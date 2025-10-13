@@ -38,7 +38,7 @@ export default function InvestorsNav({
               <Button
                 variant={currentPage === "Dashboard" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => router.push("/investors-dashboard")}
+                onClick={() => router.push("/dashboard")}
                 className={`${
                   currentPage === "Dashboard"
                     ? "bg-[#FBFBFB] text-[#6969C9] shadow-sm hover:bg-[#FBFBFB]"
@@ -66,7 +66,7 @@ export default function InvestorsNav({
               <Button
                 variant={currentPage === "Settings" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => router.push("/investors-dashboard/settings")}
+                onClick={() => router.push("/settings")}
                 className={`${
                   currentPage === "Settings"
                     ? "bg-[#FBFBFB] text-[#6969C9] shadow-sm hover:bg-[#FBFBFB]"

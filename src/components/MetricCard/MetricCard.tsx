@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
-import styles from "./MetricCard.module.css";
 
 interface MetricCardProps {
   title: string;
@@ -10,21 +9,27 @@ interface MetricCardProps {
   className?: string;
 }
 
-export default function MetricCard({ title, value, icon: Icon, subtitle, className }: MetricCardProps) {
+export default function MetricCard({
+  title,
+  value,
+  icon: Icon,
+  subtitle,
+  className,
+}: MetricCardProps) {
   return (
-    <Card className={`${styles.card} ${className || ''}`}>
-      <CardContent className={styles.content}>
-        <div className={styles.container}>
-          <div className={styles.leftSection}>
+    <Card className={`${className || ""}`}>
+      <CardContent className="p-6">
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             {Icon && (
-              <div className={styles.iconWrapper}>
-                <Icon className={styles.icon} />
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <Icon className="h-6 w-6 text-primary" />
               </div>
             )}
-            <div className={styles.textSection}>
-              <p className={styles.title}>{title}</p>
-              <p className={styles.value}>{value}</p>
-              {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+            <div>
+              <p className="text-sm text-muted-foreground">{title}</p>
+              <p className="text-2xl font-bold">{value}</p>
+              {subtitle && <p className="text-xs text-green-600">{subtitle}</p>}
             </div>
           </div>
         </div>
