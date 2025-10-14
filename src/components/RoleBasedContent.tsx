@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth, UserRole } from "@/lib/auth";
+import { useAuth } from "@/lib/auth";
 import { ReactNode } from "react";
 
 interface RoleBasedContentProps {

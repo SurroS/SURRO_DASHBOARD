@@ -3,7 +3,7 @@
 import { useAuth } from "@/lib/auth";
 
 export default function HRMSDashboard() {
-  const { user } = useAuth();
+  const { user: _user } = useAuth();
 
   return (
     <div className="container mx-auto py-6">

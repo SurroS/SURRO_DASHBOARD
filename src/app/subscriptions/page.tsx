@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -105,7 +105,23 @@ const paymentHistory = [
 
 function SubscriptionsContent() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [selectedPayment, setSelectedPayment] = useState<any>(null);
+  const [selectedPayment, setSelectedPayment] = useState<{
+    id: string;
+    currentPlan: string;
+    dueDate: string;
+    time: string;
+    amountBilled: string;
+    status: string;
+    billingInfo: {
+      subscriptionType: string;
+      paymentMethod: string;
+      subscriptionDate: string;
+      amountPaid: string;
+      name: string;
+      email: string;
+      address: string;
+    };
+  } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const subscriptionStats = [
@@ -291,7 +307,14 @@ function SubscriptionsContent() {
                       <TableCell>{payment.dueDate}</TableCell>
                       <TableCell>
                         <StatusBadge
-                          status={getStatusVariant(payment.status) as any}
+                          status={
+                            getStatusVariant(payment.status) as
+                              | "pending"
+                              | "active"
+                              | "expired"
+                              | "suspended"
+                              | "success"
+                          }
                         >
                           {payment.status.charAt(0).toUpperCase() +
                             payment.status.slice(1)}
@@ -425,7 +448,14 @@ function SubscriptionsContent() {
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Status:</span>
                     <StatusBadge
-                      status={getStatusVariant(selectedPayment.status) as any}
+                      status={
+                        getStatusVariant(selectedPayment.status) as
+                          | "pending"
+                          | "active"
+                          | "expired"
+                          | "suspended"
+                          | "success"
+                      }
                     >
                       {selectedPayment.status.charAt(0).toUpperCase() +
                         selectedPayment.status.slice(1)}

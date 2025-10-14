@@ -97,7 +97,7 @@ interface EmployeeTableProps {
 }
 
 function EmployeeTable({
-  showMetrics = false,
+  showMetrics: _showMetrics = false,
   title = "Top Performing Employees",
   showLogHistory = false,
 }: EmployeeTableProps) {

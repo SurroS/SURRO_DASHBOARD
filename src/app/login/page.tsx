@@ -58,7 +58,7 @@ export default function LoginPage() {
           variant: "destructive",
         });
       }
-    } catch (err) {
+    } catch (_err) {
       setError("An error occurred during login");
       toast({
         title: "Login Failed",

@@ -4,11 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
 import {
-  Search,
   Filter,
   Plus,
   MousePointer,
@@ -119,9 +116,20 @@ const visitTrendData = [
 
 function ReferralsContent() {
   const router = useRouter();
-  const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("date");
+  const [selectedUser, setSelectedUser] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    dateJoined: string;
+    status: string;
+    firstName: string;
+    lastName: string;
+    fullId: string;
+    fullEmail: string;
+    verified: boolean;
+  } | null>(null);
+  const [_searchQuery, _setSearchQuery] = useState("");
+  const [_sortBy, _setSortBy] = useState("date");
   const [entriesPerPage, setEntriesPerPage] = useState("10");
 
   const metrics = [
@@ -273,13 +281,13 @@ function ReferralsContent() {
                   className="bg-background border-border shadow-lg z-50"
                   align="end"
                 >
-                  <DropdownMenuItem onClick={() => setSortBy("date")}>
+                  <DropdownMenuItem onClick={() => _setSortBy("date")}>
                     Date Joined
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setSortBy("name")}>
+                  <DropdownMenuItem onClick={() => _setSortBy("name")}>
                     Name
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setSortBy("status")}>
+                  <DropdownMenuItem onClick={() => _setSortBy("status")}>
                     Status
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -323,7 +331,14 @@ function ReferralsContent() {
                   <TableCell>{referral.dateJoined}</TableCell>
                   <TableCell>
                     <StatusBadge
-                      status={getStatusVariant(referral.status) as any}
+                      status={
+                        getStatusVariant(referral.status) as
+                          | "pending"
+                          | "active"
+                          | "expired"
+                          | "suspended"
+                          | "success"
+                      }
                     >
                       {referral.status === "success" ? "Success" : "Failed"}
                     </StatusBadge>
