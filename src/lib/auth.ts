@@ -9,17 +9,21 @@ import React, {
   FunctionComponent,
 } from "react";
 
+export type UserRole = "hrms" | "investor" | "hr" | "marketer" | "agent";
+
 interface User {
   id: string;
   email: string;
   name: string;
+  role: UserRole;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string, role?: UserRole) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
+  getUserRole: () => UserRole | null;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -46,7 +50,11 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (
+    email: string,
+    password: string,
+    role: UserRole = "hrms"
+  ): Promise<boolean> => {
     try {
       // Simulate API call - replace with actual authentication
       if (email && password) {
@@ -54,6 +62,7 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
           id: "1",
           email,
           name: email.split("@")[0],
+          role,
         };
 
         const token = "mock-jwt-token-" + Date.now();
@@ -70,6 +79,10 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
     }
   };
 
+  const getUserRole = (): UserRole | null => {
+    return user?.role || null;
+  };
+
   const logout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userData");
@@ -78,7 +91,7 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
 
   return React.createElement(
     AuthContext.Provider,
-    { value: { user, login, logout, isLoading } },
+    { value: { user, login, logout, isLoading, getUserRole } },
     children
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Shield } from "lucide-react";
+// import { Shield } from "lucide-react";
 
 interface AuthLayoutProps {
   title: string;

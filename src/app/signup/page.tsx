@@ -59,7 +59,7 @@ export default function SignupPage() {
         router.push("/login");
         setIsLoading(false);
       }, 1000);
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: "Signup Failed",
         description: "An unexpected error occurred",

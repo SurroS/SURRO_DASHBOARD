@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/lib/auth";
+import { useAuth, UserRole } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +21,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState<UserRole>("hrms");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const { login } = useAuth();
@@ -44,16 +44,12 @@ export default function LoginPage() {
         return;
       }
 
-      const success = await login(email, password);
+      const success = await login(email, password, role);
       if (success) {
         toast({ title: "Login Successful", description: "Welcome back!" });
 
-        // Redirect based on role
-        if (role === "investor_admin") {
-          router.push("/investors-dashboard");
-        } else {
-          router.push("/hrms/dashboard");
-        }
+        // Redirect to unified dashboard
+        router.push("/dashboard");
       } else {
         setError("Invalid email or password");
         toast({
@@ -62,7 +58,7 @@ export default function LoginPage() {
           variant: "destructive",
         });
       }
-    } catch (err) {
+    } catch (_err) {
       setError("An error occurred during login");
       toast({
         title: "Login Failed",
@@ -132,18 +128,19 @@ export default function LoginPage() {
 
         <div className="space-y-2">
           <Label htmlFor="role">Select role</Label>
-          <Select value={role} onValueChange={setRole}>
+          <Select
+            value={role}
+            onValueChange={(value) => setRole(value as UserRole)}
+          >
             <SelectTrigger className="h-12">
               <SelectValue placeholder="Admin" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="super_admin">Super Admin</SelectItem>
-              <SelectItem value="compliance_admin">Compliance Admin</SelectItem>
-              <SelectItem value="support_admin">Support Admin</SelectItem>
-              <SelectItem value="finance_admin">Finance Admin</SelectItem>
-              <SelectItem value="security_admin">Security Admin</SelectItem>
-              <SelectItem value="general_admin">General Admin</SelectItem>
-              <SelectItem value="investor_admin">Investor Admin</SelectItem>
+              <SelectItem value="hrms">HRMS Admin</SelectItem>
+              <SelectItem value="hr">HR</SelectItem>
+              <SelectItem value="marketer">Marketer</SelectItem>
+              <SelectItem value="agent">Agent</SelectItem>
+              <SelectItem value="investor">Investor</SelectItem>
             </SelectContent>
           </Select>
         </div>

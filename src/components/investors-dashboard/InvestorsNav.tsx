@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bell, User, TrendingUp, ChevronDown } from "lucide-react";
+import { User, ChevronDown } from "lucide-react";
 import Image from "next/image";
 
 interface InvestorsNavProps {
@@ -16,7 +16,7 @@ export default function InvestorsNav({
   currentPage,
 }: InvestorsNavProps) {
   const router = useRouter();
-  const [selectedPeriod, setSelectedPeriod] = useState("Monthly");
+  const [selectedPeriod, _setSelectedPeriod] = useState("Monthly");
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -38,7 +38,7 @@ export default function InvestorsNav({
               <Button
                 variant={currentPage === "Dashboard" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => router.push("/investors-dashboard")}
+                onClick={() => router.push("/dashboard")}
                 className={`${
                   currentPage === "Dashboard"
                     ? "bg-[#FBFBFB] text-[#6969C9] shadow-sm hover:bg-[#FBFBFB]"
@@ -66,7 +66,7 @@ export default function InvestorsNav({
               <Button
                 variant={currentPage === "Settings" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => router.push("/investors-dashboard/settings")}
+                onClick={() => router.push("/settings")}
                 className={`${
                   currentPage === "Settings"
                     ? "bg-[#FBFBFB] text-[#6969C9] shadow-sm hover:bg-[#FBFBFB]"

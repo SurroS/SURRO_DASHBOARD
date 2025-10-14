@@ -8,9 +8,9 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
-export default function VerifyCodePage() {
+function VerifyCodeContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
   const router = useRouter();
@@ -95,5 +95,13 @@ export default function VerifyCodePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VerifyCodePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyCodeContent />
+    </Suspense>
   );
 }
