@@ -12,7 +12,7 @@ import UserDistributionByType from "@/components/dashboards/Analytics/UserDistri
 import UserGrowthOverTime from "@/components/dashboards/Analytics/UserGrowthOverTime";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MainLayout from "@/layouts/MainLayout";
-import { ArrowDownToLine, Headphones, Shield } from "lucide-react";
+import { ArrowDownToLine, Headphones, Shield, Users } from "lucide-react";
 
 export default function AnalyticsPage() {
   return (
@@ -31,10 +31,14 @@ export default function AnalyticsPage() {
           <OverviewKPI />
           <div className="h-5" />
 
-          <div className="min-h-screen bg-gray-50">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">
-              User Analytics
-            </h1>
+          {/* User Analytics  */}
+          <div className="">
+            <div className="flex items-center mb-4">
+              <Users className="w-5 h-5 text-green-600 mr-2" />
+              <h2 className="text-xl font-semibold text-gray-900">
+                User Analytics
+              </h2>
+            </div>
             <div className="grid grid-cols-2 gap-8">
               <UserGrowthOverTime />
               <UserDistributionByType />
