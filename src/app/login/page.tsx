@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth, UserRole } from "@/lib/auth";
+import { useAuth } from "@/lib/auth";
+import { AdminRole } from "@/lib/permissions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +22,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [role, setRole] = useState<UserRole>("hrms");
+  const [role, setRole] = useState<AdminRole>("general_admin");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const { login } = useAuth();
@@ -130,17 +131,20 @@ export default function LoginPage() {
           <Label htmlFor="role">Select role</Label>
           <Select
             value={role}
-            onValueChange={(value) => setRole(value as UserRole)}
+            onValueChange={(value) => setRole(value as AdminRole)}
           >
             <SelectTrigger className="h-12">
               <SelectValue placeholder="Admin" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="hrms">HRMS Admin</SelectItem>
-              <SelectItem value="hr">HR</SelectItem>
-              <SelectItem value="marketer">Marketer</SelectItem>
-              <SelectItem value="agent">Agent</SelectItem>
-              <SelectItem value="investor">Investor</SelectItem>
+              <SelectItem value="super_admin">Super Admin</SelectItem>
+              <SelectItem value="general_admin">General Admin</SelectItem>
+              <SelectItem value="support_admin">Support Admin</SelectItem>
+              <SelectItem value="finance_admin">Finance Admin</SelectItem>
+              <SelectItem value="security_admin">Operations Admin</SelectItem>
+              <SelectItem value="marketing_admin">Marketing Admin</SelectItem>
+              <SelectItem value="compliance_admin">Compliance Admin</SelectItem>
+              <SelectItem value="investor_admin">Investor Admin</SelectItem>
             </SelectContent>
           </Select>
         </div>

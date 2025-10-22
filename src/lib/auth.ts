@@ -8,22 +8,31 @@ import React, {
   ReactNode,
   FunctionComponent,
 } from "react";
-
-export type UserRole = "hrms" | "investor" | "hr" | "marketer" | "agent";
+import {
+  hasPermission as checkPermission,
+  AdminRole,
+  Permission,
+} from "./permissions";
 
 interface User {
   id: string;
   email: string;
   name: string;
-  role: UserRole;
+  role: AdminRole; // Updated to use AdminRole from permissions
+  permissions: string[];
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string, role?: UserRole) => Promise<boolean>;
+  login: (
+    email: string,
+    password: string,
+    role?: AdminRole
+  ) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
-  getUserRole: () => UserRole | null;
+  getUserRole: () => AdminRole | null;
+  hasPermission: (permission: string) => boolean;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -53,16 +62,28 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   const login = async (
     email: string,
     password: string,
-    role: UserRole = "hrms"
+    role: AdminRole = "general_admin"
   ): Promise<boolean> => {
     try {
       // Simulate API call - replace with actual authentication
       if (email && password) {
-        const userData = {
+        // Auto-assign role based on email for testing
+        let assignedRole: AdminRole = role;
+        if (email.includes("super")) assignedRole = "super_admin";
+        else if (email.includes("compliance"))
+          assignedRole = "compliance_admin";
+        else if (email.includes("support")) assignedRole = "support_admin";
+        else if (email.includes("finance")) assignedRole = "finance_admin";
+        else if (email.includes("security")) assignedRole = "security_admin";
+        else if (email.includes("marketing")) assignedRole = "marketing_admin";
+        else if (email.includes("investor")) assignedRole = "investor_admin";
+
+        const userData: User = {
           id: "1",
           email,
           name: email.split("@")[0],
-          role,
+          role: assignedRole,
+          permissions: [], // Will be populated by permissions system
         };
 
         const token = "mock-jwt-token-" + Date.now();
@@ -79,8 +100,13 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
     }
   };
 
-  const getUserRole = (): UserRole | null => {
+  const getUserRole = (): AdminRole | null => {
     return user?.role || null;
+  };
+
+  const hasPermission = (permission: string) => {
+    if (!user) return false;
+    return checkPermission(user.role, permission as Permission);
   };
 
   const logout = () => {
@@ -91,7 +117,7 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
 
   return React.createElement(
     AuthContext.Provider,
-    { value: { user, login, logout, isLoading, getUserRole } },
+    { value: { user, login, logout, isLoading, getUserRole, hasPermission } },
     children
   );
 };
