@@ -37,6 +37,7 @@ import { MoreHorizontal, Plus, Filter } from "lucide-react";
 import { useRouter } from "next/navigation";
 import MetricCard from "@/components/MetricCard/MetricCard";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
 
 const employeeData = [
@@ -329,9 +330,11 @@ function EmployeeManagementContent() {
 export default function EmployeeManagementPage() {
   return (
     <ProtectedRoute>
-      <MainLayout>
-        <EmployeeManagementContent />
-      </MainLayout>
+      <RouteGuard>
+        <MainLayout>
+          <EmployeeManagementContent />
+        </MainLayout>
+      </RouteGuard>
     </ProtectedRoute>
   );
 }
