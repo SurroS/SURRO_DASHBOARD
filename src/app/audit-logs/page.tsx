@@ -1,73 +1,26 @@
 "use client";
 
 import DataTable from "@/components/Common/datatable";
+import AuditLogsModal from "@/components/dashboards/AuditLogs/AuditLogsModal";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { Button } from "@/components/ui/button";
 import { TableCell } from "@/components/ui/table";
 import MainLayout from "@/layouts/MainLayout";
 import { auditData, AuditLog } from "@/utils/mockData";
-import { ArrowDownToLine, Eye } from "lucide-react";
-import { useMemo, useState } from "react";
+import { ArrowDownToLine } from "lucide-react";
+import { useState } from "react";
 
 export default function AuditLogsPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<AuditLog>();
   const dataTableHead = [
-    "id",
+    "Date/Time",
     "User",
     "Action",
-    "Category",
-    "Role",
     "Affected Record",
-  ];
-
-  const databody = [
-    {
-      id: "1",
-      user: "John Doe",
-      action: "Create",
-      category: "User",
-      role: "Admin",
-      affectedRecord: "User 1",
-    },
-    {
-      id: "2",
-      user: "Jane Smith",
-      action: "Update",
-      category: "Product",
-      role: "HR",
-      affectedRecord: "Product 1",
-    },
-    {
-      id: "3",
-      user: "Bob Johnson",
-      action: "Delete",
-      category: "Order",
-      role: "Sales",
-      affectedRecord: "Order 1",
-    },
-    {
-      id: "4",
-      user: "John Doe",
-      action: "Create",
-      category: "User",
-      role: "Admin",
-      affectedRecord: "User 1",
-    },
-    {
-      id: "5",
-      user: "Jane Smith",
-      action: "Update",
-      category: "Product",
-      role: "HR",
-      affectedRecord: "Product 1",
-    },
-    {
-      id: "6",
-      user: "Bob Johnson",
-      action: "Delete",
-      category: "Order",
-      role: "Sales",
-      affectedRecord: "Order 1",
-    },
+    "IP Address",
+    "Status",
+    "Level",
+    "Actions",
   ];
 
   return (
@@ -83,18 +36,81 @@ export default function AuditLogsPage() {
           </div>
           <div className="h-5" />
           <DataTable
-            datatableBody={databody}
+            datatableBody={auditData}
             datatableHeads={dataTableHead}
+            emptyComponent={
+              <span className="text-gray-500 text-sm font-bold">
+                No data available
+              </span>
+            }
             renderRow={(item) => (
               <>
-                <TableCell>{item.id}</TableCell>
-                <TableCell>{item.user}</TableCell>
-                <TableCell>{item.action}</TableCell>
-                <TableCell>{item.category}</TableCell>
-                <TableCell>{item.role}</TableCell>
-                <TableCell>{item.affectedRecord}</TableCell>
+                <TableCell>{item.dateTime}</TableCell>
+                <TableCell>
+                  <div>
+                    <p className="font-semibold text-md">{item.user}</p>
+                    <p className="text-xs font-light text-gray-600">
+                      {item.role}
+                    </p>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <p className="font-semibold text-md">{item.action}</p>
+                    <p className="text-xs font-light text-gray-600">
+                      {item.category}
+                    </p>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <p className="text-gray-600">{item.affectedRecord}</p>
+                </TableCell>
+                <TableCell>{item.ipAddress}</TableCell>
+                <TableCell>
+                  <div
+                    className={`text-center rounded-md px-1 py-1 text-xs font-semibold ${
+                      item.status === "Success"
+                        ? "text-green-700 bg-green-100"
+                        : "text-red-600 bg-red-100"
+                    }`}
+                  >
+                    {item.status}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div
+                    className={`text-center rounded-md px-1 py-1 text-xs font-semibold ${
+                      item.level === "info"
+                        ? "text-blue-700 bg-blue-100"
+                        : item.level === "warning"
+                        ? "text-yellow-700 bg-yellow-100"
+                        : "text-red-700 bg-red-100"
+                    }`}
+                  >
+                    {item.level}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <button
+                    className="underline"
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      setSelectedRow(item);
+                    }}
+                  >
+                    View
+                  </button>
+                </TableCell>
               </>
             )}
+          />
+          <AuditLogsModal
+            isOpen={isModalOpen}
+            selectedLog={selectedRow!}
+            onClose={() => {
+              setIsModalOpen(false);
+              setSelectedRow(undefined);
+            }}
           />
         </div>
       </MainLayout>
