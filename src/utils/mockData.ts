@@ -169,3 +169,140 @@ export const topPerformers = [
   { name: "Agent Sarah Johnson", referrals: 145, conversions: 123 },
   { name: "Abuja Medical Center", referrals: 134, conversions: 109 },
 ];
+
+// Audit Log Interface
+export interface AuditLog {
+  id: number;
+  dateTime: string;
+  user: string;
+  role: string;
+  action: string;
+  category: string;
+  affectedRecord: string;
+  ipAddress: string;
+  status: "Success" | "Failed";
+  level: "info" | "warning" | "critical";
+}
+
+export const auditData: AuditLog[] = [
+  {
+    id: 1,
+    dateTime: "Oct 29, 2025, 09:18 AM",
+    user: "Sarah Johnson",
+    role: "Super Admin",
+    action: "Exported user data",
+    category: "Admin Operations",
+    affectedRecord: "Users Database",
+    ipAddress: "192.168.1.45",
+    status: "Success",
+    level: "warning",
+  },
+  {
+    id: 2,
+    dateTime: "Oct 29, 2025, 08:18 AM",
+    user: "John Smith",
+    role: "Intended Parent",
+    action: "Profile update",
+    category: "Profile Changes",
+    affectedRecord: "User Profile #4523",
+    ipAddress: "203.45.67.89",
+    status: "Success",
+    level: "info",
+  },
+  {
+    id: 3,
+    dateTime: "Oct 29, 2025, 07:18 AM",
+    user: "Lagos Fertility Clinic",
+    role: "Clinic",
+    action: "Document upload",
+    category: "Document Activities",
+    affectedRecord: "Medical Certificate #MC-8901",
+    ipAddress: "41.203.12.45",
+    status: "Success",
+    level: "info",
+  },
+  {
+    id: 4,
+    dateTime: "Oct 29, 2025, 06:18 AM",
+    user: "Michael Brown",
+    role: "Compliance Admin",
+    action: "Document approval",
+    category: "Document Activities",
+    affectedRecord: "Medical Certificate #MC-8901",
+    ipAddress: "192.168.1.78",
+    status: "Success",
+    level: "info",
+  },
+  {
+    id: 5,
+    dateTime: "Oct 29, 2025, 05:18 AM",
+    user: "Anonymous",
+    role: "Guest",
+    action: "Failed login attempt",
+    category: "Authentication & Access",
+    affectedRecord: "Login System",
+    ipAddress: "103.45.78.12",
+    status: "Failed",
+    level: "critical",
+  },
+  {
+    id: 6,
+    dateTime: "Oct 29, 2025, 04:18 AM",
+    user: "Emma Wilson",
+    role: "Surrogate",
+    action: "Login",
+    category: "Authentication & Access",
+    affectedRecord: "User Session #7821",
+    ipAddress: "98.234.56.78",
+    status: "Success",
+    level: "info",
+  },
+  {
+    id: 7,
+    dateTime: "Oct 28, 2025, 09:18 AM",
+    user: "David Chen",
+    role: "Finance Admin",
+    action: "Transaction processed",
+    category: "Transactions",
+    affectedRecord: "Payment #PAY-4567",
+    ipAddress: "192.168.1.89",
+    status: "Success",
+    level: "info",
+  },
+  {
+    id: 8,
+    dateTime: "Oct 28, 2025, 08:18 AM",
+    user: "Care Bridge Agency",
+    role: "Intermediary Agent",
+    action: "Referral activated",
+    category: "Transactions",
+    affectedRecord: "Referral #REF-8923",
+    ipAddress: "78.123.45.67",
+    status: "Success",
+    level: "info",
+  },
+  {
+    id: 9,
+    dateTime: "Oct 28, 2025, 07:18 AM",
+    user: "Lisa Anderson",
+    role: "Support Admin",
+    action: "User suspension",
+    category: "Admin Operations",
+    affectedRecord: "User Account #3421",
+    ipAddress: "192.168.1.56",
+    status: "Success",
+    level: "warning",
+  },
+  {
+    id: 10,
+    dateTime: "Oct 28, 2025, 06:18 AM",
+    user: "Robert Taylor",
+    role: "Intended Parent",
+    action: "Message sent",
+    category: "Communication Logs",
+    affectedRecord: "Conversation #CONV-5634",
+    ipAddress: "156.78.90.12",
+    status: "Success",
+    level: "info",
+  },
+];
