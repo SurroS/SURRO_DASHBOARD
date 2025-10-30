@@ -1,44 +1,31 @@
 "use client";
 
 import { useAuth } from "@/lib/auth";
-import { ReactNode } from "react";
+import { Permission } from "@/lib/permissions";
 
 interface RoleBasedContentProps {
-  hrms?: ReactNode;
-  investor?: ReactNode;
-  hr?: ReactNode;
-  marketer?: ReactNode;
-  agent?: ReactNode;
-  fallback?: ReactNode;
+  requiredPermission: Permission;
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
 }
 
+/**
+ * Component that conditionally renders content based on user permissions
+ * Usage:
+ * <RoleBasedContent requiredPermission="user.suspend">
+ *   <Button>Suspend User</Button>
+ * </RoleBasedContent>
+ */
 export default function RoleBasedContent({
-  hrms,
-  investor,
-  hr,
-  marketer,
-  agent,
-  fallback,
+  requiredPermission,
+  children,
+  fallback = null,
 }: RoleBasedContentProps) {
-  const { getUserRole } = useAuth();
-  const role = getUserRole();
+  const { hasPermission } = useAuth();
 
-  if (!role && fallback) {
-    return <>{fallback}</>;
+  if (hasPermission(requiredPermission)) {
+    return <>{children}</>;
   }
 
-  switch (role) {
-    case "hrms":
-      return <>{hrms || fallback}</>;
-    case "investor":
-      return <>{investor || fallback}</>;
-    case "hr":
-      return <>{hr || hrms || fallback}</>;
-    case "marketer":
-      return <>{marketer || hrms || fallback}</>;
-    case "agent":
-      return <>{agent || hrms || fallback}</>;
-    default:
-      return <>{fallback}</>;
-  }
+  return <>{fallback}</>;
 }

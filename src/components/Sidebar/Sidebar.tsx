@@ -13,11 +13,15 @@ import {
   User,
   Bell,
   Ticket,
+  CheckCircle,
+  Flag,
   // Grid3X3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth";
+import { hasRouteAccess } from "@/lib/routes";
 
-const menuSections = [
+const allMenuSections = [
   {
     title: "MAIN MENU",
     items: [
@@ -29,13 +33,39 @@ const menuSections = [
   {
     title: "USER MANAGEMENT",
     items: [
+      { name: "All Users", icon: Users, path: "/user-management" },
+      {
+        name: "Approvals",
+        icon: CheckCircle,
+        path: "/user-management/approvals",
+      },
+      {
+        name: "Suspensions",
+        icon: UserX,
+        path: "/user-management/suspensions",
+      },
+      {
+        name: "Flagged Accounts",
+        icon: Flag,
+        path: "/user-management/flagged-accounts",
+      },
       { name: "Subscriptions", icon: CreditCard, path: "/subscriptions" },
       { name: "Referrals", icon: Users, path: "/referrals" },
-      { name: "User management", icon: Users, path: "/user-management" },
+    ],
+  },
+  {
+    title: "EMPLOYEE MANAGEMENT",
+    items: [
+      { name: "All Employees", icon: UserX, path: "/employee-management" },
       {
-        name: "Employee management",
-        icon: UserX,
-        path: "/employee-management",
+        name: "Add Employee",
+        icon: User,
+        path: "/employee-management/registration",
+      },
+      {
+        name: "Employee Logs",
+        icon: FileText,
+        path: "/employee-management/log-history",
       },
     ],
   },
@@ -63,11 +93,38 @@ const menuSections = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { user } = useAuth();
 
   const isActivePath = (path: string) => {
     if (path === "/") return pathname === "/";
     return pathname?.startsWith(path);
   };
+
+  // Filter menu sections based on user role
+  const getFilteredMenuSections = () => {
+    if (!user) return [];
+
+    return allMenuSections
+      .map((section) => {
+        const filteredItems = section.items.filter((item) =>
+          hasRouteAccess(user.role, item.path)
+        );
+
+        // Only include sections that have at least one accessible item
+        if (filteredItems.length > 0) {
+          return {
+            ...section,
+            items: filteredItems,
+          };
+        }
+        return null;
+      })
+      .filter(
+        (section): section is NonNullable<typeof section> => section !== null
+      );
+  };
+
+  const menuSections = getFilteredMenuSections();
 
   return (
     <div className="w-64 h-screen bg-sidebar border-r border-sidebar-border flex flex-col">

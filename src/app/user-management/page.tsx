@@ -30,6 +30,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
 
 const userData = {
@@ -334,9 +335,11 @@ function UserManagementContent() {
 export default function UserManagementPage() {
   return (
     <ProtectedRoute>
-      <MainLayout>
-        <UserManagementContent />
-      </MainLayout>
+      <RouteGuard>
+        <MainLayout>
+          <UserManagementContent />
+        </MainLayout>
+      </RouteGuard>
     </ProtectedRoute>
   );
 }

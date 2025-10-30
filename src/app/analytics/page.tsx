@@ -11,6 +11,7 @@ import TopPerformers from "@/components/dashboards/Analytics/TopPerformers";
 import UserDistributionByType from "@/components/dashboards/Analytics/UserDistributionByType";
 import UserGrowthOverTime from "@/components/dashboards/Analytics/UserGrowthOverTime";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
 import { ArrowDownToLine, Headphones, Shield, Users } from "lucide-react";
 
