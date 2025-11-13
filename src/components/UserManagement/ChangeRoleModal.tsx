@@ -63,7 +63,7 @@ export default function ChangeRoleModal({
           <Alert>
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
-              Changing a user's role may affect their access to features and permissions.
+              Changing a user&apos;s role may affect their access to features and permissions.
               This action will be logged.
             </AlertDescription>
           </Alert>

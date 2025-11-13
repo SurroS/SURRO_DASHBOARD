@@ -3,7 +3,7 @@ import { WalletTransaction } from "./walletService";
 import { AuditEvent } from "./auditLog";
 
 export function exportToCSV(
-  data: any[],
+  data: Record<string, unknown>[],
   filename: string,
   columns?: string[]
 ): void {
@@ -96,7 +96,7 @@ export function exportAuditLogsToCSV(
 }
 
 export function exportToPDF(
-  data: any[],
+  data: Record<string, unknown>[],
   title: string,
   columns: string[],
   filename = "export.pdf"

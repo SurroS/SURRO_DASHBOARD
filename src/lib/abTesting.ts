@@ -86,7 +86,7 @@ export function trackExperimentEvent(
   experimentId: string,
   variant: ExperimentVariant,
   event: string,
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 ): void {
   // In production, send to your analytics service
   console.log("Experiment Event:", {

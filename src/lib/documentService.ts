@@ -1,9 +1,8 @@
-import { DocumentMetadata } from "./userManagement";
+import { DocumentMetadata, getUserById, updateUser, getUsers, User } from "./userManagement";
 
 const DOCUMENTS_STORAGE_KEY = "surro_documents";
 
 export function getDocuments(userId: string): DocumentMetadata[] {
-  const { getUserById } = require("./userManagement");
   const user = getUserById(userId);
   return user?.documents || [];
 }
@@ -12,9 +11,6 @@ export function addDocument(
   userId: string,
   document: Omit<DocumentMetadata, "userId">
 ): DocumentMetadata | null {
-  const { getUserById, updateUser } = require("./userManagement");
-  const { useAuth } = require("./auth");
-
   const user = getUserById(userId);
   if (!user) return null;
 
@@ -37,8 +33,6 @@ export function updateDocumentStatus(
   adminId: string,
   adminEmail: string
 ): boolean {
-  const { getUserById, updateUser } = require("./userManagement");
-
   const user = getUserById(userId);
   if (!user) return false;
 
@@ -119,10 +113,9 @@ export function requestDocumentReupload(
 }
 
 export function getPendingDocuments(): DocumentMetadata[] {
-  const { getUsers, User } = require("./userManagement");
-  const users: (typeof User)[] = getUsers();
+  const users = getUsers();
 
-  return users.flatMap((user: typeof User) =>
+  return users.flatMap((user) =>
     user.documents.filter((doc: DocumentMetadata) => doc.status === "pending")
   );
 }

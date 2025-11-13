@@ -134,7 +134,7 @@ export default function FlaggedAccountsPage() {
 
   // Apply filtering and pagination for High Priority
   useEffect(() => {
-    let filtered = highPriority.filter((account) => {
+    const filtered = highPriority.filter((account) => {
       const matchesSearch =
         !searchQuery ||
         account.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -163,7 +163,7 @@ export default function FlaggedAccountsPage() {
 
   // Apply filtering and pagination for Medium Priority
   useEffect(() => {
-    let filtered = mediumPriority.filter((account) => {
+    const filtered = mediumPriority.filter((account) => {
       const matchesSearch =
         !searchQuery ||
         account.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -192,7 +192,7 @@ export default function FlaggedAccountsPage() {
 
   // Apply filtering and pagination for Low Priority
   useEffect(() => {
-    let filtered = lowPriority.filter((account) => {
+    const filtered = lowPriority.filter((account) => {
       const matchesSearch =
         !searchQuery ||
         account.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

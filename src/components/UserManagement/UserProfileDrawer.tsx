@@ -30,7 +30,7 @@ import {
   RotateCcw,
   AlertCircle,
 } from "lucide-react";
-import { User as UserType } from "@/lib/userManagement";
+import { User as UserType, getUserById } from "@/lib/userManagement";
 import { getTransactions } from "@/lib/walletService";
 import SuspendUserModal from "./SuspendUserModal";
 import WalletAdjustmentModal from "./WalletAdjustmentModal";
@@ -39,7 +39,7 @@ import ChangeRoleModal from "./ChangeRoleModal";
 import { useAuth } from "@/lib/auth";
 import { updateUser, updateUserStatus } from "@/lib/userManagement";
 import { adjustWallet } from "@/lib/walletService";
-import { sendTemplateNotification } from "@/lib/notificationService";
+import { sendTemplateNotification, sendNotification } from "@/lib/notificationService";
 import { toast } from "@/hooks/use-toast";
 
 interface UserProfileDrawerProps {
@@ -64,7 +64,6 @@ export default function UserProfileDrawer({
 
   useEffect(() => {
     if (userId && open) {
-      const { getUserById } = require("@/lib/userManagement");
       const userData = getUserById(userId);
       setUser(userData);
     }
@@ -153,7 +152,6 @@ export default function UserProfileDrawer({
     channel: "email" | "sms" | "in_app",
     message: string
   ) => {
-    const { sendNotification } = require("@/lib/notificationService");
     sendNotification(userId, "notification", message, channel);
 
     toast({

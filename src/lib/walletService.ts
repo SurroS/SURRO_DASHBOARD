@@ -1,3 +1,5 @@
+import { updateUser } from "./userManagement";
+
 export interface WalletTransaction {
   id: string;
   userId: string;
@@ -82,7 +84,6 @@ export function adjustWallet(
     );
 
     // Update user balance
-    const { updateUser } = require("./userManagement");
     updateUser(userId, { walletBalance: balanceAfter }, adminId, adminEmail);
 
     return transaction;

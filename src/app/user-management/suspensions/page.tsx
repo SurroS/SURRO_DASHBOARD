@@ -123,7 +123,7 @@ export default function SuspensionsPage() {
 
   // Apply filtering and pagination for Active Suspensions
   useEffect(() => {
-    let filtered = activeSuspensions.filter((suspension) => {
+    const filtered = activeSuspensions.filter((suspension) => {
       const matchesSearch =
         !searchQuery ||
         suspension.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -151,7 +151,7 @@ export default function SuspensionsPage() {
 
   // Apply filtering and pagination for Pending Review
   useEffect(() => {
-    let filtered = pendingReview.filter((user) => {
+    const filtered = pendingReview.filter((user) => {
       const matchesSearch =
         !searchQuery ||
         user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

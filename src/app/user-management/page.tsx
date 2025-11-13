@@ -53,6 +53,7 @@ import {
   searchUsers,
   getUserStats,
   bulkUpdateStatus,
+  getUsers,
 } from "@/lib/userManagement";
 import { exportUsersToCSV } from "@/lib/exportService";
 import { useAuth } from "@/lib/auth";
@@ -348,7 +349,6 @@ function UserManagementContent() {
       setSelectedUsers(new Set());
 
       // Refresh users
-      const { getUsers } = require("@/lib/userManagement");
       const refreshed = getUsers();
       setAllUsers(refreshed);
     }
