@@ -62,13 +62,19 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   const login = async (
     email: string,
     password: string,
-    role: AdminRole = "general_admin"
+    role?: AdminRole
   ): Promise<boolean> => {
     try {
       // Simulate API call - replace with actual authentication
       if (email && password) {
-        // Auto-assign role based on email for testing
-        let assignedRole: AdminRole = role;
+        // Role assignment priority:
+        // 1. Backend API response (when implemented)
+        // 2. Email pattern matching (current fallback)
+        // 3. Provided role parameter (for variant A backward compatibility)
+        // 4. Default to "general_admin"
+        let assignedRole: AdminRole = "general_admin";
+        
+        // Email pattern matching (fallback until backend is implemented)
         if (email.includes("super")) assignedRole = "super_admin";
         else if (email.includes("compliance"))
           assignedRole = "compliance_admin";
@@ -77,6 +83,8 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
         else if (email.includes("security")) assignedRole = "security_admin";
         else if (email.includes("marketing")) assignedRole = "marketing_admin";
         else if (email.includes("investor")) assignedRole = "investor_admin";
+        // If role was provided and no email pattern matched, use provided role
+        else if (role) assignedRole = role;
 
         const userData: User = {
           id: "1",

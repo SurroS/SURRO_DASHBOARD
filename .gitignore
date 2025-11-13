@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
+/playwright/.cache
 
 # next.js
 /.next/
@@ -46,3 +49,6 @@ next-env.d.ts
 # SSH keys
 surro
 surro.pub
+
+# Resume bullet points (private)
+resume bullet point/
