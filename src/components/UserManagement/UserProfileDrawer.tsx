@@ -65,7 +65,7 @@ export default function UserProfileDrawer({
   useEffect(() => {
     if (userId && open) {
       const userData = getUserById(userId);
-      setUser(userData);
+      setUser(userData || null);
     }
   }, [userId, open]);
 
@@ -152,7 +152,8 @@ export default function UserProfileDrawer({
     channel: "email" | "sms" | "in_app",
     message: string
   ) => {
-    sendNotification(userId, "notification", message, channel);
+    // Use sendNotification with a valid NotificationType and custom message content
+    sendNotification(userId, "activation", message, channel);
 
     toast({
       title: "Notification Sent",

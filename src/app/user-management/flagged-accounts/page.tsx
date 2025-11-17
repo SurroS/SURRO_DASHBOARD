@@ -53,6 +53,7 @@ import MainLayout from "@/layouts/MainLayout";
 import { User, getUsers, updateUser } from "@/lib/userManagement";
 import { useAuth } from "@/lib/auth";
 import { toast } from "@/hooks/use-toast";
+import { sendTemplateNotification } from "@/lib/notificationService";
 import UserProfileDrawer from "@/components/UserManagement/UserProfileDrawer";
 import SuspendUserModal from "@/components/UserManagement/SuspendUserModal";
 

@@ -119,7 +119,7 @@ export async function setupTestUsers(page: Page) {
     
     // Add test users if they don't exist
     testUsers.forEach((testUser) => {
-      if (!allUsers.find((u: any) => u.id === testUser.id)) {
+      if (!allUsers.find((u: { id: string }) => u.id === testUser.id)) {
         allUsers.push(testUser);
       }
     });
