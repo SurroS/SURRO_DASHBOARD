@@ -20,7 +20,8 @@ import {
   FileText,
   User,
 } from "lucide-react";
-import { User as UserType, getUserById } from "@/lib/userManagement";
+import { getUserById } from "@/lib/userManagement";
+import type { User as UserType } from "@/types/user";
 import {
   approveDocument,
   rejectDocument,

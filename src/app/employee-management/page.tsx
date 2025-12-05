@@ -67,26 +67,26 @@ const employeeData = [
   },
   {
     id: "#0103",
+    name: "Pending User",
+    date: "Dec 1, 2025",
+    status: "Pending",
+    role: "Marketer",
+    address: "-",
+  },
+  {
+    id: "#0104",
+    name: "Expired Invite",
+    date: "Nov 28, 2025",
+    status: "Expired",
+    role: "Compliance",
+    address: "-",
+  },
+  {
+    id: "#0105",
     name: "Ivan Bernard",
     date: "6 April 2023",
     status: "Active",
     role: "Clinic",
-    address: "Port harcourt, Rivers, Nigeria",
-  },
-  {
-    id: "#0103",
-    name: "Ivan Bernard",
-    date: "6 April 2023",
-    status: "Active",
-    role: "Agent",
-    address: "Port harcourt, Rivers, Nigeria",
-  },
-  {
-    id: "#0103",
-    name: "Ivan Bernard",
-    date: "6 April 2023",
-    status: "Deactivated",
-    role: "Admin",
     address: "Port harcourt, Rivers, Nigeria",
   },
 ];
@@ -96,6 +96,20 @@ interface EmployeeTableProps {
   title?: string;
   showLogHistory?: boolean;
 }
+
+const getStatusBadgeClass = (status: string) => {
+  switch (status.toLowerCase()) {
+    case "active":
+      return "bg-green-100 text-green-800 hover:bg-green-100 border-green-200";
+    case "pending":
+      return "bg-yellow-100 text-yellow-800 hover:bg-yellow-100 border-yellow-200";
+    case "expired":
+      return "bg-red-100 text-red-800 hover:bg-red-100 border-red-200";
+    case "deactivated":
+    default:
+      return "bg-gray-100 text-gray-600 hover:bg-gray-100 border-gray-200";
+  }
+};
 
 function EmployeeTable({
   showMetrics: _showMetrics = false,
@@ -143,14 +157,8 @@ function EmployeeTable({
                 <TableCell>{employee.date}</TableCell>
                 <TableCell>
                   <Badge
-                    variant={
-                      employee.status === "Active" ? "default" : "secondary"
-                    }
-                    className={
-                      employee.status === "Active"
-                        ? "bg-green-100 text-green-800 hover:bg-green-100"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-100"
-                    }
+                    variant="outline"
+                    className={getStatusBadgeClass(employee.status)}
                   >
                     {employee.status}
                   </Badge>
@@ -166,6 +174,11 @@ function EmployeeTable({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem>Update</DropdownMenuItem>
+                      {employee.status === "Pending" && (
+                        <DropdownMenuItem onClick={() => {}}>
+                          Resend Invite
+                        </DropdownMenuItem>
+                      )}
                       {showLogHistory && (
                         <DropdownMenuItem
                           onClick={() =>
@@ -259,7 +272,7 @@ function EmployeeManagementContent() {
           onClick={() => router.push("/employee-management/registration")}
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add Employee
+          Invite Employee
         </Button>
       </div>
 

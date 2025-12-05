@@ -1,4 +1,5 @@
-import { DocumentMetadata, getUserById, updateUser, getUsers, User } from "./userManagement";
+import { getUserById, updateUser, getUsers } from "./userManagement";
+import type { DocumentMetadata } from "@/types/user";
 
 const DOCUMENTS_STORAGE_KEY = "surro_documents";
 

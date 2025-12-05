@@ -30,14 +30,14 @@ import {
   RotateCcw,
   AlertCircle,
 } from "lucide-react";
-import { User as UserType, getUserById } from "@/lib/userManagement";
+import { getUserById, updateUser, updateUserStatus } from "@/lib/userManagement";
 import { getTransactions } from "@/lib/walletService";
 import SuspendUserModal from "./SuspendUserModal";
 import WalletAdjustmentModal from "./WalletAdjustmentModal";
 import SendNotificationModal from "./SendNotificationModal";
 import ChangeRoleModal from "./ChangeRoleModal";
 import { useAuth } from "@/lib/auth";
-import { updateUser, updateUserStatus } from "@/lib/userManagement";
+import type { User as UserType, UserRole } from "@/types/user";
 import { adjustWallet } from "@/lib/walletService";
 import { sendTemplateNotification, sendNotification } from "@/lib/notificationService";
 import { toast } from "@/hooks/use-toast";

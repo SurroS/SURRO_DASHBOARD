@@ -48,7 +48,8 @@ import { Label } from "@/components/ui/label";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
-import { User, getUsers, updateUser } from "@/lib/userManagement";
+import { getUsers, updateUser } from "@/lib/userManagement";
+import type { User } from "@/types/user";
 import {
   approveDocument,
   rejectDocument,

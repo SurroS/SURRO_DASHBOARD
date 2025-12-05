@@ -13,12 +13,13 @@ import {
   AdminRole,
   Permission,
 } from "./permissions";
+import { apiClient } from "./apiClient";
 
 interface User {
   id: string;
   email: string;
   name: string;
-  role: AdminRole; // Updated to use AdminRole from permissions
+  role: AdminRole;
   permissions: string[];
 }
 
@@ -29,7 +30,7 @@ interface AuthContextType {
     password: string,
     role?: AdminRole
   ) => Promise<boolean>;
-  logout: () => void;
+  logout: () => Promise<void>;
   isLoading: boolean;
   getUserRole: () => AdminRole | null;
   hasPermission: (permission: string) => boolean;
@@ -46,17 +47,28 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing token on mount
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      // In a real app, you'd validate the token with your backend
-      // For now, we'll just check if it exists
-      const userData = localStorage.getItem("userData");
-      if (userData) {
-        setUser(JSON.parse(userData));
+    const checkAuth = async () => {
+      try {
+        // Call the proxy endpoint to check auth and get user details
+        const response = await apiClient.get<{
+          authenticated: boolean;
+          user?: User;
+        }>("/auth/me");
+
+        if (response.authenticated && response.user) {
+          setUser(response.user);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
       }
-    }
-    setIsLoading(false);
+    };
+
+    checkAuth();
   }, []);
 
   const login = async (
@@ -65,40 +77,17 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
     role?: AdminRole
   ): Promise<boolean> => {
     try {
-      // Simulate API call - replace with actual authentication
-      if (email && password) {
-        // Role assignment priority:
-        // 1. Backend API response (when implemented)
-        // 2. Email pattern matching (current fallback)
-        // 3. Provided role parameter (for variant A backward compatibility)
-        // 4. Default to "general_admin"
-        let assignedRole: AdminRole = "general_admin";
-        
-        // Email pattern matching (fallback until backend is implemented)
-        if (email.includes("super")) assignedRole = "super_admin";
-        else if (email.includes("compliance"))
-          assignedRole = "compliance_admin";
-        else if (email.includes("support")) assignedRole = "support_admin";
-        else if (email.includes("finance")) assignedRole = "finance_admin";
-        else if (email.includes("security")) assignedRole = "security_admin";
-        else if (email.includes("marketing")) assignedRole = "marketing_admin";
-        else if (email.includes("investor")) assignedRole = "investor_admin";
-        // If role was provided and no email pattern matched, use provided role
-        else if (role) assignedRole = role;
+      // Use the new proxy login route
+      // Role param is ignored as role is determined by backend
+      const response = await apiClient.post<{
+        success: boolean;
+        user: User;
+      }>("/auth/login", {
+        body: { email, password },
+      });
 
-        const userData: User = {
-          id: "1",
-          email,
-          name: email.split("@")[0],
-          role: assignedRole,
-          permissions: [], // Will be populated by permissions system
-        };
-
-        const token = "mock-jwt-token-" + Date.now();
-
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("userData", JSON.stringify(userData));
-        setUser(userData);
+      if (response.success && response.user) {
+        setUser(response.user);
         return true;
       }
       return false;
@@ -117,10 +106,16 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
     return checkPermission(user.role, permission as Permission);
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await apiClient.post("/auth/logout");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+    setUser(null);
+    // Clear legacy localStorage items just in case
     localStorage.removeItem("authToken");
     localStorage.removeItem("userData");
-    setUser(null);
   };
 
   return React.createElement(

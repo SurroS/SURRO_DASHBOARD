@@ -1,4 +1,4 @@
-import { User } from "./userManagement";
+import type { User } from "@/types/user";
 import { WalletTransaction } from "./walletService";
 import { AuditEvent } from "./auditLog";
 
@@ -41,7 +41,10 @@ export function exportToCSV(
   document.body.removeChild(link);
 }
 
-export function exportUsersToCSV(users: User[], filename = "users_export.csv"): void {
+export function exportUsersToCSV(
+  users: User[],
+  filename = "users_export.csv"
+): void {
   const flattenedUsers = users.map((user) => ({
     ID: user.id,
     Name: user.name,
@@ -69,7 +72,7 @@ export function exportTransactionsToCSV(
     Type: tx.type,
     Amount: tx.amount,
     Reason: tx.reason,
-    "Admin": tx.adminEmail,
+    Admin: tx.adminEmail,
     Date: tx.timestamp,
     "Balance After": tx.balanceAfter,
   }));
@@ -103,11 +106,10 @@ export function exportToPDF(
 ): void {
   // For a full PDF implementation, you would use a library like jsPDF or pdfkit
   // This is a placeholder that shows the structure
-  
+
   console.warn("PDF export not yet implemented. Use CSV export instead.");
   alert("PDF export coming soon. Using CSV export instead.");
-  
+
   const csvFilename = filename.replace(".pdf", ".csv");
   exportToCSV(data, csvFilename, columns);
 }
-

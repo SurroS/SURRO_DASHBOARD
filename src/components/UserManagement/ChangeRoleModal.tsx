@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { UserRole } from "@/lib/userManagement";
+import type { UserRole } from "@/types/user";
 
 interface ChangeRoleModalProps {
   open: boolean;

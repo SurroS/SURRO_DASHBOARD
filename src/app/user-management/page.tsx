@@ -12,6 +12,7 @@ import {
   MoreHorizontal,
   Download,
   AlertCircle,
+  Loader2,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -48,16 +49,24 @@ import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
 import UserProfileDrawer from "@/components/UserManagement/UserProfileDrawer";
 import {
-  User,
   initializeUsers,
   searchUsers,
   getUserStats,
   bulkUpdateStatus,
   getUsers,
 } from "@/lib/userManagement";
+import { useUsers } from "@/hooks/useUsers";
+import type { User } from "@/types/user";
 import { exportUsersToCSV } from "@/lib/exportService";
 import { useAuth } from "@/lib/auth";
 import { toast } from "@/hooks/use-toast";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const LOW_WALLET_THRESHOLD = 50;
 
@@ -164,7 +173,20 @@ const UserTable = ({
                       }
                     />
                   </TableCell>
-                  <TableCell className="font-medium">{user.id}</TableCell>
+                  <TableCell className="font-medium">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="truncate max-w-[120px] cursor-help">
+                            {user.id}
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="font-mono text-sm">{user.id}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </TableCell>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>
                     <Badge variant="outline">{user.role}</Badge>
@@ -249,12 +271,17 @@ function UserManagementContent() {
   >("surrogate");
 
   const { user: adminUser } = useAuth();
+  const {
+    users: remoteUsers,
+    isLoading: isUsersLoading,
+    error: usersError,
+    refetch: refetchUsers,
+  } = useUsers();
 
+  // Load users from API instead of localStorage
   useEffect(() => {
-    // Initialize users on mount
-    const initialized = initializeUsers();
-    setAllUsers(initialized);
-  }, []);
+    setAllUsers(remoteUsers);
+  }, [remoteUsers]);
 
   // Reset to page 1 when filters change
   useEffect(() => {
@@ -289,9 +316,19 @@ function UserManagementContent() {
     }
 
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const paginatedUsers = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const paginatedUsers = filtered.slice(
+      startIndex,
+      startIndex + ITEMS_PER_PAGE
+    );
     setUsers(paginatedUsers);
-  }, [activeTab, searchQuery, statusFilter, verificationFilter, allUsers, currentPage]);
+  }, [
+    activeTab,
+    searchQuery,
+    statusFilter,
+    verificationFilter,
+    allUsers,
+    currentPage,
+  ]);
 
   const handleUserSelect = (userId: string, selected: boolean) => {
     const newSelected = new Set(selectedUsers);
@@ -366,8 +403,34 @@ function UserManagementContent() {
               Total: {stats.total} users • Active: {stats.byStatus.active || 0}{" "}
               • Suspended: {stats.byStatus.suspended || 0}
             </p>
+            {isUsersLoading && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Syncing users from SurroSantara...</span>
+              </div>
+            )}
           </div>
         </div>
+
+        {usersError && (
+          <Alert variant="destructive">
+            <AlertTitle>Failed to load users</AlertTitle>
+            <AlertDescription className="flex flex-col gap-2">
+              <span>
+                {usersError instanceof Error
+                  ? usersError.message
+                  : "Unable to reach the admin users API."}
+              </span>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => refetchUsers()}
+              >
+                Retry
+              </Button>
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* Search and Filters */}
         <div className="flex flex-col md:flex-row gap-4">
@@ -505,9 +568,13 @@ function UserManagementContent() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>
-                Showing {filteredUsers.length > 0 ? (currentPage - 1) * ITEMS_PER_PAGE + 1 : 0} to{" "}
-                {Math.min(currentPage * ITEMS_PER_PAGE, filteredUsers.length)} of{" "}
-                {filteredUsers.length} users
+                Showing{" "}
+                {filteredUsers.length > 0
+                  ? (currentPage - 1) * ITEMS_PER_PAGE + 1
+                  : 0}{" "}
+                to{" "}
+                {Math.min(currentPage * ITEMS_PER_PAGE, filteredUsers.length)}{" "}
+                of {filteredUsers.length} users
               </span>
             </div>
 
@@ -518,10 +585,19 @@ function UserManagementContent() {
                     <PaginationPrevious
                       size="sm"
                       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      className={
+                        currentPage === 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
                     />
                   </PaginationItem>
-                  {Array.from({ length: Math.ceil(filteredUsers.length / ITEMS_PER_PAGE) }, (_, i) => i + 1).map((page) => (
+                  {Array.from(
+                    {
+                      length: Math.ceil(filteredUsers.length / ITEMS_PER_PAGE),
+                    },
+                    (_, i) => i + 1
+                  ).map((page) => (
                     <PaginationItem key={page}>
                       <PaginationLink
                         size="sm"
@@ -536,8 +612,20 @@ function UserManagementContent() {
                   <PaginationItem>
                     <PaginationNext
                       size="sm"
-                      onClick={() => setCurrentPage((p) => Math.min(Math.ceil(filteredUsers.length / ITEMS_PER_PAGE), p + 1))}
-                      className={currentPage >= Math.ceil(filteredUsers.length / ITEMS_PER_PAGE) ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      onClick={() =>
+                        setCurrentPage((p) =>
+                          Math.min(
+                            Math.ceil(filteredUsers.length / ITEMS_PER_PAGE),
+                            p + 1
+                          )
+                        )
+                      }
+                      className={
+                        currentPage >=
+                        Math.ceil(filteredUsers.length / ITEMS_PER_PAGE)
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>
