@@ -238,9 +238,7 @@ export default function FlaggedAccountsPage() {
 
     const updated = updateUser(
       selectedUserForResolve.id,
-      { complianceFlags: updatedFlags },
-      adminId,
-      adminEmail
+      { complianceFlags: updatedFlags }
     );
 
     if (updated) {
@@ -402,9 +400,7 @@ export default function FlaggedAccountsPage() {
           suspensionDate: new Date().toISOString(),
           suspensionDuration: "30 days",
           suspendedBy: adminEmail,
-        },
-        adminId,
-        adminEmail
+        }
       );
       sendTemplateNotification(
         user.id,
@@ -444,9 +440,7 @@ export default function FlaggedAccountsPage() {
 
     const updated = updateUser(
       selectedUserForEscalate.id,
-      { complianceFlags: updatedFlags },
-      adminId,
-      adminEmail
+      { complianceFlags: updatedFlags }
     );
 
     if (updated) {
@@ -640,9 +634,7 @@ export default function FlaggedAccountsPage() {
         suspensionDate: new Date().toISOString(),
         suspensionDuration: duration,
         suspendedBy: adminEmail,
-      },
-      adminId,
-      adminEmail
+      }
     );
 
     if (updated) {
