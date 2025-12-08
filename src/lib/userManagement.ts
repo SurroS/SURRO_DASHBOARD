@@ -113,7 +113,9 @@ export function searchUsers(filters: UserFilters): User[] {
 
 export function updateUser(
   userId: string,
-  updates: Partial<User>
+  updates: Partial<User>,
+  _adminId?: string,
+  _adminEmail?: string
 ): User | null {
   const users = getUsers();
   const userIndex = users.findIndex((user) => user.id === userId);
@@ -131,7 +133,9 @@ export function updateUser(
 export function updateUserStatus(
   userId: string,
   status: UserStatus,
-  reason: string
+  _reason?: string,
+  _adminId?: string,
+  _adminEmail?: string
 ): User | null {
   const updated = updateUser(userId, { status });
 
@@ -141,11 +145,13 @@ export function updateUserStatus(
 export function bulkUpdateStatus(
   userIds: string[],
   status: UserStatus,
-  reason: string
+  _reason?: string,
+  _adminId?: string,
+  _adminEmail?: string
 ): number {
   let count = 0;
   userIds.forEach((userId) => {
-    if (updateUserStatus(userId, status, reason, "", "")) {
+    if (updateUserStatus(userId, status)) {
       count++;
     }
   });

@@ -23,6 +23,7 @@ import {
 interface SuspendUserModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  userId: string;
   userName: string;
   onConfirm: (reason: string, duration: string) => void;
 }
@@ -30,6 +31,7 @@ interface SuspendUserModalProps {
 export default function SuspendUserModal({
   open,
   onOpenChange,
+  userId: _userId,
   userName,
   onConfirm,
 }: SuspendUserModalProps) {

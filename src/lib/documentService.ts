@@ -29,8 +29,8 @@ export function updateDocumentStatus(
   documentId: string,
   status: "pending" | "approved" | "rejected" | "needs_reupload",
   reviewNotes: string,
-  adminId: string,
-  adminEmail: string
+  _adminId?: string,
+  _adminEmail?: string
 ): boolean {
   const user = getUserById(userId);
   if (!user) return false;
@@ -63,17 +63,15 @@ export function updateDocumentStatus(
 export function approveDocument(
   userId: string,
   documentId: string,
-  adminId: string,
-  adminEmail: string,
+  _adminId?: string,
+  _adminEmail?: string,
   notes?: string
 ): boolean {
   return updateDocumentStatus(
     userId,
     documentId,
     "approved",
-    notes || "Document approved",
-    adminId,
-    adminEmail
+    notes || "Document approved"
   );
 }
 
@@ -81,34 +79,20 @@ export function rejectDocument(
   userId: string,
   documentId: string,
   notes: string,
-  adminId: string,
-  adminEmail: string
+  _adminId?: string,
+  _adminEmail?: string
 ): boolean {
-  return updateDocumentStatus(
-    userId,
-    documentId,
-    "rejected",
-    notes,
-    adminId,
-    adminEmail
-  );
+  return updateDocumentStatus(userId, documentId, "rejected", notes);
 }
 
 export function requestDocumentReupload(
   userId: string,
   documentId: string,
   notes: string,
-  adminId: string,
-  adminEmail: string
+  _adminId?: string,
+  _adminEmail?: string
 ): boolean {
-  return updateDocumentStatus(
-    userId,
-    documentId,
-    "needs_reupload",
-    notes,
-    adminId,
-    adminEmail
-  );
+  return updateDocumentStatus(userId, documentId, "needs_reupload", notes);
 }
 
 export function getPendingDocuments(): DocumentMetadata[] {

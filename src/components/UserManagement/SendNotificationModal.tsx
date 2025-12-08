@@ -17,6 +17,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 interface SendNotificationModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  userId: string;
   userName: string;
   onConfirm: (channel: "email" | "sms" | "in_app", message: string) => void;
 }
@@ -24,6 +25,7 @@ interface SendNotificationModalProps {
 export default function SendNotificationModal({
   open,
   onOpenChange,
+  userId: _userId,
   userName,
   onConfirm,
 }: SendNotificationModalProps) {

@@ -26,6 +26,7 @@ import type { UserRole } from "@/types/user";
 interface ChangeRoleModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  userId: string;
   userName: string;
   currentRole: UserRole;
   onConfirm: (newRole: UserRole) => void;
@@ -34,6 +35,7 @@ interface ChangeRoleModalProps {
 export default function ChangeRoleModal({
   open,
   onOpenChange,
+  userId: _userId,
   userName,
   currentRole,
   onConfirm,
