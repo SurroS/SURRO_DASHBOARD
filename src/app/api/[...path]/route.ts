@@ -6,11 +6,12 @@ import { cookies } from "next/headers";
 
 async function proxyRequest(
   request: NextRequest,
-  params: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   // Get the path after /api
   // params.path is an array, e.g. ['v1', 'users']
-  const path = params.params.path.join("/");
+  const params = await context.params;
+  const path = params.path.join("/");
   const searchParams = request.nextUrl.searchParams.toString();
   const queryString = searchParams ? `?${searchParams}` : "";
 
@@ -59,35 +60,35 @@ async function proxyRequest(
 
 export async function GET(
   request: NextRequest,
-  context: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   return proxyRequest(request, context);
 }
 
 export async function POST(
   request: NextRequest,
-  context: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   return proxyRequest(request, context);
 }
 
 export async function PUT(
   request: NextRequest,
-  context: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   return proxyRequest(request, context);
 }
 
 export async function PATCH(
   request: NextRequest,
-  context: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   return proxyRequest(request, context);
 }
 
 export async function DELETE(
   request: NextRequest,
-  context: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   return proxyRequest(request, context);
 }
