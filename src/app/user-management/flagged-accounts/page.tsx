@@ -309,12 +309,7 @@ export default function FlaggedAccountsPage() {
           resolved: true,
         }));
 
-        const updated = updateUser(
-          userId,
-          { complianceFlags: updatedFlags },
-          adminId,
-          adminEmail
-        );
+        const updated = updateUser(userId, { complianceFlags: updatedFlags });
 
         if (updated) count++;
       }
@@ -354,12 +349,7 @@ export default function FlaggedAccountsPage() {
             : flag
         );
 
-        const updated = updateUser(
-          userId,
-          { complianceFlags: updatedFlags },
-          adminId,
-          adminEmail
-        );
+        const updated = updateUser(userId, { complianceFlags: updatedFlags });
 
         if (updated) count++;
       }
