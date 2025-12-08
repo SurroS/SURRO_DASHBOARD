@@ -18,7 +18,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 interface WalletAdjustmentModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  userId: string;
   userName: string;
   currentBalance: number;
   onConfirm: (amount: number, type: "credit" | "debit", reason: string) => void;
@@ -27,7 +26,6 @@ interface WalletAdjustmentModalProps {
 export default function WalletAdjustmentModal({
   open,
   onOpenChange,
-  userId,
   userName,
   currentBalance,
   onConfirm,

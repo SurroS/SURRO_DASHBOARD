@@ -13,7 +13,6 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import {
-  User,
   Mail,
   Phone,
   Calendar,
@@ -22,10 +21,8 @@ import {
   Activity,
   Ticket,
   CheckCircle,
-  XCircle,
   AlertTriangle,
   Shield,
-  MessageSquare,
   Send,
   RotateCcw,
   AlertCircle,
@@ -37,7 +34,7 @@ import WalletAdjustmentModal from "./WalletAdjustmentModal";
 import SendNotificationModal from "./SendNotificationModal";
 import ChangeRoleModal from "./ChangeRoleModal";
 import { useAuth } from "@/lib/auth";
-import type { User as UserType, UserRole } from "@/types/user";
+import type { User as UserType } from "@/types/user";
 import { adjustWallet } from "@/lib/walletService";
 import { sendTemplateNotification, sendNotification } from "@/lib/notificationService";
 import { toast } from "@/hooks/use-toast";
@@ -79,10 +76,7 @@ export default function UserProfileDrawer({
   }[user.verificationStatus];
 
   const handleSuspend = (reason: string, duration: string) => {
-    const adminId = adminUser?.id || "unknown";
-    const adminEmail = adminUser?.email || "unknown@example.com";
-
-    updateUserStatus(userId, "suspended", reason, adminId, adminEmail);
+    updateUserStatus(userId, "suspended", reason, "", "");
     sendTemplateNotification(userId, "suspension", { reason }, "in_app");
 
     toast({
@@ -95,10 +89,7 @@ export default function UserProfileDrawer({
   };
 
   const handleActivate = () => {
-    const adminId = adminUser?.id || "unknown";
-    const adminEmail = adminUser?.email || "unknown@example.com";
-
-    updateUser(userId, { status: "active" }, adminId, adminEmail);
+    updateUser(userId, { status: "active" });
     sendTemplateNotification(userId, "activation", {}, "in_app");
 
     toast({
@@ -164,10 +155,7 @@ export default function UserProfileDrawer({
   };
 
   const handleChangeRole = (newRole: typeof user.role) => {
-    const adminId = adminUser?.id || "unknown";
-    const adminEmail = adminUser?.email || "unknown@example.com";
-
-    updateUser(userId, { role: newRole }, adminId, adminEmail);
+    updateUser(userId, { role: newRole });
     sendTemplateNotification(
       userId,
       "role_change",
@@ -192,9 +180,6 @@ export default function UserProfileDrawer({
   };
 
   const handleAssignCompliance = () => {
-    const adminId = adminUser?.id || "unknown";
-    const adminEmail = adminUser?.email || "unknown@example.com";
-
     const existingFlags = user.complianceFlags || [];
     const newFlag = {
       id: `flag_${Date.now()}`,
@@ -205,12 +190,7 @@ export default function UserProfileDrawer({
       resolved: false,
     };
 
-    updateUser(
-      userId,
-      { complianceFlags: [...existingFlags, newFlag] },
-      adminId,
-      adminEmail
-    );
+    updateUser(userId, { complianceFlags: [...existingFlags, newFlag] });
 
     toast({
       title: "Compliance Review Assigned",

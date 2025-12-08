@@ -112,7 +112,6 @@ const getStatusBadgeClass = (status: string) => {
 };
 
 function EmployeeTable({
-  showMetrics: _showMetrics = false,
   title = "Top Performing Employees",
   showLogHistory = false,
 }: EmployeeTableProps) {

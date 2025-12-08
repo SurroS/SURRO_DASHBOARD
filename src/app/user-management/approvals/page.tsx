@@ -48,14 +48,13 @@ import { Label } from "@/components/ui/label";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
-import { getUsers, updateUser } from "@/lib/userManagement";
+import { getUsers } from "@/lib/userManagement";
 import type { User } from "@/types/user";
 import {
   approveDocument,
   rejectDocument,
   requestDocumentReupload,
 } from "@/lib/documentService";
-import { sendTemplateNotification } from "@/lib/notificationService";
 import { useAuth } from "@/lib/auth";
 import { toast } from "@/hooks/use-toast";
 import UserProfileDrawer from "@/components/UserManagement/UserProfileDrawer";

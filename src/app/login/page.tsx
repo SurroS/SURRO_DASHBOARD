@@ -49,7 +49,7 @@ export default function LoginPage() {
           variant: "destructive",
         });
       }
-    } catch (_err) {
+    } catch {
       setError("An error occurred during login");
       toast({
         title: "Login Failed",

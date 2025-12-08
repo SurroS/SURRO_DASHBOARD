@@ -13,7 +13,7 @@ export interface JwtPayload {
   name?: string;
   role?: string;
   permissions?: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface User {

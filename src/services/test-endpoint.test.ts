@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, vi } from "vitest";
+import { describe, it, beforeAll } from "vitest";
 import { listUsers } from "./userService";
 import { mswServer } from "../../tests/setup/msw-server";
 import { http, passthrough } from "msw";
@@ -50,7 +50,7 @@ describe("Manual Endpoint Test: listUsers", () => {
       console.log("✅ SUCCESS: API call returned data");
       console.log("Data length:", result.data.length);
       console.log("Meta:", result.meta);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log("❌ FAILED: API call threw an error");
       if (error?.status) {
         console.log("HTTP Status:", error.status);
@@ -58,7 +58,12 @@ describe("Manual Endpoint Test: listUsers", () => {
       console.log("Error details:", error.message || error);
 
       // If it's a 401, it means the endpoint IS reachable but we need a real token
-      if (error?.status === 401 || error?.status === 403) {
+      if (
+        error &&
+        typeof error === "object" &&
+        "status" in error &&
+        (error.status === 401 || error.status === 403)
+      ) {
         console.log(
           "💡 NOTE: 401/403 means the endpoint is reachable! You just need a valid token."
         );

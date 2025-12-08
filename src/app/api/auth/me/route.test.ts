@@ -1,6 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { GET } from "./route";
-import { NextResponse } from "next/server";
 
 // Mock next/headers
 const mockCookies = {
@@ -14,7 +13,10 @@ vi.mock("next/headers", () => ({
 // Mock NextResponse
 vi.mock("next/server", () => ({
   NextResponse: {
-    json: (body: any, init?: any) => ({
+    json: (
+      body: Record<string, unknown>,
+      init?: { status?: number }
+    ) => ({
       body,
       status: init?.status || 200,
     }),
@@ -29,7 +31,8 @@ describe("Auth Check Route (JWT Decode)", () => {
   it("should return unauthenticated if no token cookie exists", async () => {
     mockCookies.get.mockReturnValue(undefined);
 
-    const response: any = await GET();
+    const response: { body: { authenticated: boolean }; status: number } =
+      await GET();
 
     expect(response.status).toBe(401);
     expect(response.body.authenticated).toBe(false);
@@ -45,7 +48,9 @@ describe("Auth Check Route (JWT Decode)", () => {
 
     mockCookies.get.mockReturnValue({ value: dummyToken });
 
-    const response: any = await GET();
+    const response: {
+      body: { authenticated: boolean; user: { email: string; role: string } };
+    } = await GET();
 
     expect(response.body.authenticated).toBe(true);
     expect(response.body.user.email).toBe("admin@example.com");
@@ -58,7 +63,8 @@ describe("Auth Check Route (JWT Decode)", () => {
 
     // The current implementation uses JSON.parse(atob(...)) which might throw
     // We expect the route to catch it and return 401
-    const response: any = await GET();
+    const response: { body: { authenticated: boolean }; status: number } =
+      await GET();
 
     expect(response.status).toBe(401);
     expect(response.body.authenticated).toBe(false);

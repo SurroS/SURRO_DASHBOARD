@@ -90,7 +90,7 @@ function SignupForm() {
         description: "Welcome to Surro!",
       });
       router.push("/login");
-    } catch (_error) {
+    } catch {
       toast({
         title: "Signup Failed",
         description: "An unexpected error occurred",

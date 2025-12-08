@@ -41,7 +41,7 @@ async function proxyRequest(
       method: request.method,
       headers: headers,
       body: isBodyMethod ? body : undefined,
-      // @ts-ignore - duplex is required for streaming bodies in recent Node/Next versions
+      // @ts-expect-error - duplex is required for streaming bodies in recent Node/Next versions
       duplex: "half",
     });
 
@@ -57,22 +57,37 @@ async function proxyRequest(
   }
 }
 
-export async function GET(request: NextRequest, context: any) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { path: string[] } }
+) {
   return proxyRequest(request, context);
 }
 
-export async function POST(request: NextRequest, context: any) {
+export async function POST(
+  request: NextRequest,
+  context: { params: { path: string[] } }
+) {
   return proxyRequest(request, context);
 }
 
-export async function PUT(request: NextRequest, context: any) {
+export async function PUT(
+  request: NextRequest,
+  context: { params: { path: string[] } }
+) {
   return proxyRequest(request, context);
 }
 
-export async function PATCH(request: NextRequest, context: any) {
+export async function PATCH(
+  request: NextRequest,
+  context: { params: { path: string[] } }
+) {
   return proxyRequest(request, context);
 }
 
-export async function DELETE(request: NextRequest, context: any) {
+export async function DELETE(
+  request: NextRequest,
+  context: { params: { path: string[] } }
+) {
   return proxyRequest(request, context);
 }

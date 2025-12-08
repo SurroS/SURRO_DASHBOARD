@@ -1,8 +1,6 @@
 import { getUserById, updateUser, getUsers } from "./userManagement";
 import type { DocumentMetadata } from "@/types/user";
 
-const DOCUMENTS_STORAGE_KEY = "surro_documents";
-
 export function getDocuments(userId: string): DocumentMetadata[] {
   const user = getUserById(userId);
   return user?.documents || [];
@@ -21,7 +19,7 @@ export function addDocument(
   };
 
   const updatedDocuments = [...user.documents, newDocument];
-  updateUser(userId, { documents: updatedDocuments }, "system", "system");
+  updateUser(userId, { documents: updatedDocuments });
 
   return newDocument;
 }
@@ -49,14 +47,14 @@ export function updateDocumentStatus(
     reviewNotes,
   };
 
-  updateUser(userId, { documents: updatedDocuments }, adminId, adminEmail);
+  updateUser(userId, { documents: updatedDocuments });
 
   // If all documents approved, update verification status
   if (
     status === "approved" &&
     updatedDocuments.every((doc) => doc.status === "approved")
   ) {
-    updateUser(userId, { verificationStatus: "verified" }, adminId, adminEmail);
+    updateUser(userId, { verificationStatus: "verified" });
   }
 
   return true;

@@ -128,8 +128,6 @@ function ReferralsContent() {
     fullEmail: string;
     verified: boolean;
   } | null>(null);
-  const [_searchQuery, _setSearchQuery] = useState("");
-  const [_sortBy, _setSortBy] = useState("date");
   const [entriesPerPage, setEntriesPerPage] = useState("10");
 
   const metrics = [

@@ -2,12 +2,7 @@ import mockUsersData from "@/data/mockUsers.json";
 import type {
   User,
   UserFilters,
-  UserRole,
   UserStatus,
-  VerificationStatus,
-  ActivityLogEntry,
-  DocumentMetadata,
-  ComplianceFlag,
 } from "@/types/user";
 
 const USERS_STORAGE_KEY = "surro_users";
@@ -118,9 +113,7 @@ export function searchUsers(filters: UserFilters): User[] {
 
 export function updateUser(
   userId: string,
-  updates: Partial<User>,
-  adminId: string,
-  adminEmail: string
+  updates: Partial<User>
 ): User | null {
   const users = getUsers();
   const userIndex = users.findIndex((user) => user.id === userId);
@@ -138,11 +131,9 @@ export function updateUser(
 export function updateUserStatus(
   userId: string,
   status: UserStatus,
-  reason: string,
-  adminId: string,
-  adminEmail: string
+  reason: string
 ): User | null {
-  const updated = updateUser(userId, { status }, adminId, adminEmail);
+  const updated = updateUser(userId, { status });
 
   return updated;
 }
@@ -150,13 +141,11 @@ export function updateUserStatus(
 export function bulkUpdateStatus(
   userIds: string[],
   status: UserStatus,
-  reason: string,
-  adminId: string,
-  adminEmail: string
+  reason: string
 ): number {
   let count = 0;
   userIds.forEach((userId) => {
-    if (updateUserStatus(userId, status, reason, adminId, adminEmail)) {
+    if (updateUserStatus(userId, status, reason, "", "")) {
       count++;
     }
   });

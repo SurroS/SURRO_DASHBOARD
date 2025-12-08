@@ -49,7 +49,6 @@ import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
 import UserProfileDrawer from "@/components/UserManagement/UserProfileDrawer";
 import {
-  initializeUsers,
   searchUsers,
   getUserStats,
   bulkUpdateStatus,
@@ -111,7 +110,6 @@ const UserTable = ({
   onUserSelect,
   onUserClick,
 }: UserTableProps) => {
-  const stats = getUserStats();
 
   if (users.length === 0) {
     return (
@@ -373,9 +371,7 @@ function UserManagementContent() {
       const count = bulkUpdateStatus(
         Array.from(selectedUsers),
         status,
-        `Bulk ${action} by ${adminEmail}`,
-        adminId,
-        adminEmail
+        `Bulk ${action} by ${adminEmail}`
       );
 
       toast({

@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     let data;
     try {
       data = await response.json();
-    } catch (_jsonError) {
+    } catch {
       return NextResponse.json(
         { error: "Invalid response from server" },
         { status: 500 }
@@ -62,7 +62,9 @@ export async function POST(request: Request) {
         user.id = user.id || payload.sub || payload.id;
         user.email = user.email || payload.email;
         user.role = payload.role;
-      } catch (_e) {}
+      } catch {
+        // Ignore decode errors
+      }
     }
 
     // Apply role mapping

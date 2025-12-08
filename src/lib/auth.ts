@@ -73,8 +73,7 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
 
   const login = async (
     email: string,
-    password: string,
-    role?: AdminRole
+    password: string
   ): Promise<boolean> => {
     try {
       // Use the new proxy login route

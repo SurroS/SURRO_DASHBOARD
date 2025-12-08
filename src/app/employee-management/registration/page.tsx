@@ -56,7 +56,7 @@ function EmployeeRegistrationContent() {
         title: "Invite Generated",
         description: "You can now copy and share the invitation link.",
       });
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Failed to generate invite link. Please try again.",
@@ -77,7 +77,7 @@ function EmployeeRegistrationContent() {
         description: "Invite link copied to clipboard.",
       });
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast({
         title: "Failed to copy",
         description: "Please manually select and copy the link.",
