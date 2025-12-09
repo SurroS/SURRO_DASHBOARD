@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-// import { Shield } from "lucide-react";
+import Image from "next/image";
 
 interface AuthLayoutProps {
   title: string;
@@ -24,7 +24,15 @@ export default function AuthLayout({
     <div className="min-h-screen flex items-center justify-center px-4 py-8 lg:py-12">
       <div className="grid w-full max-w-[1500px] grid-cols-1 gap-1 lg:grid-cols-12">
         <div className="hidden lg:flex items-center justify-center col-span-7">
-          <div className="w-[92%] min-h-[80vh] rounded-3xl border border-muted-foreground/10 bg-[radial-gradient(circle,_rgba(0,0,0,0.06)_1px,_transparent_1px)] bg-[size:16px_16px] bg-muted/30" />
+          <div className="relative w-[92%] min-h-[80vh] rounded-3xl border border-muted-foreground/10 shadow-2xl overflow-hidden">
+            <Image
+              src="/images/auth-bg.png"
+              alt="Abstract background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
 
         <div className="flex items-center justify-center lg:justify-start lg:col-span-5">

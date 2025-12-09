@@ -1,0 +1,3422 @@
+[
+  {
+    "id": "#6548",
+    "name": "Tom Williams",
+    "email": "tom.williams@gmail.com",
+    "phone": "+19974839233",
+    "role": "surrogate",
+    "status": "inactive",
+    "verificationStatus": "verified",
+    "dateJoined": "2024-01-07",
+    "walletBalance": 90,
+    "documents": [
+      {
+        "id": "doc1",
+        "userId": "#6548",
+        "type": "Medical",
+        "name": "health_screening.pdf",
+        "uploadDate": "2024-01-07",
+        "status": "rejected"
+      },
+      {
+        "id": "doc2",
+        "userId": "#6548",
+        "type": "Certification",
+        "name": "fertility_cert.pdf",
+        "uploadDate": "2024-01-07",
+        "status": "approved"
+      },
+      {
+        "id": "doc3",
+        "userId": "#6548",
+        "type": "Financial",
+        "name": "bank_statement.pdf",
+        "uploadDate": "2024-01-07",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log1",
+        "timestamp": "2024-10-13T08:36:25.934Z",
+        "action": "Email verified",
+        "ipAddress": "192.0.2.197",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log2",
+        "timestamp": "2024-08-09T18:38:55.859Z",
+        "action": "Account suspended",
+        "ipAddress": "203.0.113.161",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag1",
+        "type": "Terms Violation",
+        "severity": "high",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2024-12-06",
+        "resolved": false
+      },
+      {
+        "id": "flag2",
+        "type": "Terms Violation",
+        "severity": "medium",
+        "description": "Multiple failed payment attempts",
+        "flaggedDate": "2024-03-22",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT001",
+      "#TKT002"
+    ]
+  },
+  {
+    "id": "#6549",
+    "name": "Ava Garcia",
+    "email": "ava.garcia@gmail.com",
+    "phone": "+12647128680",
+    "role": "surrogate",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-12-26",
+    "walletBalance": 37,
+    "documents": [
+      {
+        "id": "doc4",
+        "userId": "#6549",
+        "type": "Medical",
+        "name": "medical_exam.pdf",
+        "uploadDate": "2023-12-26",
+        "status": "pending"
+      },
+      {
+        "id": "doc5",
+        "userId": "#6549",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-12-26",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log4",
+        "timestamp": "2025-06-05T00:25:18.692Z",
+        "action": "Account suspended",
+        "ipAddress": "192.0.2.168",
+        "device": "Unknown"
+      },
+      {
+        "id": "log3",
+        "timestamp": "2025-05-24T17:22:37.685Z",
+        "action": "Login successful",
+        "ipAddress": "192.0.2.133",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log5",
+        "timestamp": "2025-04-25T13:19:35.504Z",
+        "action": "Account suspended",
+        "ipAddress": "203.0.113.17",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log7",
+        "timestamp": "2025-04-08T23:07:59.606Z",
+        "action": "Failed login attempt",
+        "ipAddress": "203.0.113.194",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log6",
+        "timestamp": "2024-01-04T22:36:24.830Z",
+        "action": "Last login",
+        "ipAddress": "192.168.1.62",
+        "device": "Chrome on Android"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag3",
+        "type": "Terms Violation",
+        "severity": "low",
+        "description": "Similar email pattern detected across multiple accounts",
+        "flaggedDate": "2024-02-04",
+        "resolved": false
+      },
+      {
+        "id": "flag4",
+        "type": "Policy Violation",
+        "severity": "medium",
+        "description": "Non-compliance with regulatory requirements",
+        "flaggedDate": "2025-07-31",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT003",
+      "#TKT004"
+    ]
+  },
+  {
+    "id": "#6550",
+    "name": "Mia Williams",
+    "email": "mia.williams@gmail.com",
+    "phone": "+16885907589",
+    "role": "surrogate",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-09-05",
+    "walletBalance": 86,
+    "documents": [
+      {
+        "id": "doc6",
+        "userId": "#6550",
+        "type": "Medical",
+        "name": "health_certificate.pdf",
+        "uploadDate": "2023-09-05",
+        "status": "approved"
+      },
+      {
+        "id": "doc7",
+        "userId": "#6550",
+        "type": "ID",
+        "name": "drivers_license.pdf",
+        "uploadDate": "2023-09-05",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log8",
+        "timestamp": "2024-12-23T01:36:42.719Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.113",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log10",
+        "timestamp": "2024-08-24T05:29:29.610Z",
+        "action": "Account created",
+        "ipAddress": "198.51.100.5",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log9",
+        "timestamp": "2023-09-18T14:33:15.615Z",
+        "action": "Account created",
+        "ipAddress": "192.0.2.173",
+        "device": "Firefox on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag5",
+        "type": "Compliance Issue",
+        "severity": "low",
+        "description": "Some patient records incomplete",
+        "flaggedDate": "2025-07-18",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT005"
+    ]
+  },
+  {
+    "id": "#6551",
+    "name": "Emma Lee",
+    "email": "emma.lee@gmail.com",
+    "phone": "+18745977954",
+    "role": "surrogate",
+    "status": "active",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-10-13",
+    "walletBalance": 481,
+    "documents": [
+      {
+        "id": "doc8",
+        "userId": "#6551",
+        "type": "Financial",
+        "name": "financial_doc.pdf",
+        "uploadDate": "2023-10-13",
+        "status": "rejected"
+      },
+      {
+        "id": "doc9",
+        "userId": "#6551",
+        "type": "Certification",
+        "name": "fertility_cert.pdf",
+        "uploadDate": "2023-10-13",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log14",
+        "timestamp": "2025-10-03T05:58:20.628Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.19",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log12",
+        "timestamp": "2025-07-17T23:19:49.875Z",
+        "action": "Profile updated",
+        "ipAddress": "198.51.100.59",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log13",
+        "timestamp": "2025-02-15T17:09:29.219Z",
+        "action": "Last login",
+        "ipAddress": "192.0.2.211",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log11",
+        "timestamp": "2024-02-11T23:14:42.917Z",
+        "action": "Last login",
+        "ipAddress": "198.51.100.116",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#6552",
+    "name": "Jessica Johnson",
+    "email": "jessica.johnson@gmail.com",
+    "phone": "+17897738464",
+    "role": "surrogate",
+    "status": "inactive",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-12-10",
+    "walletBalance": 107,
+    "documents": [],
+    "activityLog": [
+      {
+        "id": "log17",
+        "timestamp": "2024-11-12T00:03:12.640Z",
+        "action": "Failed login attempt",
+        "ipAddress": "192.168.1.253",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log16",
+        "timestamp": "2024-07-14T03:03:09.073Z",
+        "action": "Profile updated",
+        "ipAddress": "192.168.1.109",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log15",
+        "timestamp": "2024-04-22T23:12:05.878Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.111",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag6",
+        "type": "Duplicate Account",
+        "severity": "high",
+        "description": "Multiple failed payment attempts",
+        "flaggedDate": "2025-03-05",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#6553",
+    "name": "David Taylor",
+    "email": "david.taylor@gmail.com",
+    "phone": "+16716267060",
+    "role": "surrogate",
+    "status": "active",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-09-22",
+    "walletBalance": 84,
+    "documents": [
+      {
+        "id": "doc10",
+        "userId": "#6553",
+        "type": "ID",
+        "name": "id_card.pdf",
+        "uploadDate": "2023-09-22",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log21",
+        "timestamp": "2025-08-24T15:10:26.884Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.17",
+        "device": "Unknown"
+      },
+      {
+        "id": "log18",
+        "timestamp": "2025-08-17T12:52:26.007Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.21",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log20",
+        "timestamp": "2025-06-06T16:31:08.532Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.168.1.96",
+        "device": "Chrome on Windows",
+        "details": {
+          "documentType": "medical"
+        }
+      },
+      {
+        "id": "log19",
+        "timestamp": "2024-11-03T17:07:50.357Z",
+        "action": "Account suspended",
+        "ipAddress": "192.0.2.19",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log22",
+        "timestamp": "2024-07-19T15:30:27.583Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.149",
+        "device": "Unknown"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag7",
+        "type": "Payment Default",
+        "severity": "low",
+        "description": "Incomplete documentation submission",
+        "flaggedDate": "2025-08-02",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#6554",
+    "name": "Sarah Moore",
+    "email": "sarah.moore@gmail.com",
+    "phone": "+17405069863",
+    "role": "surrogate",
+    "status": "suspended",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-09-27",
+    "walletBalance": 14,
+    "documents": [
+      {
+        "id": "doc11",
+        "userId": "#6554",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2023-09-27",
+        "status": "pending"
+      },
+      {
+        "id": "doc12",
+        "userId": "#6554",
+        "type": "Certification",
+        "name": "fertility_cert.pdf",
+        "uploadDate": "2023-09-27",
+        "status": "pending"
+      },
+      {
+        "id": "doc13",
+        "userId": "#6554",
+        "type": "ID",
+        "name": "passport.pdf",
+        "uploadDate": "2023-09-27",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log24",
+        "timestamp": "2024-12-12T01:21:06.959Z",
+        "action": "Document uploaded",
+        "ipAddress": "203.0.113.224",
+        "device": "Firefox on Windows",
+        "details": {
+          "documentType": "medical"
+        }
+      },
+      {
+        "id": "log23",
+        "timestamp": "2024-01-24T15:09:59.090Z",
+        "action": "Password changed",
+        "ipAddress": "203.0.113.118",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": [
+      "#TKT006",
+      "#TKT007"
+    ],
+    "suspensionReason": "Suspicious activity and policy violations",
+    "suspensionDate": "2024-07-08",
+    "suspensionDuration": "65 days",
+    "suspendedBy": "admin@surro.com"
+  },
+  {
+    "id": "#6555",
+    "name": "Michelle Johnson",
+    "email": "michelle.johnson@gmail.com",
+    "phone": "+14865969166",
+    "role": "surrogate",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-10-06",
+    "walletBalance": 161,
+    "documents": [
+      {
+        "id": "doc14",
+        "userId": "#6555",
+        "type": "Medical",
+        "name": "fertility_test.pdf",
+        "uploadDate": "2023-10-06",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log27",
+        "timestamp": "2025-07-21T20:31:38.307Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.205",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log25",
+        "timestamp": "2024-12-27T07:42:41.783Z",
+        "action": "Document viewed",
+        "ipAddress": "192.168.1.226",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log26",
+        "timestamp": "2024-07-13T03:02:46.496Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.125",
+        "device": "Firefox on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag8",
+        "type": "Compliance Issue",
+        "severity": "low",
+        "description": "Incomplete documentation submission",
+        "flaggedDate": "2024-08-01",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT008",
+      "#TKT009"
+    ]
+  },
+  {
+    "id": "#6556",
+    "name": "Jessica Smith",
+    "email": "jessica.smith@gmail.com",
+    "phone": "+14235379642",
+    "role": "surrogate",
+    "status": "suspended",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-10-26",
+    "walletBalance": 84,
+    "documents": [
+      {
+        "id": "doc15",
+        "userId": "#6556",
+        "type": "ID",
+        "name": "id_card.pdf",
+        "uploadDate": "2023-10-26",
+        "status": "approved"
+      },
+      {
+        "id": "doc16",
+        "userId": "#6556",
+        "type": "Medical",
+        "name": "health_check.pdf",
+        "uploadDate": "2023-10-26",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log29",
+        "timestamp": "2025-10-03T05:30:11.895Z",
+        "action": "Failed login attempt",
+        "ipAddress": "198.51.100.185",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log32",
+        "timestamp": "2024-12-18T06:10:59.978Z",
+        "action": "Document viewed",
+        "ipAddress": "198.51.100.247",
+        "device": "Unknown"
+      },
+      {
+        "id": "log31",
+        "timestamp": "2024-08-28T14:15:48.082Z",
+        "action": "Password changed",
+        "ipAddress": "203.0.113.228",
+        "device": "Unknown"
+      },
+      {
+        "id": "log30",
+        "timestamp": "2024-08-05T21:27:26.908Z",
+        "action": "Failed login attempt",
+        "ipAddress": "198.51.100.160",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log28",
+        "timestamp": "2024-04-20T19:05:38.832Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.87",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag9",
+        "type": "Terms Violation",
+        "severity": "low",
+        "description": "Similar email pattern detected across multiple accounts",
+        "flaggedDate": "2025-10-29",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": [
+      "#TKT010"
+    ],
+    "suspensionReason": "Policy violation and incomplete documentation",
+    "suspensionDate": "2025-05-31",
+    "suspensionDuration": "81 days",
+    "suspendedBy": "finance@surro.com"
+  },
+  {
+    "id": "#6557",
+    "name": "Amanda Johnson",
+    "email": "amanda.johnson@gmail.com",
+    "phone": "+15165869284",
+    "role": "surrogate",
+    "status": "active",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-09-19",
+    "walletBalance": 92,
+    "documents": [],
+    "activityLog": [
+      {
+        "id": "log34",
+        "timestamp": "2025-09-29T22:34:03.565Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.180",
+        "device": "Unknown"
+      },
+      {
+        "id": "log36",
+        "timestamp": "2024-08-14T11:16:36.098Z",
+        "action": "Email verified",
+        "ipAddress": "192.0.2.98",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log33",
+        "timestamp": "2024-08-05T03:33:16.927Z",
+        "action": "Profile updated",
+        "ipAddress": "192.168.1.57",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log35",
+        "timestamp": "2024-06-25T16:13:11.662Z",
+        "action": "Password changed",
+        "ipAddress": "203.0.113.240",
+        "device": "Safari on iOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag10",
+        "type": "Terms Violation",
+        "severity": "medium",
+        "description": "Multiple failed login attempts from different IP addresses",
+        "flaggedDate": "2025-02-14",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#6558",
+    "name": "Matthew Anderson",
+    "email": "matthew.anderson@gmail.com",
+    "phone": "+13075979041",
+    "role": "surrogate",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-09-05",
+    "walletBalance": 182,
+    "documents": [
+      {
+        "id": "doc17",
+        "userId": "#6558",
+        "type": "Medical",
+        "name": "medical_exam.pdf",
+        "uploadDate": "2023-09-05",
+        "status": "pending"
+      },
+      {
+        "id": "doc18",
+        "userId": "#6558",
+        "type": "Financial",
+        "name": "bank_statement.pdf",
+        "uploadDate": "2023-09-05",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log39",
+        "timestamp": "2025-06-19T23:38:28.975Z",
+        "action": "Document viewed",
+        "ipAddress": "198.51.100.94",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log37",
+        "timestamp": "2025-02-19T01:47:55.046Z",
+        "action": "Email verified",
+        "ipAddress": "192.0.2.113",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log38",
+        "timestamp": "2023-11-20T21:30:04.500Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.170",
+        "device": "Unknown"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag11",
+        "type": "Policy Violation",
+        "severity": "low",
+        "description": "Incomplete documentation submission",
+        "flaggedDate": "2024-04-11",
+        "resolved": true
+      },
+      {
+        "id": "flag12",
+        "type": "Compliance Issue",
+        "severity": "medium",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2024-08-02",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT011"
+    ]
+  },
+  {
+    "id": "#6559",
+    "name": "Elizabeth Smith",
+    "email": "elizabeth.smith@gmail.com",
+    "phone": "+16027128992",
+    "role": "surrogate",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-11-16",
+    "walletBalance": 60,
+    "documents": [
+      {
+        "id": "doc19",
+        "userId": "#6559",
+        "type": "Medical",
+        "name": "fertility_test.pdf",
+        "uploadDate": "2023-11-16",
+        "status": "rejected"
+      },
+      {
+        "id": "doc20",
+        "userId": "#6559",
+        "type": "Medical",
+        "name": "fertility_test.pdf",
+        "uploadDate": "2023-11-16",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log40",
+        "timestamp": "2025-07-01T05:21:36.353Z",
+        "action": "Last login",
+        "ipAddress": "203.0.113.182",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log41",
+        "timestamp": "2025-01-24T13:12:27.041Z",
+        "action": "Account suspended",
+        "ipAddress": "192.0.2.67",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log44",
+        "timestamp": "2024-08-20T17:07:07.864Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.194",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log42",
+        "timestamp": "2024-07-30T14:23:44.864Z",
+        "action": "Document viewed",
+        "ipAddress": "198.51.100.109",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log43",
+        "timestamp": "2024-06-10T18:12:59.743Z",
+        "action": "Account created",
+        "ipAddress": "198.51.100.174",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#6560",
+    "name": "Charlotte Robinson",
+    "email": "charlotte.robinson@gmail.com",
+    "phone": "+19825848204",
+    "role": "surrogate",
+    "status": "suspended",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-12-10",
+    "walletBalance": 97,
+    "documents": [
+      {
+        "id": "doc21",
+        "userId": "#6560",
+        "type": "License",
+        "name": "medical_license.pdf",
+        "uploadDate": "2023-12-10",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc22",
+        "userId": "#6560",
+        "type": "License",
+        "name": "clinic_license.pdf",
+        "uploadDate": "2023-12-10",
+        "status": "approved"
+      },
+      {
+        "id": "doc23",
+        "userId": "#6560",
+        "type": "Medical",
+        "name": "health_certificate.pdf",
+        "uploadDate": "2023-12-10",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log47",
+        "timestamp": "2025-11-01T02:00:28.357Z",
+        "action": "Email verified",
+        "ipAddress": "203.0.113.117",
+        "device": "Unknown"
+      },
+      {
+        "id": "log45",
+        "timestamp": "2025-10-26T19:41:08.626Z",
+        "action": "Failed login attempt",
+        "ipAddress": "198.51.100.119",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log49",
+        "timestamp": "2025-08-12T12:47:52.312Z",
+        "action": "Last login",
+        "ipAddress": "192.0.2.147",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log46",
+        "timestamp": "2024-12-17T01:30:01.608Z",
+        "action": "Document viewed",
+        "ipAddress": "192.0.2.171",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log48",
+        "timestamp": "2024-02-05T16:34:36.079Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.28",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": [
+      "#TKT012"
+    ],
+    "suspensionReason": "Repeated violations of terms of service",
+    "suspensionDate": "2025-03-08",
+    "suspensionDuration": "26 days",
+    "suspendedBy": "compliance@surro.com"
+  },
+  {
+    "id": "#6561",
+    "name": "Emma Davis",
+    "email": "emma.davis@gmail.com",
+    "phone": "+15377479551",
+    "role": "surrogate",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-12-15",
+    "walletBalance": 35,
+    "documents": [
+      {
+        "id": "doc24",
+        "userId": "#6561",
+        "type": "Financial",
+        "name": "financial_doc.pdf",
+        "uploadDate": "2023-12-15",
+        "status": "rejected"
+      },
+      {
+        "id": "doc25",
+        "userId": "#6561",
+        "type": "Financial",
+        "name": "financial_doc.pdf",
+        "uploadDate": "2023-12-15",
+        "status": "rejected"
+      },
+      {
+        "id": "doc26",
+        "userId": "#6561",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-12-15",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log51",
+        "timestamp": "2025-06-27T13:30:08.599Z",
+        "action": "Profile updated",
+        "ipAddress": "192.0.2.37",
+        "device": "Unknown"
+      },
+      {
+        "id": "log50",
+        "timestamp": "2024-11-13T08:27:13.987Z",
+        "action": "Profile updated",
+        "ipAddress": "198.51.100.45",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log52",
+        "timestamp": "2024-10-28T15:02:53.906Z",
+        "action": "Login successful",
+        "ipAddress": "198.51.100.209",
+        "device": "Safari on iOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#6562",
+    "name": "Daniel Mitchell",
+    "email": "daniel.mitchell@gmail.com",
+    "phone": "+18804568599",
+    "role": "surrogate",
+    "status": "suspended",
+    "verificationStatus": "verified",
+    "dateJoined": "2024-01-14",
+    "walletBalance": 31,
+    "documents": [
+      {
+        "id": "doc27",
+        "userId": "#6562",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2024-01-14",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc28",
+        "userId": "#6562",
+        "type": "Certification",
+        "name": "fertility_cert.pdf",
+        "uploadDate": "2024-01-14",
+        "status": "rejected"
+      },
+      {
+        "id": "doc29",
+        "userId": "#6562",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2024-01-14",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log53",
+        "timestamp": "2025-07-12T02:08:50.627Z",
+        "action": "Login successful",
+        "ipAddress": "192.0.2.61",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log55",
+        "timestamp": "2024-10-31T15:44:42.663Z",
+        "action": "Last login",
+        "ipAddress": "198.51.100.34",
+        "device": "Unknown"
+      },
+      {
+        "id": "log54",
+        "timestamp": "2024-02-19T12:59:07.240Z",
+        "action": "Login successful",
+        "ipAddress": "192.0.2.143",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": [
+      "#TKT013"
+    ],
+    "suspensionReason": "Payment default and account inactivity",
+    "suspensionDate": "2025-09-29",
+    "suspensionDuration": "83 days",
+    "suspendedBy": "finance@surro.com"
+  },
+  {
+    "id": "#6563",
+    "name": "Lily Wilson",
+    "email": "lily.wilson@gmail.com",
+    "phone": "+18467007273",
+    "role": "surrogate",
+    "status": "suspended",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-08-19",
+    "walletBalance": 7,
+    "documents": [
+      {
+        "id": "doc30",
+        "userId": "#6563",
+        "type": "License",
+        "name": "clinic_license.pdf",
+        "uploadDate": "2023-08-19",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log57",
+        "timestamp": "2025-02-10T08:41:37.629Z",
+        "action": "Failed login attempt",
+        "ipAddress": "203.0.113.80",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log56",
+        "timestamp": "2023-09-30T15:32:00.496Z",
+        "action": "Profile updated",
+        "ipAddress": "192.0.2.42",
+        "device": "Chrome on Android"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag13",
+        "type": "Documentation Issues",
+        "severity": "low",
+        "description": "Non-compliance with regulatory requirements",
+        "flaggedDate": "2025-08-24",
+        "resolved": true
+      },
+      {
+        "id": "flag14",
+        "type": "Compliance Issue",
+        "severity": "low",
+        "description": "Some patient records incomplete",
+        "flaggedDate": "2023-08-29",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": [],
+    "suspensionReason": "Payment default and account inactivity",
+    "suspensionDate": "2024-10-28",
+    "suspensionDuration": "36 days",
+    "suspendedBy": "finance@surro.com"
+  },
+  {
+    "id": "#6564",
+    "name": "James Brown",
+    "email": "james.brown@gmail.com",
+    "phone": "+17727389669",
+    "role": "surrogate",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-10-20",
+    "walletBalance": 399,
+    "documents": [
+      {
+        "id": "doc31",
+        "userId": "#6564",
+        "type": "ID",
+        "name": "drivers_license.pdf",
+        "uploadDate": "2023-10-20",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc32",
+        "userId": "#6564",
+        "type": "Financial",
+        "name": "financial_doc.pdf",
+        "uploadDate": "2023-10-20",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log58",
+        "timestamp": "2025-07-29T01:25:32.583Z",
+        "action": "Login successful",
+        "ipAddress": "192.0.2.199",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log59",
+        "timestamp": "2025-04-28T13:02:33.692Z",
+        "action": "Last login",
+        "ipAddress": "192.168.1.115",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log60",
+        "timestamp": "2025-01-13T01:20:38.511Z",
+        "action": "Document viewed",
+        "ipAddress": "198.51.100.29",
+        "device": "Chrome on Android"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#6565",
+    "name": "Isabella Williams",
+    "email": "isabella.williams@gmail.com",
+    "phone": "+12615027955",
+    "role": "surrogate",
+    "status": "suspended",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-11-22",
+    "walletBalance": 89,
+    "documents": [
+      {
+        "id": "doc33",
+        "userId": "#6565",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-11-22",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc34",
+        "userId": "#6565",
+        "type": "Medical",
+        "name": "health_check.pdf",
+        "uploadDate": "2023-11-22",
+        "status": "approved"
+      },
+      {
+        "id": "doc35",
+        "userId": "#6565",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2023-11-22",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log62",
+        "timestamp": "2025-05-05T07:25:37.789Z",
+        "action": "Email verified",
+        "ipAddress": "203.0.113.247",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log61",
+        "timestamp": "2024-06-27T12:47:15.988Z",
+        "action": "Login successful",
+        "ipAddress": "203.0.113.235",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": [
+      "#TKT014"
+    ],
+    "suspensionReason": "Violation of terms and conditions",
+    "suspensionDate": "2025-08-25",
+    "suspensionDuration": "23 days",
+    "suspendedBy": "admin@surro.com"
+  },
+  {
+    "id": "#6566",
+    "name": "Aria Mitchell",
+    "email": "aria.mitchell@gmail.com",
+    "phone": "+17844747737",
+    "role": "surrogate",
+    "status": "suspended",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-08-08",
+    "walletBalance": 71,
+    "documents": [
+      {
+        "id": "doc36",
+        "userId": "#6566",
+        "type": "License",
+        "name": "operating_license.pdf",
+        "uploadDate": "2023-08-08",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log63",
+        "timestamp": "2025-05-26T16:55:30.738Z",
+        "action": "Account suspended",
+        "ipAddress": "203.0.113.60",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log65",
+        "timestamp": "2024-04-12T18:54:00.303Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.19",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log64",
+        "timestamp": "2024-03-28T14:01:21.476Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.144",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag15",
+        "type": "Payment Default",
+        "severity": "high",
+        "description": "Some patient records incomplete",
+        "flaggedDate": "2024-06-11",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT015",
+      "#TKT016"
+    ],
+    "suspensionReason": "Payment default and account inactivity",
+    "suspensionDate": "2023-08-18",
+    "suspensionDuration": "60 days",
+    "suspendedBy": "compliance@surro.com"
+  },
+  {
+    "id": "#6567",
+    "name": "Robert Williams",
+    "email": "robert.williams@gmail.com",
+    "phone": "+13287397433",
+    "role": "surrogate",
+    "status": "inactive",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-08-25",
+    "walletBalance": 48,
+    "documents": [
+      {
+        "id": "doc37",
+        "userId": "#6567",
+        "type": "Financial",
+        "name": "financial_doc.pdf",
+        "uploadDate": "2023-08-25",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log67",
+        "timestamp": "2024-08-21T05:14:00.686Z",
+        "action": "Failed login attempt",
+        "ipAddress": "192.168.1.207",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log66",
+        "timestamp": "2024-02-26T07:20:51.820Z",
+        "action": "Password changed",
+        "ipAddress": "192.0.2.161",
+        "device": "Chrome on Android"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag16",
+        "type": "Compliance Issue",
+        "severity": "medium",
+        "description": "Non-compliance with regulatory requirements",
+        "flaggedDate": "2025-08-09",
+        "resolved": true
+      },
+      {
+        "id": "flag17",
+        "type": "Suspicious Activity",
+        "severity": "low",
+        "description": "Multiple failed login attempts from different IP addresses",
+        "flaggedDate": "2023-11-30",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": [
+      "#TKT017"
+    ]
+  },
+  {
+    "id": "#7001",
+    "name": "Nicole Brown",
+    "email": "nicole.brown@gmail.com",
+    "phone": "+13076928606",
+    "role": "parent",
+    "status": "suspended",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2024-01-14",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc38",
+        "userId": "#7001",
+        "type": "Financial",
+        "name": "income_statement.pdf",
+        "uploadDate": "2024-01-14",
+        "status": "approved"
+      },
+      {
+        "id": "doc39",
+        "userId": "#7001",
+        "type": "Medical",
+        "name": "health_screening.pdf",
+        "uploadDate": "2024-01-14",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log71",
+        "timestamp": "2025-10-04T23:26:31.839Z",
+        "action": "Account suspended",
+        "ipAddress": "198.51.100.216",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log68",
+        "timestamp": "2024-08-16T16:00:33.394Z",
+        "action": "Email verified",
+        "ipAddress": "192.0.2.245",
+        "device": "Unknown"
+      },
+      {
+        "id": "log72",
+        "timestamp": "2024-07-09T05:37:54.734Z",
+        "action": "Account suspended",
+        "ipAddress": "192.0.2.139",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log70",
+        "timestamp": "2024-02-10T20:19:26.752Z",
+        "action": "Last login",
+        "ipAddress": "203.0.113.145",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log69",
+        "timestamp": "2024-01-27T22:40:35.486Z",
+        "action": "Profile updated",
+        "ipAddress": "192.0.2.215",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": [
+      "#TKT018",
+      "#TKT019"
+    ],
+    "suspensionReason": "Policy violation and incomplete documentation",
+    "suspensionDate": "2024-11-12",
+    "suspensionDuration": "43 days",
+    "suspendedBy": "admin@surro.com"
+  },
+  {
+    "id": "#7002",
+    "name": "Mia Garcia",
+    "email": "mia.garcia@gmail.com",
+    "phone": "+14987518602",
+    "role": "parent",
+    "status": "inactive",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-09-26",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc40",
+        "userId": "#7002",
+        "type": "ID",
+        "name": "drivers_license.pdf",
+        "uploadDate": "2023-09-26",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log76",
+        "timestamp": "2024-10-31T00:00:24.152Z",
+        "action": "Profile updated",
+        "ipAddress": "192.0.2.170",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log73",
+        "timestamp": "2024-07-03T22:28:54.633Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.198",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log74",
+        "timestamp": "2023-11-25T09:45:16.884Z",
+        "action": "Failed login attempt",
+        "ipAddress": "203.0.113.85",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log75",
+        "timestamp": "2023-10-31T04:22:31.828Z",
+        "action": "Email verified",
+        "ipAddress": "203.0.113.57",
+        "device": "Chrome on Android"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag18",
+        "type": "Suspicious Activity",
+        "severity": "low",
+        "description": "Multiple failed login attempts from different IP addresses",
+        "flaggedDate": "2024-08-15",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT020"
+    ]
+  },
+  {
+    "id": "#7003",
+    "name": "Robert Hall",
+    "email": "robert.hall@gmail.com",
+    "phone": "+13087768027",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-08-07",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc41",
+        "userId": "#7003",
+        "type": "Certification",
+        "name": "fertility_cert.pdf",
+        "uploadDate": "2023-08-07",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc42",
+        "userId": "#7003",
+        "type": "Certification",
+        "name": "fertility_cert.pdf",
+        "uploadDate": "2023-08-07",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log81",
+        "timestamp": "2025-05-09T04:28:58.338Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.0.2.22",
+        "device": "Chrome on Android",
+        "details": {
+          "documentType": "medical"
+        }
+      },
+      {
+        "id": "log78",
+        "timestamp": "2024-06-14T02:44:55.766Z",
+        "action": "Email verified",
+        "ipAddress": "203.0.113.73",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log77",
+        "timestamp": "2024-04-28T20:42:03.372Z",
+        "action": "Login successful",
+        "ipAddress": "192.168.1.38",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log80",
+        "timestamp": "2024-03-09T06:43:27.780Z",
+        "action": "Failed login attempt",
+        "ipAddress": "192.0.2.5",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log79",
+        "timestamp": "2024-03-06T06:35:21.013Z",
+        "action": "Account created",
+        "ipAddress": "198.51.100.193",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag19",
+        "type": "Payment Default",
+        "severity": "high",
+        "description": "Multiple failed payment attempts",
+        "flaggedDate": "2025-05-09",
+        "resolved": true
+      },
+      {
+        "id": "flag20",
+        "type": "Compliance Issue",
+        "severity": "high",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2024-10-02",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#7004",
+    "name": "James Mitchell",
+    "email": "james.mitchell@gmail.com",
+    "phone": "+15966069524",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-12-28",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc43",
+        "userId": "#7004",
+        "type": "Financial",
+        "name": "financial_doc.pdf",
+        "uploadDate": "2023-12-28",
+        "status": "approved"
+      },
+      {
+        "id": "doc44",
+        "userId": "#7004",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-12-28",
+        "status": "rejected"
+      },
+      {
+        "id": "doc45",
+        "userId": "#7004",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-12-28",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log83",
+        "timestamp": "2025-06-19T14:47:19.279Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.0.2.120",
+        "device": "Chrome on macOS",
+        "details": {
+          "documentType": "certification"
+        }
+      },
+      {
+        "id": "log84",
+        "timestamp": "2025-04-12T10:39:17.411Z",
+        "action": "Last login",
+        "ipAddress": "203.0.113.24",
+        "device": "Unknown"
+      },
+      {
+        "id": "log82",
+        "timestamp": "2024-10-29T08:31:30.312Z",
+        "action": "Last login",
+        "ipAddress": "198.51.100.178",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag21",
+        "type": "Terms Violation",
+        "severity": "medium",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2024-04-08",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT021"
+    ]
+  },
+  {
+    "id": "#7005",
+    "name": "Aria Turner",
+    "email": "aria.turner@gmail.com",
+    "phone": "+13167658119",
+    "role": "parent",
+    "status": "suspended",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-10-10",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc46",
+        "userId": "#7005",
+        "type": "ID",
+        "name": "id_card.pdf",
+        "uploadDate": "2023-10-10",
+        "status": "approved"
+      },
+      {
+        "id": "doc47",
+        "userId": "#7005",
+        "type": "Medical",
+        "name": "fertility_test.pdf",
+        "uploadDate": "2023-10-10",
+        "status": "rejected"
+      },
+      {
+        "id": "doc48",
+        "userId": "#7005",
+        "type": "ID",
+        "name": "id_card.pdf",
+        "uploadDate": "2023-10-10",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log85",
+        "timestamp": "2025-09-25T07:57:53.817Z",
+        "action": "Login successful",
+        "ipAddress": "203.0.113.13",
+        "device": "Unknown"
+      },
+      {
+        "id": "log86",
+        "timestamp": "2024-05-28T08:25:08.517Z",
+        "action": "Profile updated",
+        "ipAddress": "192.168.1.4",
+        "device": "Unknown"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag22",
+        "type": "Payment Default",
+        "severity": "high",
+        "description": "Incomplete documentation submission",
+        "flaggedDate": "2025-04-14",
+        "resolved": false
+      },
+      {
+        "id": "flag23",
+        "type": "Suspicious Activity",
+        "severity": "medium",
+        "description": "Non-compliance with regulatory requirements",
+        "flaggedDate": "2025-04-13",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT022"
+    ],
+    "suspensionReason": "Payment default and account inactivity",
+    "suspensionDate": "2025-08-05",
+    "suspensionDuration": "81 days",
+    "suspendedBy": "finance@surro.com"
+  },
+  {
+    "id": "#7006",
+    "name": "Sarah Thompson",
+    "email": "sarah.thompson@gmail.com",
+    "phone": "+18736277030",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-08-21",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc49",
+        "userId": "#7006",
+        "type": "License",
+        "name": "agent_license.pdf",
+        "uploadDate": "2023-08-21",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log89",
+        "timestamp": "2025-01-30T18:51:01.366Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.0.2.174",
+        "device": "Chrome on Windows",
+        "details": {
+          "documentType": "certification"
+        }
+      },
+      {
+        "id": "log87",
+        "timestamp": "2024-01-23T01:53:48.163Z",
+        "action": "Profile updated",
+        "ipAddress": "192.168.1.239",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log88",
+        "timestamp": "2024-01-09T06:36:05.894Z",
+        "action": "Last login",
+        "ipAddress": "203.0.113.68",
+        "device": "Firefox on Windows"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#7007",
+    "name": "Lily Mitchell",
+    "email": "lily.mitchell@gmail.com",
+    "phone": "+15845069845",
+    "role": "parent",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-11-08",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc50",
+        "userId": "#7007",
+        "type": "Medical",
+        "name": "health_check.pdf",
+        "uploadDate": "2023-11-08",
+        "status": "approved"
+      },
+      {
+        "id": "doc51",
+        "userId": "#7007",
+        "type": "Medical",
+        "name": "medical_report.pdf",
+        "uploadDate": "2023-11-08",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log90",
+        "timestamp": "2025-09-16T06:06:48.964Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.104",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log91",
+        "timestamp": "2025-04-02T13:37:10.570Z",
+        "action": "Password changed",
+        "ipAddress": "192.168.1.65",
+        "device": "Firefox on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag24",
+        "type": "Terms Violation",
+        "severity": "low",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2024-01-21",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT023"
+    ]
+  },
+  {
+    "id": "#7008",
+    "name": "Lisa Harris",
+    "email": "lisa.harris@gmail.com",
+    "phone": "+14647727662",
+    "role": "parent",
+    "status": "inactive",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-10-13",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc52",
+        "userId": "#7008",
+        "type": "Financial",
+        "name": "bank_statement.pdf",
+        "uploadDate": "2023-10-13",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc53",
+        "userId": "#7008",
+        "type": "Financial",
+        "name": "bank_statement.pdf",
+        "uploadDate": "2023-10-13",
+        "status": "approved"
+      },
+      {
+        "id": "doc54",
+        "userId": "#7008",
+        "type": "ID",
+        "name": "passport.pdf",
+        "uploadDate": "2023-10-13",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log94",
+        "timestamp": "2025-08-06T15:15:04.779Z",
+        "action": "Document viewed",
+        "ipAddress": "198.51.100.135",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log93",
+        "timestamp": "2025-04-06T17:14:15.814Z",
+        "action": "Email verified",
+        "ipAddress": "192.0.2.152",
+        "device": "Unknown"
+      },
+      {
+        "id": "log92",
+        "timestamp": "2025-04-01T20:04:21.823Z",
+        "action": "Account created",
+        "ipAddress": "192.0.2.242",
+        "device": "Unknown"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag25",
+        "type": "Suspicious Activity",
+        "severity": "medium",
+        "description": "Multiple failed payment attempts",
+        "flaggedDate": "2025-09-22",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": [
+      "#TKT024"
+    ]
+  },
+  {
+    "id": "#7009",
+    "name": "Sophia Robinson",
+    "email": "sophia.robinson@gmail.com",
+    "phone": "+15305947497",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-08-15",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc55",
+        "userId": "#7009",
+        "type": "Medical",
+        "name": "health_screening.pdf",
+        "uploadDate": "2023-08-15",
+        "status": "approved"
+      },
+      {
+        "id": "doc56",
+        "userId": "#7009",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2023-08-15",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log98",
+        "timestamp": "2024-10-15T06:57:12.204Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.0.2.45",
+        "device": "Unknown",
+        "details": {
+          "documentType": "certification"
+        }
+      },
+      {
+        "id": "log96",
+        "timestamp": "2024-04-23T13:23:29.278Z",
+        "action": "Email verified",
+        "ipAddress": "192.168.1.186",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log95",
+        "timestamp": "2023-12-02T17:59:24.940Z",
+        "action": "Profile updated",
+        "ipAddress": "192.0.2.61",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log97",
+        "timestamp": "2023-10-31T21:33:22.598Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.16",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag26",
+        "type": "Payment Default",
+        "severity": "low",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2025-04-08",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT025"
+    ]
+  },
+  {
+    "id": "#7010",
+    "name": "Michelle Mitchell",
+    "email": "michelle.mitchell@gmail.com",
+    "phone": "+16986268498",
+    "role": "parent",
+    "status": "inactive",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2024-01-08",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc57",
+        "userId": "#7010",
+        "type": "Certification",
+        "name": "fertility_cert.pdf",
+        "uploadDate": "2024-01-08",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log101",
+        "timestamp": "2025-09-14T17:56:32.170Z",
+        "action": "Document viewed",
+        "ipAddress": "192.168.1.239",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log99",
+        "timestamp": "2025-01-11T11:43:16.719Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.0.2.58",
+        "device": "Chrome on Android",
+        "details": {
+          "documentType": "license"
+        }
+      },
+      {
+        "id": "log100",
+        "timestamp": "2024-04-16T16:16:09.335Z",
+        "action": "Password changed",
+        "ipAddress": "203.0.113.79",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log102",
+        "timestamp": "2024-04-14T13:22:43.506Z",
+        "action": "Failed login attempt",
+        "ipAddress": "192.0.2.176",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag27",
+        "type": "Payment Default",
+        "severity": "medium",
+        "description": "Similar email pattern detected across multiple accounts",
+        "flaggedDate": "2025-04-30",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT026"
+    ]
+  },
+  {
+    "id": "#7011",
+    "name": "Jennifer Lewis",
+    "email": "jennifer.lewis@gmail.com",
+    "phone": "+17364848542",
+    "role": "parent",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-10-09",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc58",
+        "userId": "#7011",
+        "type": "Medical",
+        "name": "health_screening.pdf",
+        "uploadDate": "2023-10-09",
+        "status": "pending"
+      },
+      {
+        "id": "doc59",
+        "userId": "#7011",
+        "type": "Financial",
+        "name": "bank_statement.pdf",
+        "uploadDate": "2023-10-09",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log103",
+        "timestamp": "2025-06-25T03:23:19.470Z",
+        "action": "Login successful",
+        "ipAddress": "198.51.100.152",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log105",
+        "timestamp": "2025-03-23T23:30:02.503Z",
+        "action": "Last login",
+        "ipAddress": "203.0.113.199",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log107",
+        "timestamp": "2025-02-01T12:06:21.030Z",
+        "action": "Last login",
+        "ipAddress": "198.51.100.157",
+        "device": "Unknown"
+      },
+      {
+        "id": "log106",
+        "timestamp": "2024-10-22T15:36:01.569Z",
+        "action": "Last login",
+        "ipAddress": "192.168.1.63",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log104",
+        "timestamp": "2024-05-28T09:02:11.035Z",
+        "action": "Password changed",
+        "ipAddress": "192.168.1.124",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag28",
+        "type": "Compliance Issue",
+        "severity": "low",
+        "description": "Similar email pattern detected across multiple accounts",
+        "flaggedDate": "2025-09-30",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#7012",
+    "name": "Daniel White",
+    "email": "daniel.white@gmail.com",
+    "phone": "+16696278274",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-11-07",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc60",
+        "userId": "#7012",
+        "type": "Medical",
+        "name": "health_check.pdf",
+        "uploadDate": "2023-11-07",
+        "status": "pending"
+      },
+      {
+        "id": "doc61",
+        "userId": "#7012",
+        "type": "License",
+        "name": "clinic_license.pdf",
+        "uploadDate": "2023-11-07",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log108",
+        "timestamp": "2024-07-09T17:51:05.612Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.219",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log111",
+        "timestamp": "2024-04-11T07:56:48.541Z",
+        "action": "Failed login attempt",
+        "ipAddress": "203.0.113.109",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log110",
+        "timestamp": "2024-04-01T15:37:28.107Z",
+        "action": "Failed login attempt",
+        "ipAddress": "192.168.1.25",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log109",
+        "timestamp": "2024-01-04T01:50:07.643Z",
+        "action": "Email verified",
+        "ipAddress": "192.168.1.101",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#7013",
+    "name": "Lily Lewis",
+    "email": "lily.lewis@gmail.com",
+    "phone": "+18607447601",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-11-23",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc62",
+        "userId": "#7013",
+        "type": "ID",
+        "name": "passport.pdf",
+        "uploadDate": "2023-11-23",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log115",
+        "timestamp": "2024-12-07T00:33:34.352Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.188",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log114",
+        "timestamp": "2024-12-03T17:22:23.166Z",
+        "action": "Document viewed",
+        "ipAddress": "198.51.100.156",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log113",
+        "timestamp": "2024-03-29T04:46:12.656Z",
+        "action": "Login successful",
+        "ipAddress": "192.0.2.12",
+        "device": "Unknown"
+      },
+      {
+        "id": "log112",
+        "timestamp": "2023-12-29T21:59:56.352Z",
+        "action": "Account suspended",
+        "ipAddress": "192.0.2.85",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#7014",
+    "name": "Michelle Thompson",
+    "email": "michelle.thompson@gmail.com",
+    "phone": "+19436908175",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-08-10",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc63",
+        "userId": "#7014",
+        "type": "Financial",
+        "name": "income_statement.pdf",
+        "uploadDate": "2023-08-10",
+        "status": "pending"
+      },
+      {
+        "id": "doc64",
+        "userId": "#7014",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2023-08-10",
+        "status": "pending"
+      },
+      {
+        "id": "doc65",
+        "userId": "#7014",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-08-10",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log117",
+        "timestamp": "2025-07-03T01:51:03.994Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.151",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log116",
+        "timestamp": "2023-11-24T08:14:39.111Z",
+        "action": "Account created",
+        "ipAddress": "192.0.2.20",
+        "device": "Safari on iOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#7015",
+    "name": "James Mitchell",
+    "email": "james.mitchell@gmail.com",
+    "phone": "+16105809140",
+    "role": "parent",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-12-09",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc66",
+        "userId": "#7015",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-12-09",
+        "status": "pending"
+      },
+      {
+        "id": "doc67",
+        "userId": "#7015",
+        "type": "Medical",
+        "name": "health_check.pdf",
+        "uploadDate": "2023-12-09",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log118",
+        "timestamp": "2024-08-23T03:36:39.887Z",
+        "action": "Login successful",
+        "ipAddress": "192.168.1.39",
+        "device": "Unknown"
+      },
+      {
+        "id": "log119",
+        "timestamp": "2024-01-01T05:57:50.100Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.40",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag29",
+        "type": "Payment Default",
+        "severity": "medium",
+        "description": "Incomplete documentation submission",
+        "flaggedDate": "2024-10-12",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT027",
+      "#TKT028"
+    ]
+  },
+  {
+    "id": "#8001",
+    "name": "City Medical Clinic",
+    "email": "city.medical.clinic@gmail.com",
+    "phone": "+18344927125",
+    "role": "clinic",
+    "status": "active",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-11-23",
+    "walletBalance": 2177,
+    "documents": [
+      {
+        "id": "doc68",
+        "userId": "#8001",
+        "type": "Medical",
+        "name": "health_screening.pdf",
+        "uploadDate": "2023-11-23",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log120",
+        "timestamp": "2024-08-24T15:53:29.193Z",
+        "action": "Profile updated",
+        "ipAddress": "192.0.2.122",
+        "device": "Unknown"
+      },
+      {
+        "id": "log121",
+        "timestamp": "2024-03-26T15:12:44.159Z",
+        "action": "Account created",
+        "ipAddress": "198.51.100.168",
+        "device": "Chrome on Android"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag30",
+        "type": "Compliance Issue",
+        "severity": "low",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2025-07-21",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": [
+      "#TKT029",
+      "#TKT030"
+    ]
+  },
+  {
+    "id": "#8002",
+    "name": "Advanced Fertility Center",
+    "email": "advanced.fertility.center@gmail.com",
+    "phone": "+15524979955",
+    "role": "clinic",
+    "status": "active",
+    "verificationStatus": "verified",
+    "dateJoined": "2024-01-13",
+    "walletBalance": 2030,
+    "documents": [
+      {
+        "id": "doc69",
+        "userId": "#8002",
+        "type": "License",
+        "name": "medical_license.pdf",
+        "uploadDate": "2024-01-13",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log124",
+        "timestamp": "2025-02-27T16:36:57.933Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.47",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log122",
+        "timestamp": "2025-01-01T04:22:47.603Z",
+        "action": "Account created",
+        "ipAddress": "192.0.2.98",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log125",
+        "timestamp": "2024-09-25T05:04:24.569Z",
+        "action": "Last login",
+        "ipAddress": "203.0.113.78",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log123",
+        "timestamp": "2024-05-29T00:08:35.972Z",
+        "action": "Profile updated",
+        "ipAddress": "192.0.2.113",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag31",
+        "type": "Policy Violation",
+        "severity": "high",
+        "description": "Multiple failed login attempts from different IP addresses",
+        "flaggedDate": "2024-10-04",
+        "resolved": false
+      },
+      {
+        "id": "flag32",
+        "type": "Compliance Issue",
+        "severity": "medium",
+        "description": "Similar email pattern detected across multiple accounts",
+        "flaggedDate": "2025-08-14",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT031"
+    ]
+  },
+  {
+    "id": "#8003",
+    "name": "Health & Wellness Center",
+    "email": "health.&.wellness.center@gmail.com",
+    "phone": "+16127377344",
+    "role": "clinic",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-11-12",
+    "walletBalance": 1419,
+    "documents": [
+      {
+        "id": "doc70",
+        "userId": "#8003",
+        "type": "License",
+        "name": "medical_license.pdf",
+        "uploadDate": "2023-11-12",
+        "status": "approved"
+      },
+      {
+        "id": "doc71",
+        "userId": "#8003",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2023-11-12",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log126",
+        "timestamp": "2025-10-16T20:37:29.588Z",
+        "action": "Last login",
+        "ipAddress": "192.168.1.171",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log128",
+        "timestamp": "2025-07-06T22:24:33.896Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.49",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log127",
+        "timestamp": "2025-05-05T05:57:47.757Z",
+        "action": "Last login",
+        "ipAddress": "192.0.2.147",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log129",
+        "timestamp": "2025-03-11T23:21:57.224Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.97",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log130",
+        "timestamp": "2024-06-15T20:30:10.963Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.168.1.178",
+        "device": "Unknown",
+        "details": {
+          "documentType": "id"
+        }
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag33",
+        "type": "Compliance Issue",
+        "severity": "low",
+        "description": "Multiple failed payment attempts",
+        "flaggedDate": "2024-12-10",
+        "resolved": false
+      },
+      {
+        "id": "flag34",
+        "type": "Documentation Issues",
+        "severity": "medium",
+        "description": "Incomplete documentation submission",
+        "flaggedDate": "2024-07-01",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT032"
+    ]
+  },
+  {
+    "id": "#8004",
+    "name": "Global Health Clinic",
+    "email": "global.health.clinic@gmail.com",
+    "phone": "+13745248854",
+    "role": "clinic",
+    "status": "active",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-10-28",
+    "walletBalance": 2312,
+    "documents": [],
+    "activityLog": [
+      {
+        "id": "log133",
+        "timestamp": "2024-12-02T00:43:47.962Z",
+        "action": "Login successful",
+        "ipAddress": "192.0.2.232",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log131",
+        "timestamp": "2024-05-15T17:39:18.307Z",
+        "action": "Account created",
+        "ipAddress": "192.0.2.109",
+        "device": "Unknown"
+      },
+      {
+        "id": "log134",
+        "timestamp": "2024-02-03T16:09:19.848Z",
+        "action": "Profile updated",
+        "ipAddress": "198.51.100.236",
+        "device": "Unknown"
+      },
+      {
+        "id": "log132",
+        "timestamp": "2023-11-18T12:17:16.531Z",
+        "action": "Profile updated",
+        "ipAddress": "198.51.100.248",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag35",
+        "type": "Compliance Issue",
+        "severity": "medium",
+        "description": "Multiple failed login attempts from different IP addresses",
+        "flaggedDate": "2024-10-07",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#8005",
+    "name": "Family First Medical",
+    "email": "family.first.medical@gmail.com",
+    "phone": "+19365557248",
+    "role": "clinic",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-09-26",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc72",
+        "userId": "#8005",
+        "type": "ID",
+        "name": "drivers_license.pdf",
+        "uploadDate": "2023-09-26",
+        "status": "approved"
+      },
+      {
+        "id": "doc73",
+        "userId": "#8005",
+        "type": "ID",
+        "name": "id_card.pdf",
+        "uploadDate": "2023-09-26",
+        "status": "rejected"
+      },
+      {
+        "id": "doc74",
+        "userId": "#8005",
+        "type": "Certification",
+        "name": "accreditation_cert.pdf",
+        "uploadDate": "2023-09-26",
+        "status": "approved"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log138",
+        "timestamp": "2025-02-22T19:25:31.144Z",
+        "action": "Last login",
+        "ipAddress": "192.168.1.109",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log136",
+        "timestamp": "2025-02-17T14:15:30.842Z",
+        "action": "Failed login attempt",
+        "ipAddress": "203.0.113.75",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log135",
+        "timestamp": "2024-09-09T18:24:04.665Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.93",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log137",
+        "timestamp": "2024-02-27T03:56:01.921Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.179",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag36",
+        "type": "Suspicious Activity",
+        "severity": "low",
+        "description": "Similar email pattern detected across multiple accounts",
+        "flaggedDate": "2024-03-30",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#8006",
+    "name": "Premier Reproductive Center",
+    "email": "premier.reproductive.center@gmail.com",
+    "phone": "+15965219703",
+    "role": "clinic",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-09-03",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc75",
+        "userId": "#8006",
+        "type": "Medical",
+        "name": "medical_exam.pdf",
+        "uploadDate": "2023-09-03",
+        "status": "approved"
+      },
+      {
+        "id": "doc76",
+        "userId": "#8006",
+        "type": "Medical",
+        "name": "fertility_test.pdf",
+        "uploadDate": "2023-09-03",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc77",
+        "userId": "#8006",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2023-09-03",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log140",
+        "timestamp": "2025-06-01T06:32:40.021Z",
+        "action": "Password changed",
+        "ipAddress": "203.0.113.212",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log141",
+        "timestamp": "2024-07-14T00:51:51.011Z",
+        "action": "Account suspended",
+        "ipAddress": "192.0.2.127",
+        "device": "Unknown"
+      },
+      {
+        "id": "log139",
+        "timestamp": "2023-11-28T12:31:05.280Z",
+        "action": "Account suspended",
+        "ipAddress": "203.0.113.81",
+        "device": "Safari on iOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#8007",
+    "name": "Hope Fertility Institute",
+    "email": "hope.fertility.institute@gmail.com",
+    "phone": "+16457297645",
+    "role": "clinic",
+    "status": "active",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-12-30",
+    "walletBalance": 1499,
+    "documents": [
+      {
+        "id": "doc78",
+        "userId": "#8007",
+        "type": "ID",
+        "name": "national_id.pdf",
+        "uploadDate": "2023-12-30",
+        "status": "approved"
+      },
+      {
+        "id": "doc79",
+        "userId": "#8007",
+        "type": "License",
+        "name": "agent_license.pdf",
+        "uploadDate": "2023-12-30",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log142",
+        "timestamp": "2025-10-10T05:16:11.064Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.7",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log143",
+        "timestamp": "2025-10-05T13:13:26.209Z",
+        "action": "Account suspended",
+        "ipAddress": "203.0.113.64",
+        "device": "Unknown"
+      },
+      {
+        "id": "log146",
+        "timestamp": "2025-06-28T07:45:39.543Z",
+        "action": "Document uploaded",
+        "ipAddress": "203.0.113.254",
+        "device": "Safari on iOS",
+        "details": {
+          "documentType": "financial"
+        }
+      },
+      {
+        "id": "log145",
+        "timestamp": "2025-04-06T13:24:53.296Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.1",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log144",
+        "timestamp": "2024-09-25T19:59:49.524Z",
+        "action": "Account created",
+        "ipAddress": "192.0.2.141",
+        "device": "Unknown"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag37",
+        "type": "Compliance Issue",
+        "severity": "high",
+        "description": "Repeated violations of community guidelines",
+        "flaggedDate": "2025-02-16",
+        "resolved": true
+      },
+      {
+        "id": "flag38",
+        "type": "Policy Violation",
+        "severity": "medium",
+        "description": "Some patient records incomplete",
+        "flaggedDate": "2024-04-27",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT033",
+      "#TKT034"
+    ]
+  },
+  {
+    "id": "#8008",
+    "name": "Elite Medical Services",
+    "email": "elite.medical.services@gmail.com",
+    "phone": "+17545947680",
+    "role": "clinic",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2024-01-14",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc80",
+        "userId": "#8008",
+        "type": "ID",
+        "name": "national_id.pdf",
+        "uploadDate": "2024-01-14",
+        "status": "pending"
+      },
+      {
+        "id": "doc81",
+        "userId": "#8008",
+        "type": "ID",
+        "name": "passport.pdf",
+        "uploadDate": "2024-01-14",
+        "status": "needs_reupload"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log151",
+        "timestamp": "2025-06-17T05:48:05.510Z",
+        "action": "Last login",
+        "ipAddress": "198.51.100.136",
+        "device": "Unknown"
+      },
+      {
+        "id": "log150",
+        "timestamp": "2025-03-11T09:44:52.034Z",
+        "action": "Document uploaded",
+        "ipAddress": "198.51.100.187",
+        "device": "Safari on macOS",
+        "details": {
+          "documentType": "medical"
+        }
+      },
+      {
+        "id": "log148",
+        "timestamp": "2024-09-27T03:25:55.781Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.111",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log147",
+        "timestamp": "2024-07-13T18:30:43.928Z",
+        "action": "Login successful",
+        "ipAddress": "192.0.2.136",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log149",
+        "timestamp": "2024-07-10T14:28:17.446Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.139",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag39",
+        "type": "Compliance Issue",
+        "severity": "medium",
+        "description": "Non-compliance with regulatory requirements",
+        "flaggedDate": "2024-07-25",
+        "resolved": false
+      },
+      {
+        "id": "flag40",
+        "type": "Policy Violation",
+        "severity": "high",
+        "description": "Incomplete documentation submission",
+        "flaggedDate": "2024-02-14",
+        "resolved": true
+      }
+    ],
+    "linkedTickets": [
+      "#TKT035"
+    ]
+  },
+  {
+    "id": "#8009",
+    "name": "Comprehensive Care Clinic",
+    "email": "comprehensive.care.clinic@gmail.com",
+    "phone": "+16006959097",
+    "role": "clinic",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-08-25",
+    "walletBalance": 0,
+    "documents": [
+      {
+        "id": "doc82",
+        "userId": "#8009",
+        "type": "Financial",
+        "name": "bank_statement.pdf",
+        "uploadDate": "2023-08-25",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log153",
+        "timestamp": "2025-10-23T01:58:53.682Z",
+        "action": "Last login",
+        "ipAddress": "198.51.100.119",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log155",
+        "timestamp": "2025-02-02T23:11:41.035Z",
+        "action": "Document viewed",
+        "ipAddress": "192.168.1.221",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log152",
+        "timestamp": "2024-06-30T11:17:22.818Z",
+        "action": "Login successful",
+        "ipAddress": "192.168.1.203",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log154",
+        "timestamp": "2024-03-07T23:21:26.765Z",
+        "action": "Document viewed",
+        "ipAddress": "198.51.100.206",
+        "device": "Unknown"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag41",
+        "type": "Terms Violation",
+        "severity": "low",
+        "description": "Multiple failed login attempts from different IP addresses",
+        "flaggedDate": "2023-09-16",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": []
+  },
+  {
+    "id": "#8010",
+    "name": "Medicare Excellence Center",
+    "email": "medicare.excellence.center@gmail.com",
+    "phone": "+15547258486",
+    "role": "clinic",
+    "status": "active",
+    "verificationStatus": "verified",
+    "dateJoined": "2023-10-06",
+    "walletBalance": 2432,
+    "documents": [
+      {
+        "id": "doc83",
+        "userId": "#8010",
+        "type": "ID",
+        "name": "national_id.pdf",
+        "uploadDate": "2023-10-06",
+        "status": "approved"
+      },
+      {
+        "id": "doc84",
+        "userId": "#8010",
+        "type": "License",
+        "name": "clinic_license.pdf",
+        "uploadDate": "2023-10-06",
+        "status": "needs_reupload"
+      },
+      {
+        "id": "doc85",
+        "userId": "#8010",
+        "type": "License",
+        "name": "medical_license.pdf",
+        "uploadDate": "2023-10-06",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log157",
+        "timestamp": "2025-08-13T00:45:14.950Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.252",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log159",
+        "timestamp": "2025-08-01T19:36:07.282Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.0.2.23",
+        "device": "Unknown",
+        "details": {
+          "documentType": "financial"
+        }
+      },
+      {
+        "id": "log160",
+        "timestamp": "2025-02-27T09:52:06.470Z",
+        "action": "Document uploaded",
+        "ipAddress": "192.0.2.227",
+        "device": "Chrome on Windows",
+        "details": {
+          "documentType": "certification"
+        }
+      },
+      {
+        "id": "log158",
+        "timestamp": "2024-03-31T06:14:58.929Z",
+        "action": "Login successful",
+        "ipAddress": "203.0.113.37",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log156",
+        "timestamp": "2023-11-23T16:33:12.123Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.41",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag42",
+        "type": "Duplicate Account",
+        "severity": "medium",
+        "description": "Non-compliance with regulatory requirements",
+        "flaggedDate": "2024-04-18",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT036"
+    ]
+  },
+  {
+    "id": "#9001",
+    "name": "Abigail Taylor",
+    "email": "abigail.taylor@gmail.com",
+    "phone": "+15014878663",
+    "role": "agent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-08-26",
+    "walletBalance": 38,
+    "documents": [
+      {
+        "id": "doc86",
+        "userId": "#9001",
+        "type": "ID",
+        "name": "passport.pdf",
+        "uploadDate": "2023-08-26",
+        "status": "approved"
+      },
+      {
+        "id": "doc87",
+        "userId": "#9001",
+        "type": "Financial",
+        "name": "bank_statement.pdf",
+        "uploadDate": "2023-08-26",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log161",
+        "timestamp": "2025-10-09T03:35:00.471Z",
+        "action": "Login successful",
+        "ipAddress": "192.168.1.43",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log165",
+        "timestamp": "2025-07-15T01:04:17.049Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.24",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log162",
+        "timestamp": "2025-07-12T20:08:11.483Z",
+        "action": "Failed login attempt",
+        "ipAddress": "192.0.2.21",
+        "device": "Unknown"
+      },
+      {
+        "id": "log164",
+        "timestamp": "2024-09-12T00:45:09.575Z",
+        "action": "Profile updated",
+        "ipAddress": "203.0.113.138",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log163",
+        "timestamp": "2023-12-22T12:56:55.607Z",
+        "action": "Login successful",
+        "ipAddress": "203.0.113.131",
+        "device": "Firefox on Windows"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#9002",
+    "name": "Emma White",
+    "email": "emma.white@gmail.com",
+    "phone": "+15546379355",
+    "role": "agent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-12-23",
+    "walletBalance": 12,
+    "documents": [
+      {
+        "id": "doc88",
+        "userId": "#9002",
+        "type": "Medical",
+        "name": "medical_report.pdf",
+        "uploadDate": "2023-12-23",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log168",
+        "timestamp": "2025-10-30T15:54:18.793Z",
+        "action": "Login successful",
+        "ipAddress": "198.51.100.229",
+        "device": "Safari on iOS"
+      },
+      {
+        "id": "log167",
+        "timestamp": "2025-01-04T07:44:22.032Z",
+        "action": "Account suspended",
+        "ipAddress": "192.168.1.3",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log166",
+        "timestamp": "2024-12-17T07:27:11.165Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.179",
+        "device": "Chrome on macOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  },
+  {
+    "id": "#9003",
+    "name": "Tom Martinez",
+    "email": "tom.martinez@gmail.com",
+    "phone": "+17596057389",
+    "role": "agent",
+    "status": "pending",
+    "verificationStatus": "unverified",
+    "dateJoined": "2023-09-05",
+    "walletBalance": 96,
+    "documents": [
+      {
+        "id": "doc89",
+        "userId": "#9003",
+        "type": "ID",
+        "name": "drivers_license.pdf",
+        "uploadDate": "2023-09-05",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log171",
+        "timestamp": "2025-04-06T11:06:00.379Z",
+        "action": "Document uploaded",
+        "ipAddress": "198.51.100.185",
+        "device": "Safari on iOS",
+        "details": {
+          "documentType": "medical"
+        }
+      },
+      {
+        "id": "log170",
+        "timestamp": "2025-02-17T12:32:07.911Z",
+        "action": "Login successful",
+        "ipAddress": "203.0.113.30",
+        "device": "Chrome on Windows"
+      },
+      {
+        "id": "log169",
+        "timestamp": "2024-09-18T06:48:47.853Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.104",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log172",
+        "timestamp": "2024-08-10T19:19:04.028Z",
+        "action": "Last login",
+        "ipAddress": "203.0.113.59",
+        "device": "Chrome on Windows"
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag43",
+        "type": "Payment Default",
+        "severity": "medium",
+        "description": "Similar email pattern detected across multiple accounts",
+        "flaggedDate": "2024-06-23",
+        "resolved": false
+      },
+      {
+        "id": "flag44",
+        "type": "Compliance Issue",
+        "severity": "medium",
+        "description": "Non-compliance with regulatory requirements",
+        "flaggedDate": "2025-07-03",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT037"
+    ]
+  },
+  {
+    "id": "#9004",
+    "name": "Nicole Clark",
+    "email": "nicole.clark@gmail.com",
+    "phone": "+14914728966",
+    "role": "agent",
+    "status": "suspended",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2023-11-14",
+    "walletBalance": 77,
+    "documents": [
+      {
+        "id": "doc90",
+        "userId": "#9004",
+        "type": "Medical",
+        "name": "health_screening.pdf",
+        "uploadDate": "2023-11-14",
+        "status": "approved"
+      },
+      {
+        "id": "doc91",
+        "userId": "#9004",
+        "type": "Financial",
+        "name": "income_statement.pdf",
+        "uploadDate": "2023-11-14",
+        "status": "rejected"
+      },
+      {
+        "id": "doc92",
+        "userId": "#9004",
+        "type": "Financial",
+        "name": "financial_doc.pdf",
+        "uploadDate": "2023-11-14",
+        "status": "rejected"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log177",
+        "timestamp": "2025-08-23T10:03:17.725Z",
+        "action": "Document uploaded",
+        "ipAddress": "198.51.100.31",
+        "device": "Unknown",
+        "details": {
+          "documentType": "license"
+        }
+      },
+      {
+        "id": "log173",
+        "timestamp": "2025-06-02T01:25:42.205Z",
+        "action": "Password changed",
+        "ipAddress": "192.168.1.30",
+        "device": "Unknown"
+      },
+      {
+        "id": "log176",
+        "timestamp": "2024-12-30T00:12:15.966Z",
+        "action": "Account created",
+        "ipAddress": "192.168.1.126",
+        "device": "Chrome on macOS"
+      },
+      {
+        "id": "log174",
+        "timestamp": "2024-10-11T01:48:27.247Z",
+        "action": "Profile updated",
+        "ipAddress": "198.51.100.86",
+        "device": "Safari on macOS"
+      },
+      {
+        "id": "log175",
+        "timestamp": "2024-09-23T06:35:55.978Z",
+        "action": "Document uploaded",
+        "ipAddress": "198.51.100.51",
+        "device": "Safari on iOS",
+        "details": {
+          "documentType": "license"
+        }
+      }
+    ],
+    "complianceFlags": [
+      {
+        "id": "flag45",
+        "type": "Policy Violation",
+        "severity": "high",
+        "description": "Multiple failed payment attempts",
+        "flaggedDate": "2024-04-11",
+        "resolved": false
+      },
+      {
+        "id": "flag46",
+        "type": "Terms Violation",
+        "severity": "medium",
+        "description": "Some patient records incomplete",
+        "flaggedDate": "2024-12-08",
+        "resolved": false
+      }
+    ],
+    "linkedTickets": [
+      "#TKT038",
+      "#TKT039"
+    ],
+    "suspensionReason": "Payment default and account inactivity",
+    "suspensionDate": "2024-11-16",
+    "suspensionDuration": "46 days",
+    "suspendedBy": "security@surro.com"
+  },
+  {
+    "id": "#9005",
+    "name": "Nicole Wilson",
+    "email": "nicole.wilson@gmail.com",
+    "phone": "+16056669331",
+    "role": "agent",
+    "status": "pending",
+    "verificationStatus": "kyc_pending",
+    "dateJoined": "2024-01-21",
+    "walletBalance": 66,
+    "documents": [
+      {
+        "id": "doc93",
+        "userId": "#9005",
+        "type": "Medical",
+        "name": "health_screening.pdf",
+        "uploadDate": "2024-01-21",
+        "status": "pending"
+      },
+      {
+        "id": "doc94",
+        "userId": "#9005",
+        "type": "Certification",
+        "name": "certification.pdf",
+        "uploadDate": "2024-01-21",
+        "status": "pending"
+      }
+    ],
+    "activityLog": [
+      {
+        "id": "log181",
+        "timestamp": "2025-07-16T11:38:26.985Z",
+        "action": "Email verified",
+        "ipAddress": "198.51.100.191",
+        "device": "Chrome on Android"
+      },
+      {
+        "id": "log178",
+        "timestamp": "2025-04-28T00:51:51.896Z",
+        "action": "Profile updated",
+        "ipAddress": "192.168.1.73",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log179",
+        "timestamp": "2025-01-21T23:04:32.675Z",
+        "action": "Email verified",
+        "ipAddress": "192.0.2.194",
+        "device": "Firefox on Windows"
+      },
+      {
+        "id": "log180",
+        "timestamp": "2024-09-10T11:16:44.150Z",
+        "action": "Password changed",
+        "ipAddress": "203.0.113.38",
+        "device": "Safari on macOS"
+      }
+    ],
+    "complianceFlags": [],
+    "linkedTickets": []
+  }
+]
