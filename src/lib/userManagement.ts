@@ -3,6 +3,7 @@ import type {
   User,
   UserFilters,
   UserStatus,
+  UserRole,
 } from "@/types/user";
 
 const USERS_STORAGE_KEY = "surro_users";
