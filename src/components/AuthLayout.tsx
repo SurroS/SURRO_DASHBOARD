@@ -53,6 +53,15 @@ export default function AuthLayout({
                 </p>
               </div>
             ) : null}
+
+            <div className="mt-8 text-center text-xs text-muted-foreground">
+              <a href="/terms" className="hover:underline mr-3">
+                Terms of Use
+              </a>
+              <a href="/privacy" className="hover:underline">
+                Privacy Policy
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -3,17 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
-import { AdminRole } from "@/lib/permissions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import AuthLayout from "@/components/AuthLayout";
 
@@ -22,7 +14,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [role, setRole] = useState<AdminRole>("general_admin");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const { login } = useAuth();
@@ -45,11 +36,9 @@ export default function LoginPage() {
         return;
       }
 
-      const success = await login(email, password, role);
+      const success = await login(email, password);
       if (success) {
         toast({ title: "Login Successful", description: "Welcome back!" });
-
-        // Redirect to unified dashboard
         router.push("/dashboard");
       } else {
         setError("Invalid email or password");
@@ -122,31 +111,12 @@ export default function LoginPage() {
             />
             <span>Remember me</span>
           </label>
-          <a href="#" className="text-sm text-primary hover:underline">
+          <a
+            href="/forgot-password"
+            className="text-sm text-primary hover:underline"
+          >
             Forgot password?
           </a>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="role">Select role</Label>
-          <Select
-            value={role}
-            onValueChange={(value) => setRole(value as AdminRole)}
-          >
-            <SelectTrigger className="h-12">
-              <SelectValue placeholder="Admin" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="super_admin">Super Admin</SelectItem>
-              <SelectItem value="general_admin">General Admin</SelectItem>
-              <SelectItem value="support_admin">Support Admin</SelectItem>
-              <SelectItem value="finance_admin">Finance Admin</SelectItem>
-              <SelectItem value="security_admin">Operations Admin</SelectItem>
-              <SelectItem value="marketing_admin">Marketing Admin</SelectItem>
-              <SelectItem value="compliance_admin">Compliance Admin</SelectItem>
-              <SelectItem value="investor_admin">Investor Admin</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
 
         {error && (
@@ -166,7 +136,7 @@ export default function LoginPage() {
         <p className="text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
           <a
-            href="/admin/signup"
+            href="/signup"
             className="text-primary hover:underline font-medium"
           >
             Sign Up

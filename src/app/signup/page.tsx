@@ -5,14 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
+import { authService } from "@/lib/api/auth";
 import AuthLayout from "@/components/AuthLayout";
 
 export default function SignupPage() {
@@ -20,17 +14,17 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!fullName || !email || !password || !confirmPassword) {
+    if (!fullName || !email || !password || !confirmPassword || !inviteCode) {
       toast({
         title: "Error",
         description: "Please fill in all fields",
@@ -50,21 +44,24 @@ export default function SignupPage() {
 
     setIsLoading(true);
     try {
-      // In a real app, call signup API
-      setTimeout(() => {
-        toast({
-          title: "Account Created",
-          description: "Welcome to Surro!",
-        });
-        router.push("/login");
-        setIsLoading(false);
-      }, 1000);
-    } catch (_error) {
+      await authService.adminRegister({ email, password, inviteCode });
+      toast({
+        title: "Account Created",
+        description: "Welcome to Surro!",
+      });
+      router.push("/dashboard");
+    } catch (err: unknown) {
+      const msg =
+        err && typeof err === "object" && "response" in err
+          ? (err as { response: { data: { message: string } } }).response?.data
+              ?.message || "Registration failed"
+          : "Registration failed";
       toast({
         title: "Signup Failed",
-        description: "An unexpected error occurred",
+        description: msg,
         variant: "destructive",
       });
+    } finally {
       setIsLoading(false);
     }
   };
@@ -77,7 +74,7 @@ export default function SignupPage() {
       bottomLinkHref="/login"
       bottomLinkText="Login"
     >
-      <form onSubmit={onSubmit} className="space-y-6">
+      <form onSubmit={handleRegister} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="fullName">Full name</Label>
           <Input
@@ -149,21 +146,16 @@ export default function SignupPage() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="role">Select role</Label>
-          <Select value={role} onValueChange={setRole}>
-            <SelectTrigger className="h-12">
-              <SelectValue placeholder="Admin" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="super_admin">Super Admin</SelectItem>
-              <SelectItem value="compliance_admin">Compliance Admin</SelectItem>
-              <SelectItem value="support_admin">Support Admin</SelectItem>
-              <SelectItem value="finance_admin">Finance Admin</SelectItem>
-              <SelectItem value="security_admin">Security Admin</SelectItem>
-              <SelectItem value="general_admin">General Admin</SelectItem>
-              <SelectItem value="investor_admin">Investor Admin</SelectItem>
-            </SelectContent>
-          </Select>
+          <Label htmlFor="inviteCode">Admin Invite Code</Label>
+          <Input
+            id="inviteCode"
+            type="text"
+            placeholder="Enter your invite code"
+            value={inviteCode}
+            onChange={(e) => setInviteCode(e.target.value)}
+            className="h-12"
+            required
+          />
         </div>
 
         <Button

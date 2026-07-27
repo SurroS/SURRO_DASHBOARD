@@ -13,31 +13,40 @@ import {
   AdminRole,
   Permission,
 } from "./permissions";
+import { authService } from "./api/auth";
+import type { User as ApiUser } from "./api/types";
 
 interface User {
   id: string;
   email: string;
   name: string;
-  role: AdminRole; // Updated to use AdminRole from permissions
+  role: AdminRole;
   permissions: string[];
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (
-    email: string,
-    password: string,
-    role?: AdminRole
-  ) => Promise<boolean>;
+  login: (email: string, password: string, role?: AdminRole) => Promise<boolean>;
+  adminLogin: (email: string, password: string) => Promise<boolean>;
+  adminRegister: (email: string, password: string, inviteCode: string) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
   getUserRole: () => AdminRole | null;
   hasPermission: (permission: string) => boolean;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
-);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+function mapApiUserToUser(apiUser: ApiUser): User {
+  const email = apiUser.email || "unknown@surro.com";
+  return {
+    id: apiUser.id,
+    email,
+    name: email.split("@")[0],
+    role: "general_admin",
+    permissions: [],
+  };
+}
 
 export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   children,
@@ -46,14 +55,16 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing token on mount
     const token = localStorage.getItem("authToken");
     if (token) {
-      // In a real app, you'd validate the token with your backend
-      // For now, we'll just check if it exists
       const userData = localStorage.getItem("userData");
       if (userData) {
-        setUser(JSON.parse(userData));
+        try {
+          setUser(JSON.parse(userData));
+        } catch {
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("userData");
+        }
       }
     }
     setIsLoading(false);
@@ -62,40 +73,48 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   const login = async (
     email: string,
     password: string,
-    role: AdminRole = "general_admin"
   ): Promise<boolean> => {
     try {
-      // Simulate API call - replace with actual authentication
-      if (email && password) {
-        // Auto-assign role based on email for testing
-        let assignedRole: AdminRole = role;
-        if (email.includes("super")) assignedRole = "super_admin";
-        else if (email.includes("compliance"))
-          assignedRole = "compliance_admin";
-        else if (email.includes("support")) assignedRole = "support_admin";
-        else if (email.includes("finance")) assignedRole = "finance_admin";
-        else if (email.includes("security")) assignedRole = "security_admin";
-        else if (email.includes("marketing")) assignedRole = "marketing_admin";
-        else if (email.includes("investor")) assignedRole = "investor_admin";
-
-        const userData: User = {
-          id: "1",
-          email,
-          name: email.split("@")[0],
-          role: assignedRole,
-          permissions: [], // Will be populated by permissions system
-        };
-
-        const token = "mock-jwt-token-" + Date.now();
-
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("userData", JSON.stringify(userData));
-        setUser(userData);
-        return true;
-      }
+      const response = await authService.login({ email, password });
+      const userData = mapApiUserToUser(response.user);
+      localStorage.setItem("authToken", response.accessToken);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUser(userData);
+      return true;
+    } catch {
       return false;
-    } catch (error) {
-      console.error("Login error:", error);
+    }
+  };
+
+  const adminLogin = async (
+    email: string,
+    password: string
+  ): Promise<boolean> => {
+    try {
+      const response = await authService.adminLogin({ email, password });
+      const userData = mapApiUserToUser(response.user);
+      localStorage.setItem("authToken", response.accessToken);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUser(userData);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const adminRegister = async (
+    email: string,
+    password: string,
+    inviteCode: string
+  ): Promise<boolean> => {
+    try {
+      const response = await authService.adminRegister({ email, password, inviteCode });
+      const userData = mapApiUserToUser(response.user);
+      localStorage.setItem("authToken", response.accessToken);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUser(userData);
+      return true;
+    } catch {
       return false;
     }
   };
@@ -117,7 +136,18 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
 
   return React.createElement(
     AuthContext.Provider,
-    { value: { user, login, logout, isLoading, getUserRole, hasPermission } },
+    {
+      value: {
+        user,
+        login,
+        adminLogin,
+        adminRegister,
+        logout,
+        isLoading,
+        getUserRole,
+        hasPermission,
+      },
+    },
     children
   );
 };
