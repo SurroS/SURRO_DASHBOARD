@@ -248,7 +248,7 @@ function SubscriptionsContent() {
                               <div key={region.id} className="flex justify-between text-sm">
                                 <span className="text-muted-foreground">{region.region}</span>
                                 <span className="font-medium">
-                                  {region.symbol || region.currency} {region.price.toLocaleString()}
+                                  {region.currency} {region.price.toLocaleString()}
                                 </span>
                               </div>
                             ))}
