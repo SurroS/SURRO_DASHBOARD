@@ -3,4 +3,6 @@ export { authService } from "./auth";
 export { adminService } from "./admin";
 export { userService } from "./user";
 export { kycService } from "./kyc";
+export { notificationService } from "./notifications";
 export * from "./types";
+export type { Notification, NotificationPreference, Reminder } from "./notifications";

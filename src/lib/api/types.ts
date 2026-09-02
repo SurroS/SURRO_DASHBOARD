@@ -160,6 +160,21 @@ export interface PaginatedResponse<T> {
   };
 }
 
+export interface SubscriptionPlanWithRegions extends SubscriptionPlan {
+  description?: string | null;
+  role?: string | null;
+  intervalCount?: number | null;
+  features?: PlanFeature[];
+  regions: PlanRegion[];
+}
+
+export interface PlanFeature {
+  id: string;
+  key: string;
+  label: string;
+  enabled: boolean;
+}
+
 export interface ApiError {
   statusCode: number;
   message: string | string[];

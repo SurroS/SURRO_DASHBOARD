@@ -1,8 +1,8 @@
 import apiClient from "./client";
-import type { User, KycDocument, PaginatedResponse, MessageResponse, SubscriptionPlan } from "./types";
+import type { User, KycDocument, PaginatedResponse, MessageResponse, SubscriptionPlan, SubscriptionPlanWithRegions } from "./types";
 
 export const adminService = {
-  getUsers: (params?: { page?: number; limit?: number }) =>
+  getUsers: (params?: { page?: number; limit?: number; isApproved?: boolean; role?: string }) =>
     apiClient.get<PaginatedResponse<User>>("/admin/users", { params }).then((r) => r.data),
 
   getUser: (id: string) =>
@@ -23,16 +23,23 @@ export const adminService = {
   rejectKyc: (id: string) =>
     apiClient.patch<MessageResponse>(`/admin/kyc/${id}/reject`).then((r) => r.data),
 
+  getSubscriptionPlans: () =>
+    apiClient.get<SubscriptionPlanWithRegions[]>("/admin/subscription-plans").then((r) => r.data),
+
   createSubscriptionPlan: (data: {
     name: string;
+    description?: string;
+    role?: string;
     interval: string;
+    intervalCount?: number;
     isActive: boolean;
-    productId?: string;
-    regions: { region: string; currency: string; price: number }[];
-  }) => apiClient.post<SubscriptionPlan>("/admin/subscription-plans", data).then((r) => r.data),
+    productId: string;
+    features?: { key: string; label: string; enabled: boolean }[];
+    regions: { region: string; currency: string; price: number; symbol?: string }[];
+  }) => apiClient.post<SubscriptionPlanWithRegions>("/admin/subscription-plans", data).then((r) => r.data),
 
-  updateSubscriptionPlan: (id: string, data: { name?: string; interval?: string; isActive?: boolean }) =>
-    apiClient.patch<SubscriptionPlan>(`/admin/subscription-plans/${id}`, data).then((r) => r.data),
+  updateSubscriptionPlan: (id: string, data: { name?: string; description?: string; role?: string; interval?: string; intervalCount?: number; isActive?: boolean }) =>
+    apiClient.patch<SubscriptionPlanWithRegions>(`/admin/subscription-plans/${id}`, data).then((r) => r.data),
 
   deleteSubscriptionPlan: (id: string) =>
     apiClient.delete<MessageResponse>(`/admin/subscription-plans/${id}`).then((r) => r.data),
