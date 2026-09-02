@@ -172,3 +172,64 @@ export function useUserActions(): UseUserActionsReturn {
 
   return { approveUser, rejectUser, deleteUser, bulkDeleteUsers, loading, error };
 }
+
+interface DashboardStats {
+  totalUsers: number;
+  surrogateCount: number;
+  intendedParentCount: number;
+  agentCount: number;
+  pendingApprovals: number;
+  loading: boolean;
+  error: string | null;
+}
+
+export function useDashboardStats(): DashboardStats {
+  const [stats, setStats] = useState<DashboardStats>({
+    totalUsers: 0,
+    surrogateCount: 0,
+    intendedParentCount: 0,
+    agentCount: 0,
+    pendingApprovals: 0,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [allUsers, surrogates, intendedParents, agents, pending] =
+          await Promise.all([
+            adminService.getUsers({ limit: 1 }),
+            adminService.getUsers({ role: "SURROGATE", limit: 1 }),
+            adminService.getUsers({ role: "INTENDED_PARENT", limit: 1 }),
+            adminService.getUsers({ role: "AGENT", limit: 1 }),
+            adminService.getUsers({ isApproved: false, limit: 1 }),
+          ]);
+
+        setStats({
+          totalUsers: allUsers.meta?.total || 0,
+          surrogateCount: surrogates.meta?.total || 0,
+          intendedParentCount: intendedParents.meta?.total || 0,
+          agentCount: agents.meta?.total || 0,
+          pendingApprovals: pending.meta?.total || 0,
+          loading: false,
+          error: null,
+        });
+      } catch (err: unknown) {
+        const message =
+          err && typeof err === "object" && "response" in err
+            ? (err as { response?: { data?: { message?: string } } }).response?.data?.message || "Failed to fetch stats"
+            : "Failed to fetch stats";
+        setStats((prev) => ({
+          ...prev,
+          loading: false,
+          error: typeof message === "string" ? message : "Failed to fetch stats",
+        }));
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  return stats;
+}
