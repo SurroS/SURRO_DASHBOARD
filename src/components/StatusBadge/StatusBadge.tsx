@@ -4,10 +4,9 @@ import { cn } from "@/lib/utils";
 interface StatusBadgeProps {
   status: "pending" | "active" | "expired" | "suspended" | "success";
   children: React.ReactNode;
-  className?: string;
 }
 
-export default function StatusBadge({ status, children, className }: StatusBadgeProps) {
+export default function StatusBadge({ status, children }: StatusBadgeProps) {
   const getStatusStyles = (status: string) => {
     switch (status) {
       case "success":
@@ -28,7 +27,7 @@ export default function StatusBadge({ status, children, className }: StatusBadge
   return (
     <Badge
       variant="secondary"
-      className={cn("border", getStatusStyles(status), className)}
+      className={cn("border", getStatusStyles(status))}
     >
       {children}
     </Badge>

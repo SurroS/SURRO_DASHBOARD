@@ -128,6 +128,8 @@ function ReferralsContent() {
     fullEmail: string;
     verified: boolean;
   } | null>(null);
+  const [_searchQuery, _setSearchQuery] = useState("");
+  const [_sortBy, _setSortBy] = useState("date");
   const [entriesPerPage, setEntriesPerPage] = useState("10");
 
   const metrics = [
@@ -279,9 +281,15 @@ function ReferralsContent() {
                   className="bg-background border-border shadow-lg z-50"
                   align="end"
                 >
-                  <DropdownMenuItem>Date Joined</DropdownMenuItem>
-                  <DropdownMenuItem>Name</DropdownMenuItem>
-                  <DropdownMenuItem>Status</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => _setSortBy("date")}>
+                    Date Joined
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => _setSortBy("name")}>
+                    Name
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => _setSortBy("status")}>
+                    Status
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
