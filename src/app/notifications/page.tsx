@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,16 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -31,8 +41,19 @@ import {
 } from "@/components/ui/select";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MainLayout from "@/layouts/MainLayout";
-import { notificationService } from "@/lib/api";
+import { notificationService, isBulkResult, getNotificationMessage, isNotificationRead } from "@/lib/api";
 import type { Notification } from "@/lib/api/notifications";
+import { useToast } from "@/components/ui/use-toast";
+
+function getErrorMessage(err: unknown, fallback: string): string {
+  if (err && typeof err === "object" && "response" in err) {
+    const message = (err as { response?: { data?: { message?: unknown } } })
+      .response?.data?.message;
+    if (typeof message === "string") return message;
+    if (Array.isArray(message)) return message.join(", ");
+  }
+  return fallback;
+}
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -46,72 +67,97 @@ export default function NotificationsPage() {
     role: "ALL",
   });
   const [sending, setSending] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const { toast } = useToast();
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const data = await notificationService.getAll();
       setNotifications(Array.isArray(data) ? data : []);
     } catch (err: unknown) {
-      const message =
-        err && typeof err === "object" && "response" in err
-          ? (err as { response?: { data?: { message?: string } } }).response?.data?.message || "Failed to load notifications"
-          : "Failed to load notifications";
-      setError(typeof message === "string" ? message : "Failed to load notifications");
+      setError(getErrorMessage(err, "Failed to load notifications"));
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchNotifications();
-  }, []);
+  }, [fetchNotifications]);
 
   const handleSendNotification = async () => {
     if (!sendData.title || !sendData.body) return;
     setSending(true);
     try {
-      await notificationService.create({
+      // Broadcasts must send an explicit role. Omitting `role` creates a
+      // personal notification for the current admin instead of a broadcast.
+      const result = await notificationService.create({
         title: sendData.title,
         body: sendData.body,
-        role: sendData.role === "ALL" ? undefined : sendData.role,
+        role: sendData.role,
       });
+      const targetRole = sendData.role;
       setShowSendDialog(false);
       setSendData({ title: "", body: "", role: "ALL" });
+      if (isBulkResult(result)) {
+        toast({
+          title: "Broadcast queued",
+          description: `${result.created} notification${result.created === 1 ? "" : "s"} created for ${targetRole}.`,
+        });
+      } else {
+        toast({
+          title: "Notification sent",
+          description: "Personal notification created.",
+        });
+      }
       fetchNotifications();
     } catch (err: unknown) {
-      const message =
-        err && typeof err === "object" && "response" in err
-          ? (err as { response?: { data?: { message?: string } } }).response?.data?.message || "Failed to send notification"
-          : "Failed to send notification";
-      alert(typeof message === "string" ? message : "Failed to send notification");
+      toast({
+        title: "Failed to send notification",
+        description: getErrorMessage(err, "Failed to send notification"),
+        variant: "destructive",
+      });
     } finally {
       setSending(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this notification?")) return;
+  // T2: delete confirmation uses AlertDialog (toast feedback), never the
+  // native blocking confirm().
+  const handleDelete = async () => {
+    if (!pendingDeleteId || deleting) return;
+    const id = pendingDeleteId;
+    setDeleting(true);
     try {
       await notificationService.delete(id);
       setNotifications((prev) => prev.filter((n) => n.id !== id));
+      setPendingDeleteId(null);
+      toast({ title: "Notification deleted" });
     } catch (err: unknown) {
-      const message =
-        err && typeof err === "object" && "response" in err
-          ? (err as { response?: { data?: { message?: string } } }).response?.data?.message || "Failed to delete notification"
-          : "Failed to delete notification";
-      alert(typeof message === "string" ? message : "Failed to delete notification");
+      toast({
+        title: "Failed to delete notification",
+        description: getErrorMessage(err, "Failed to delete notification"),
+        variant: "destructive",
+      });
+    } finally {
+      setDeleting(false);
     }
   };
 
-  const filteredNotifications = notifications.filter(
-    (n) =>
-      n.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      n.body.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const query = searchQuery.toLowerCase();
+  const filteredNotifications = notifications.filter((n) => {
+    const title = typeof n.title === "string" ? n.title : "";
+    const message = getNotificationMessage(n);
+    return (
+      title.toLowerCase().includes(query) ||
+      message.toLowerCase().includes(query)
+    );
+  });
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const unreadCount = notifications.filter((n) => !isNotificationRead(n)).length;
 
   return (
     <ProtectedRoute>
@@ -189,13 +235,15 @@ export default function NotificationsPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredNotifications.map((notification) => (
+                    {filteredNotifications.map((notification) => {
+                      const read = isNotificationRead(notification);
+                      return (
                       <TableRow
                         key={notification.id}
-                        className={!notification.read ? "bg-blue-50/50" : ""}
+                        className={!read ? "bg-blue-50/50" : ""}
                       >
                         <TableCell>
-                          {notification.read ? (
+                          {read ? (
                             <Eye className="h-4 w-4 text-muted-foreground" />
                           ) : (
                             <EyeOff className="h-4 w-4 text-blue-500" />
@@ -205,34 +253,36 @@ export default function NotificationsPage() {
                           {notification.title}
                         </TableCell>
                         <TableCell className="max-w-xs truncate">
-                          {notification.body}
+                          {getNotificationMessage(notification)}
                         </TableCell>
                         <TableCell>
                           {new Date(notification.createdAt).toLocaleDateString()}
                         </TableCell>
                         <TableCell>
                           <Badge
-                            variant={notification.read ? "secondary" : "default"}
+                            variant={read ? "secondary" : "default"}
                             className={
-                              notification.read
+                              read
                                 ? "bg-gray-100 text-gray-600"
                                 : "bg-blue-100 text-blue-800"
                             }
                           >
-                            {notification.read ? "Read" : "Unread"}
+                            {read ? "Read" : "Unread"}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => handleDelete(notification.id)}
+                            onClick={() => setPendingDeleteId(notification.id)}
+                            aria-label={`Delete ${notification.title}`}
                           >
                             <Trash2 className="h-4 w-4 text-red-500" />
                           </Button>
                         </TableCell>
                       </TableRow>
-                    ))}
+                      );
+                    })}
                   </TableBody>
                 </Table>
               )}
@@ -305,6 +355,32 @@ export default function NotificationsPage() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+
+          {/* T2: non-blocking delete confirmation. */}
+          <AlertDialog
+            open={pendingDeleteId !== null}
+            onOpenChange={(open) => {
+              if (!open && !deleting) setPendingDeleteId(null);
+            }}
+          >
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete notification?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This permanently removes the notification. This action
+                  cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={deleting}>
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete} disabled={deleting}>
+                  {deleting ? "Deleting..." : "Delete"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </MainLayout>
     </ProtectedRoute>
