@@ -1,10 +1,11 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Loader2, AlertCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
@@ -32,301 +33,356 @@ import {
 import ProtectedRoute from "@/components/ProtectedRoute";
 import RouteGuard from "@/components/RouteGuard";
 import MainLayout from "@/layouts/MainLayout";
+import { useAdminUsers, useUserActions } from "@/hooks/useAdminUsers";
+import { useToast } from "@/components/ui/use-toast";
+import type { User } from "@/lib/api/types";
 
-const userData = {
-  surrogate: [
-    {
-      id: "#6548",
-      created: "User name",
-      email: "email@gmail.com",
-      role: "Surrogate",
-      profit: "$154",
-      status: "Pending",
-    },
-    {
-      id: "#6549",
-      created: "Jane Smith",
-      email: "jane@gmail.com",
-      role: "Surrogate",
-      profit: "$200",
-      status: "Active",
-    },
-    {
-      id: "#6550",
-      created: "Mike Johnson",
-      email: "mike@gmail.com",
-      role: "Surrogate",
-      profit: "$175",
-      status: "Pending",
-    },
-    {
-      id: "#6551",
-      created: "Sarah Wilson",
-      email: "sarah@gmail.com",
-      role: "Surrogate",
-      profit: "$320",
-      status: "Active",
-    },
-    {
-      id: "#6552",
-      created: "David Brown",
-      email: "david@gmail.com",
-      role: "Surrogate",
-      profit: "$89",
-      status: "Inactive",
-    },
-  ],
-  parents: [
-    {
-      id: "#7001",
-      created: "Parent Name",
-      email: "parent@gmail.com",
-      role: "Parent",
-      profit: "$0",
-      status: "Active",
-    },
-    {
-      id: "#7002",
-      created: "John Parent",
-      email: "john.p@gmail.com",
-      role: "Parent",
-      profit: "$0",
-      status: "Active",
-    },
-    {
-      id: "#7003",
-      created: "Lisa Parent",
-      email: "lisa.p@gmail.com",
-      role: "Parent",
-      profit: "$0",
-      status: "Pending",
-    },
-  ],
-  clinics: [
-    {
-      id: "#8001",
-      created: "Clinic Name",
-      email: "clinic@gmail.com",
-      role: "Clinic",
-      profit: "$1500",
-      status: "Active",
-    },
-    {
-      id: "#8002",
-      created: "City Medical",
-      email: "city@gmail.com",
-      role: "Clinic",
-      profit: "$2200",
-      status: "Active",
-    },
-    {
-      id: "#8003",
-      created: "Health Center",
-      email: "health@gmail.com",
-      role: "Clinic",
-      profit: "$1800",
-      status: "Pending",
-    },
-  ],
-  agents: [
-    {
-      id: "#9001",
-      created: "Agent Name",
-      email: "agent@gmail.com",
-      role: "Agent",
-      profit: "$500",
-      status: "Active",
-    },
-    {
-      id: "#9002",
-      created: "Tom Agent",
-      email: "tom@gmail.com",
-      role: "Agent",
-      profit: "$600",
-      status: "Active",
-    },
-    {
-      id: "#9003",
-      created: "Emma Agent",
-      email: "emma@gmail.com",
-      role: "Agent",
-      profit: "$450",
-      status: "Pending",
-    },
-  ],
+const roleTabs = [
+  { value: "surrogate", label: "Surrogate", apiRole: "SURROGATE" },
+  { value: "parents", label: "Parents", apiRole: "INTENDED_PARENT" },
+  { value: "clinics", label: "Clinics", apiRole: "" },
+  { value: "agents", label: "Agents", apiRole: "AGENT" },
+];
+
+const getStatusBadgeClass = (user: User) => {
+  if (!user.isApproved) return "bg-orange-100 text-orange-800 border-orange-200";
+  if (user.isVerified) return "bg-green-100 text-green-800 border-green-200";
+  return "bg-gray-100 text-gray-800 border-gray-200";
 };
 
-const getStatusBadgeClass = (status: string) => {
-  switch (status.toLowerCase()) {
-    case "active":
-      return "bg-green-100 text-green-800 border-green-200";
-    case "pending":
-      return "bg-orange-100 text-orange-800 border-orange-200";
-    case "inactive":
-      return "bg-gray-100 text-gray-800 border-gray-200";
-    default:
-      return "bg-gray-100 text-gray-800 border-gray-200";
+const getStatusLabel = (user: User) => {
+  if (!user.isApproved) return "Pending";
+  if (user.isVerified) return "Active";
+  return "Inactive";
+};
+
+const getUserName = (user: User) => {
+  if (user.surrogateProfile?.firstName) {
+    return `${user.surrogateProfile.firstName} ${user.surrogateProfile.lastName || ""}`.trim();
   }
+  if (user.intendedParentProfile?.fullName) {
+    return user.intendedParentProfile.fullName;
+  }
+  if (user.agentProfile?.fullName) {
+    return user.agentProfile.fullName;
+  }
+  return user.email?.split("@")[0] || "Unknown";
 };
 
-const UserTable = ({ users }: { users: typeof userData.surrogate }) => (
+const UserTable = ({
+  users,
+  loading,
+  error,
+  selectedIds,
+  onToggleSelect,
+  onToggleAll,
+  allSelected,
+  onApprove,
+  onReject,
+  onDelete,
+}: {
+  users: User[];
+  loading: boolean;
+  error: string | null;
+  selectedIds: Set<string>;
+  onToggleSelect: (id: string) => void;
+  onToggleAll: () => void;
+  allSelected: boolean;
+  onApprove: (id: string) => void;
+  onReject: (id: string) => void;
+  onDelete: (id: string) => void;
+}) => (
   <Card>
     <CardContent className="p-0">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-12">
-              <Checkbox />
-            </TableHead>
-            <TableHead>Order Id</TableHead>
-            <TableHead>Created</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead>Profit</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="w-12"></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {users.map((user, index) => (
-            <TableRow key={index}>
-              <TableCell>
-                <Checkbox />
-              </TableCell>
-              <TableCell className="font-medium">{user.id}</TableCell>
-              <TableCell>{user.created}</TableCell>
-              <TableCell>
-                <span className="text-primary hover:underline cursor-pointer">
-                  {user.email}
-                </span>
-              </TableCell>
-              <TableCell>{user.role}</TableCell>
-              <TableCell>{user.profit}</TableCell>
-              <TableCell>
-                <Badge
-                  variant="secondary"
-                  className={getStatusBadgeClass(user.status)}
-                >
-                  {user.status}
-                </Badge>
-              </TableCell>
-              <TableCell>
-                <Button variant="ghost" size="icon">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </TableCell>
+      {loading ? (
+        <div className="flex items-center justify-center p-12">
+          <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          <span className="ml-2 text-muted-foreground">Loading users...</span>
+        </div>
+      ) : error ? (
+        <div className="flex items-center justify-center p-12">
+          <AlertCircle className="h-6 w-6 text-red-500" />
+          <span className="ml-2 text-red-500">{error}</span>
+        </div>
+      ) : users.length === 0 ? (
+        <div className="flex items-center justify-center p-12">
+          <span className="text-muted-foreground">No users found</span>
+        </div>
+      ) : (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-12">
+                <Checkbox
+                  checked={allSelected}
+                  onCheckedChange={onToggleAll}
+                />
+              </TableHead>
+              <TableHead>User</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>KYC</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="w-12"></TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>
+                  <Checkbox
+                    checked={selectedIds.has(user.id)}
+                    onCheckedChange={() => onToggleSelect(user.id)}
+                  />
+                </TableCell>
+                <TableCell className="font-medium">
+                  {getUserName(user)}
+                </TableCell>
+                <TableCell>
+                  <span className="text-primary hover:underline cursor-pointer">
+                    {user.email || "N/A"}
+                  </span>
+                </TableCell>
+                <TableCell>{user.role.replace("_", " ")}</TableCell>
+                <TableCell>
+                  <Badge
+                    variant="secondary"
+                    className={
+                      user.kycStatus === "APPROVED"
+                        ? "bg-green-100 text-green-800 border-green-200"
+                        : user.kycStatus === "PENDING"
+                        ? "bg-orange-100 text-orange-800 border-orange-200"
+                        : "bg-gray-100 text-gray-800 border-gray-200"
+                    }
+                  >
+                    {user.kycStatus}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant="secondary"
+                    className={getStatusBadgeClass(user)}
+                  >
+                    {getStatusLabel(user)}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-1">
+                    {!user.isApproved && (
+                      <>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="h-8 w-8 p-0 text-green-600 hover:text-green-700"
+                          onClick={() => onApprove(user.id)}
+                        >
+                          ✓
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="h-8 w-8 p-0 text-red-600 hover:text-red-700"
+                          onClick={() => onReject(user.id)}
+                        >
+                          ✕
+                        </Button>
+                      </>
+                    )}
+                    <Button variant="ghost" size="icon">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </CardContent>
   </Card>
 );
 
 function UserManagementContent() {
+  const [activeTab, setActiveTab] = useState("surrogate");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const { toast } = useToast();
+
+  const currentTab = roleTabs.find((t) => t.value === activeTab);
+  const apiRole = currentTab?.apiRole || "";
+
+  const { users, total, totalPages, loading, error, refetch } = useAdminUsers({
+    page,
+    limit,
+    role: apiRole || undefined,
+  });
+
+  const { approveUser, rejectUser, deleteUser } = useUserActions();
+
+  useEffect(() => {
+    setPage(1);
+    setSelectedIds(new Set());
+  }, [activeTab]);
+
+  const handleToggleSelect = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
+
+  const handleToggleAll = useCallback(() => {
+    if (selectedIds.size === users.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(users.map((u) => u.id)));
+    }
+  }, [selectedIds.size, users]);
+
+  const handleApprove = async (id: string) => {
+    const success = await approveUser(id);
+    if (success) {
+      toast({ title: "User Approved", description: "User has been approved" });
+      refetch();
+    }
+  };
+
+  const handleReject = async (id: string) => {
+    const success = await rejectUser(id);
+    if (success) {
+      toast({ title: "User Rejected", description: "User has been rejected" });
+      refetch();
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    const success = await deleteUser(id);
+    if (success) {
+      toast({ title: "User Deleted", description: "User has been deleted" });
+      refetch();
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold mb-1">User Management</h1>
       </div>
 
-      <Tabs defaultValue="surrogate" className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-fit grid-cols-4 bg-transparent p-0 h-auto gap-6">
-          <TabsTrigger
-            value="surrogate"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:bg-transparent data-[state=inactive]:text-muted-foreground data-[state=inactive]:shadow-none border-0 rounded-md px-4 py-2"
-          >
-            Surrogate
-          </TabsTrigger>
-          <TabsTrigger
-            value="parents"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:bg-transparent data-[state=inactive]:text-muted-foreground data-[state=inactive]:shadow-none border-0 rounded-md px-4 py-2"
-          >
-            Parents
-          </TabsTrigger>
-          <TabsTrigger
-            value="clinics"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:bg-transparent data-[state=inactive]:text-muted-foreground data-[state=inactive]:shadow-none border-0 rounded-md px-4 py-2"
-          >
-            Clinics
-          </TabsTrigger>
-          <TabsTrigger
-            value="agents"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:bg-transparent data-[state=inactive]:text-muted-foreground data-[state=inactive]:shadow-none border-0 rounded-md px-4 py-2"
-          >
-            Agents
-          </TabsTrigger>
+          {roleTabs.map((tab) => (
+            <TabsTrigger
+              key={tab.value}
+              value={tab.value}
+              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:bg-transparent data-[state=inactive]:text-muted-foreground data-[state=inactive]:shadow-none border-0 rounded-md px-4 py-2"
+            >
+              {tab.label}
+            </TabsTrigger>
+          ))}
         </TabsList>
 
-        <TabsContent value="surrogate" className="mt-6">
-          <UserTable users={userData.surrogate} />
-        </TabsContent>
+        {roleTabs.map((tab) => (
+          <TabsContent key={tab.value} value={tab.value} className="mt-6">
+            {tab.value === "clinics" ? (
+              <Card>
+                <CardContent className="p-12">
+                  <div className="text-center text-muted-foreground">
+                    Clinic management coming soon
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <UserTable
+                users={users}
+                loading={loading}
+                error={error}
+                selectedIds={selectedIds}
+                onToggleSelect={handleToggleSelect}
+                onToggleAll={handleToggleAll}
+                allSelected={users.length > 0 && selectedIds.size === users.length}
+                onApprove={handleApprove}
+                onReject={handleReject}
+                onDelete={handleDelete}
+              />
+            )}
+          </TabsContent>
+        ))}
 
-        <TabsContent value="parents" className="mt-6">
-          <UserTable users={userData.parents} />
-        </TabsContent>
+        {activeTab !== "clinics" && (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Showing</span>
+              <Select
+                value={String(limit)}
+                onValueChange={(v) => {
+                  setLimit(Number(v));
+                  setPage(1);
+                }}
+              >
+                <SelectTrigger className="h-8 w-16">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                </SelectContent>
+              </Select>
+              <span>of {total}</span>
+            </div>
 
-        <TabsContent value="clinics" className="mt-6">
-          <UserTable users={userData.clinics} />
-        </TabsContent>
-
-        <TabsContent value="agents" className="mt-6">
-          <UserTable users={userData.agents} />
-        </TabsContent>
-
-        {/* Pagination */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>Showing</span>
-            <Select defaultValue="10">
-              <SelectTrigger className="h-8 w-16">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="20">20</SelectItem>
-                <SelectItem value="50">50</SelectItem>
-              </SelectContent>
-            </Select>
-            <span>of 50</span>
+            {totalPages > 1 && (
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      size="sm"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (page > 1) setPage(page - 1);
+                      }}
+                    />
+                  </PaginationItem>
+                  {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map(
+                    (p) => (
+                      <PaginationItem key={p}>
+                        <PaginationLink
+                          href="#"
+                          isActive={p === page}
+                          size="sm"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setPage(p);
+                          }}
+                        >
+                          {p}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )
+                  )}
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      size="sm"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (page < totalPages) setPage(page + 1);
+                      }}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )}
           </div>
-
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" size="sm" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive size="sm">
-                  1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" size="sm">
-                  2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" size="sm">
-                  3
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" size="sm">
-                  4
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" size="sm">
-                  5
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" size="sm" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </div>
+        )}
       </Tabs>
     </div>
   );

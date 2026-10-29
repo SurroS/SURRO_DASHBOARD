@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Search, Filter, MoreHorizontal, X } from "lucide-react";
+import { Search, Filter, MoreHorizontal, X, Loader2, AlertCircle } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -30,6 +30,8 @@ import {
 import StatusBadge from "@/components/StatusBadge/StatusBadge";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MainLayout from "@/layouts/MainLayout";
+import { adminService } from "@/lib/api";
+import type { SubscriptionPlanWithRegions } from "@/lib/api/types";
 
 const paymentHistory = [
   {
@@ -105,48 +107,37 @@ const paymentHistory = [
 
 function SubscriptionsContent() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [selectedPayment, setSelectedPayment] = useState<{
-    id: string;
-    currentPlan: string;
-    dueDate: string;
-    time: string;
-    amountBilled: string;
-    status: string;
-    billingInfo: {
-      subscriptionType: string;
-      paymentMethod: string;
-      subscriptionDate: string;
-      amountPaid: string;
-      name: string;
-      email: string;
-      address: string;
-    };
-  } | null>(null);
+  const [selectedPayment, setSelectedPayment] = useState<(typeof paymentHistory)[0] | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [plans, setPlans] = useState<SubscriptionPlanWithRegions[]>([]);
+  const [plansLoading, setPlansLoading] = useState(true);
+  const [plansError, setPlansError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      setPlansLoading(true);
+      setPlansError(null);
+      try {
+        const data = await adminService.getSubscriptionPlans();
+        setPlans(Array.isArray(data) ? data : []);
+      } catch (err: unknown) {
+        const message =
+          err && typeof err === "object" && "response" in err
+            ? (err as { response?: { data?: { message?: string } } }).response?.data?.message || "Failed to load plans"
+            : "Failed to load plans";
+        setPlansError(typeof message === "string" ? message : "Failed to load plans");
+      } finally {
+        setPlansLoading(false);
+      }
+    };
+    fetchPlans();
+  }, []);
 
   const subscriptionStats = [
-    { label: "Total subscription", value: "1,250" },
-    { label: "Active", value: "1,000" },
-    { label: "Expired", value: "200" },
-    { label: "Suspended", value: "50" },
-  ];
-
-  const subscriptionPlans = [
-    {
-      type: "Standard",
-      price: "₦200,000",
-      users: "25 of 750 users",
-    },
-    {
-      type: "Standard",
-      price: "₦200,000",
-      users: "25 of 750 users",
-    },
-    {
-      type: "Standard",
-      price: "₦200,000",
-      users: "25 of 750 users",
-    },
+    { label: "Total plans", value: String(plans.length) },
+    { label: "Active", value: String(plans.filter((p) => p.isActive).length) },
+    { label: "Inactive", value: String(plans.filter((p) => !p.isActive).length) },
+    { label: "Total regions", value: String(plans.reduce((acc, p) => acc + (p.regions?.length || 0), 0)) },
   ];
 
   const getStatusVariant = (status: string) => {
@@ -215,28 +206,61 @@ function SubscriptionsContent() {
           </div>
 
           {/* Subscription Plans */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {subscriptionPlans.map((plan, index) => (
-              <Card key={index} className="p-6">
-                <CardContent className="p-0">
-                  <div className="space-y-4">
-                    <Badge
-                      variant="secondary"
-                      className="bg-primary text-primary-foreground"
-                    >
-                      {plan.type}
-                    </Badge>
-                    <div>
-                      <p className="text-3xl font-bold">{plan.price}</p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        {plan.users}
-                      </p>
+          {plansLoading ? (
+            <div className="flex items-center justify-center p-12">
+              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              <span className="ml-2 text-muted-foreground">Loading plans...</span>
+            </div>
+          ) : plansError ? (
+            <div className="flex items-center justify-center p-12">
+              <AlertCircle className="h-6 w-6 text-red-500" />
+              <span className="ml-2 text-red-500">{plansError}</span>
+            </div>
+          ) : plans.length === 0 ? (
+            <div className="flex items-center justify-center p-12">
+              <span className="text-muted-foreground">No subscription plans found</span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {plans.map((plan) => (
+                <Card key={plan.id} className="p-6">
+                  <CardContent className="p-0">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <Badge
+                          variant="secondary"
+                          className="bg-primary text-primary-foreground"
+                        >
+                          {plan.name}
+                        </Badge>
+                        <Badge
+                          variant={plan.isActive ? "default" : "secondary"}
+                          className={plan.isActive ? "bg-green-100 text-green-800" : ""}
+                        >
+                          {plan.isActive ? "Active" : "Inactive"}
+                        </Badge>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">{plan.interval}</p>
+                        {plan.regions && plan.regions.length > 0 && (
+                          <div className="mt-2 space-y-1">
+                            {plan.regions.map((region) => (
+                              <div key={region.id} className="flex justify-between text-sm">
+                                <span className="text-muted-foreground">{region.region}</span>
+                                <span className="font-medium">
+                                  {region.currency} {region.price.toLocaleString()}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </>
       )}
 
@@ -280,7 +304,6 @@ function SubscriptionsContent() {
                     <TableHead>Current plan</TableHead>
                     <TableHead>Due date</TableHead>
                     <TableHead>Amount billed</TableHead>
-                    <TableHead>Due date</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Action</TableHead>
                     <TableHead className="w-12"></TableHead>
@@ -304,7 +327,6 @@ function SubscriptionsContent() {
                         </div>
                       </TableCell>
                       <TableCell>{payment.amountBilled}</TableCell>
-                      <TableCell>{payment.dueDate}</TableCell>
                       <TableCell>
                         <StatusBadge
                           status={

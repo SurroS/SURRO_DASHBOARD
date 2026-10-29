@@ -9,18 +9,10 @@ import {
   Ticket,
   CheckCircle,
   TrendingUp,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-
-const adminStats = {
-  totalUsers: 1250,
-  pendingApprovals: 8,
-  openTickets: 23,
-  totalRevenue: 125000,
-  userGrowth: 12.5,
-  systemHealth: "Good",
-  auditLogs: 1250,
-  activeReferrals: 45,
-};
+import { useDashboardStats } from "@/hooks/useAdminUsers";
 
 const recentActivities = [
   {
@@ -63,6 +55,26 @@ const getStatusBadgeClass = (status: string) => {
 };
 
 export default function GeneralAdminDashboard() {
+  const stats = useDashboardStats();
+
+  if (stats.loading) {
+    return (
+      <div className="flex items-center justify-center p-12">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        <span className="ml-2 text-muted-foreground">Loading dashboard...</span>
+      </div>
+    );
+  }
+
+  if (stats.error) {
+    return (
+      <div className="flex items-center justify-center p-12">
+        <AlertCircle className="h-6 w-6 text-red-500" />
+        <span className="ml-2 text-red-500">{stats.error}</span>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -81,10 +93,10 @@ export default function GeneralAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {adminStats.totalUsers.toLocaleString()}
+              {stats.totalUsers.toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
-              +{adminStats.userGrowth}% from last month
+              {stats.surrogateCount} surrogates, {stats.intendedParentCount} parents
             </p>
           </CardContent>
         </Card>
@@ -98,7 +110,7 @@ export default function GeneralAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {adminStats.pendingApprovals}
+              {stats.pendingApprovals}
             </div>
             <p className="text-xs text-muted-foreground">Requires attention</p>
           </CardContent>
@@ -106,27 +118,25 @@ export default function GeneralAdminDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Open Tickets</CardTitle>
-            <Ticket className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Agents</CardTitle>
+            <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{adminStats.openTickets}</div>
-            <p className="text-xs text-muted-foreground">+3 from yesterday</p>
+            <div className="text-2xl font-bold">{stats.agentCount}</div>
+            <p className="text-xs text-muted-foreground">Active agents</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">Intended Parents</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              ${adminStats.totalRevenue.toLocaleString()}
+              {stats.intendedParentCount.toLocaleString()}
             </div>
-            <p className="text-xs text-muted-foreground">
-              +8.2% from last month
-            </p>
+            <p className="text-xs text-muted-foreground">Registered parents</p>
           </CardContent>
         </Card>
       </div>
@@ -144,7 +154,7 @@ export default function GeneralAdminDashboard() {
                 <div>
                   <p className="font-medium">Pending Approvals</p>
                   <p className="text-sm text-gray-600">
-                    {adminStats.pendingApprovals} accounts
+                    {stats.pendingApprovals} accounts
                   </p>
                 </div>
               </div>
@@ -153,11 +163,11 @@ export default function GeneralAdminDashboard() {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Ticket className="h-5 w-5 text-blue-600" />
+                <Users className="h-5 w-5 text-blue-600" />
                 <div>
-                  <p className="font-medium">Support Tickets</p>
+                  <p className="font-medium">User Management</p>
                   <p className="text-sm text-gray-600">
-                    {adminStats.openTickets} open tickets
+                    {stats.totalUsers.toLocaleString()} total users
                   </p>
                 </div>
               </div>
@@ -189,19 +199,19 @@ export default function GeneralAdminDashboard() {
             <div className="flex justify-between items-center">
               <span className="text-sm font-medium">System Health</span>
               <Badge className="bg-green-100 text-green-800 border-green-200">
-                {adminStats.systemHealth}
+                Good
               </Badge>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium">Active Referrals</span>
+              <span className="text-sm font-medium">Surrogates</span>
               <span className="text-lg font-bold">
-                {adminStats.activeReferrals}
+                {stats.surrogateCount}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium">Audit Logs</span>
+              <span className="text-sm font-medium">Agents</span>
               <span className="text-lg font-bold">
-                {adminStats.auditLogs.toLocaleString()}
+                {stats.agentCount}
               </span>
             </div>
           </CardContent>
