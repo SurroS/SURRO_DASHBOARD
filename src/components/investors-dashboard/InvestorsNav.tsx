@@ -16,7 +16,7 @@ export default function InvestorsNav({
   currentPage,
 }: InvestorsNavProps) {
   const router = useRouter();
-  const [selectedPeriod, _setSelectedPeriod] = useState("Monthly");
+  const selectedPeriod = "Monthly";
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
