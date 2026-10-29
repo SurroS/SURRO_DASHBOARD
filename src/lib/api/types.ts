@@ -3,14 +3,34 @@ export enum UserRole {
   INTENDED_PARENT = "INTENDED_PARENT",
   AGENT = "AGENT",
   ADMIN = "ADMIN",
+  CLINIC = "CLINIC",
 }
+
+// Admin dashboard sub-roles (8 roles used by RBAC).
+// Server returns platform `role: "ADMIN"` plus `adminRole: "super_admin"` etc.
+// Null for non-admin users. Values are lowercase to match the API contract.
+export type AdminRole =
+  | "super_admin"
+  | "general_admin"
+  | "compliance_admin"
+  | "support_admin"
+  | "finance_admin"
+  | "security_admin"
+  | "investor_admin"
+  | "marketing_admin";
 
 export interface User {
   id: string;
   email: string | null;
   role: UserRole;
+  adminRole?: AdminRole | null;
+  name?: string | null;
+  phone?: string | null;
+  address?: string | null;
   isVerified: boolean;
   isApproved: boolean;
+  isOnline?: boolean;
+  lastSeen?: string | null;
   profilePictureUrl?: string | null;
   kycStatus: KycStatus;
   referralCode: string;
@@ -139,6 +159,7 @@ export interface PlanRegion {
   region: string;
   currency: string;
   price: number;
+  symbol?: string | null;
 }
 
 export interface AuthResponse {
@@ -160,6 +181,28 @@ export interface PaginatedResponse<T> {
   };
 }
 
+// Server GET /admin/users returns top-level totals, not `meta`:
+// `{ data, users?, total, page, limit, totalPages }`.
+// This type models the wire shape; use `normalizePaginatedResponse` to
+// convert either shape into `PaginatedResponse<T>`.
+export interface AdminUsersResponse<T> {
+  data: T[];
+  users?: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+// Distinct admin identity: platform user + validated dashboard sub-role.
+export interface AdminUser {
+  id: string;
+  email: string;
+  name: string;
+  role: AdminRole;
+  permissions: string[];
+}
+
 export interface SubscriptionPlanWithRegions extends SubscriptionPlan {
   description?: string | null;
   role?: string | null;
@@ -169,7 +212,9 @@ export interface SubscriptionPlanWithRegions extends SubscriptionPlan {
 }
 
 export interface PlanFeature {
-  id: string;
+  // F08/F14: the server returns JSON features `{key,label,enabled}` with no
+  // guaranteed `id` — key on `key`, fall back to `id` only when present.
+  id?: string;
   key: string;
   label: string;
   enabled: boolean;
