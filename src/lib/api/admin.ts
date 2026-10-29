@@ -1,0 +1,75 @@
+import apiClient from "./client";
+import type { User, KycDocument, PaginatedResponse, AdminUsersResponse, MessageResponse, SubscriptionPlan, SubscriptionPlanWithRegions } from "./types";
+
+/**
+ * Normalize GET /admin/users responses into PaginatedResponse<T>.
+ * Server returns top-level `{ data, users?, total, page, limit, totalPages }`;
+ * older mocks/clients use `{ data, meta: {...} }`.
+ */
+export function normalizePaginatedResponse<T>(
+  raw: PaginatedResponse<T> | AdminUsersResponse<T>
+): PaginatedResponse<T> {
+  if (raw && typeof raw === "object" && "meta" in raw && raw.meta) {
+    return raw as PaginatedResponse<T>;
+  }
+  const wire = raw as AdminUsersResponse<T>;
+  const data = Array.isArray(wire.data)
+    ? wire.data
+    : Array.isArray(wire.users)
+      ? wire.users
+      : [];
+  const total = typeof wire.total === "number" ? wire.total : data.length;
+  const page = typeof wire.page === "number" ? wire.page : 1;
+  const limit = typeof wire.limit === "number" ? wire.limit : data.length || 20;
+  const totalPages =
+    typeof wire.totalPages === "number"
+      ? wire.totalPages
+      : Math.max(1, Math.ceil(total / Math.max(1, limit)));
+  return { data, meta: { total, page, limit, totalPages } };
+}
+
+export const adminService = {
+  getUsers: (params?: { page?: number; limit?: number; isApproved?: boolean; isVerified?: boolean; role?: string }) =>
+    apiClient
+      .get<PaginatedResponse<User> | AdminUsersResponse<User>>("/admin/users", { params })
+      .then((r) => normalizePaginatedResponse<User>(r.data)),
+
+  getUser: (id: string) =>
+    apiClient.get<User>(`/admin/users/${id}`).then((r) => r.data),
+
+  approveUser: (id: string) =>
+    apiClient.patch<MessageResponse>(`/admin/users/${id}/approve`).then((r) => r.data),
+
+  rejectUser: (id: string) =>
+    apiClient.patch<MessageResponse>(`/admin/users/${id}/reject`).then((r) => r.data),
+
+  getKycDocuments: () =>
+    apiClient.get<KycDocument[]>("/admin/kyc").then((r) => r.data),
+
+  approveKyc: (id: string) =>
+    apiClient.patch<MessageResponse>(`/admin/kyc/${id}/approve`).then((r) => r.data),
+
+  rejectKyc: (id: string) =>
+    apiClient.patch<MessageResponse>(`/admin/kyc/${id}/reject`).then((r) => r.data),
+
+  getSubscriptionPlans: () =>
+    apiClient.get<SubscriptionPlanWithRegions[]>("/admin/subscription-plans").then((r) => r.data),
+
+  createSubscriptionPlan: (data: {
+    name: string;
+    description?: string;
+    role?: string;
+    interval: string;
+    intervalCount?: number;
+    isActive: boolean;
+    productId: string;
+    features?: { key: string; label: string; enabled: boolean }[];
+    regions: { region: string; currency: string; price: number; symbol?: string }[];
+  }) => apiClient.post<SubscriptionPlanWithRegions>("/admin/subscription-plans", data).then((r) => r.data),
+
+  updateSubscriptionPlan: (id: string, data: { name?: string; description?: string; role?: string; interval?: string; intervalCount?: number; isActive?: boolean }) =>
+    apiClient.patch<SubscriptionPlanWithRegions>(`/admin/subscription-plans/${id}`, data).then((r) => r.data),
+
+  deleteSubscriptionPlan: (id: string) =>
+    apiClient.delete<MessageResponse>(`/admin/subscription-plans/${id}`).then((r) => r.data),
+};

@@ -13,7 +13,8 @@ import {
   AdminRole,
   Permission,
 } from "./permissions";
-import { apiClient } from "./apiClient";
+import { authService } from "./api/auth";
+import type { User as ApiUser } from "./api/types";
 
 interface User {
   id: string;
@@ -25,20 +26,27 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (
-    email: string,
-    password: string,
-    role?: AdminRole
-  ) => Promise<boolean>;
-  logout: () => Promise<void>;
+  login: (email: string, password: string, role?: AdminRole) => Promise<boolean>;
+  adminLogin: (email: string, password: string) => Promise<boolean>;
+  adminRegister: (email: string, password: string, inviteCode: string) => Promise<boolean>;
+  logout: () => void;
   isLoading: boolean;
   getUserRole: () => AdminRole | null;
   hasPermission: (permission: string) => boolean;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
-);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+function mapApiUserToUser(apiUser: ApiUser): User {
+  const email = apiUser.email || "unknown@surro.com";
+  return {
+    id: apiUser.id,
+    email,
+    name: email.split("@")[0],
+    role: "general_admin",
+    permissions: [],
+  };
+}
 
 export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   children,
@@ -47,51 +55,66 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // Call the proxy endpoint to check auth and get user details
-        const response = await apiClient.get<{
-          authenticated: boolean;
-          user?: User;
-        }>("/auth/me");
-
-        if (response.authenticated && response.user) {
-          setUser(response.user);
-        } else {
-          setUser(null);
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      const userData = localStorage.getItem("userData");
+      if (userData) {
+        try {
+          setUser(JSON.parse(userData));
+        } catch {
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("userData");
         }
-      } catch (error) {
-        console.error("Auth check failed:", error);
-        setUser(null);
-      } finally {
-        setIsLoading(false);
       }
-    };
-
-    checkAuth();
+    }
+    setIsLoading(false);
   }, []);
 
   const login = async (
     email: string,
+    password: string,
+  ): Promise<boolean> => {
+    try {
+      const response = await authService.login({ email, password });
+      const userData = mapApiUserToUser(response.user);
+      localStorage.setItem("authToken", response.accessToken);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUser(userData);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const adminLogin = async (
+    email: string,
     password: string
   ): Promise<boolean> => {
     try {
-      // Use the new proxy login route
-      // Role param is ignored as role is determined by backend
-      const response = await apiClient.post<{
-        success: boolean;
-        user: User;
-      }>("/auth/login", {
-        body: { email, password },
-      });
-
-      if (response.success && response.user) {
-        setUser(response.user);
-        return true;
-      }
+      const response = await authService.adminLogin({ email, password });
+      const userData = mapApiUserToUser(response.user);
+      localStorage.setItem("authToken", response.accessToken);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUser(userData);
+      return true;
+    } catch {
       return false;
-    } catch (error) {
-      console.error("Login error:", error);
+    }
+  };
+
+  const adminRegister = async (
+    email: string,
+    password: string,
+    inviteCode: string
+  ): Promise<boolean> => {
+    try {
+      const response = await authService.adminRegister({ email, password, inviteCode });
+      const userData = mapApiUserToUser(response.user);
+      localStorage.setItem("authToken", response.accessToken);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUser(userData);
+      return true;
+    } catch {
       return false;
     }
   };
@@ -105,21 +128,26 @@ export const AuthProvider: FunctionComponent<{ children: ReactNode }> = ({
     return checkPermission(user.role, permission as Permission);
   };
 
-  const logout = async () => {
-    try {
-      await apiClient.post("/auth/logout");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-    setUser(null);
-    // Clear legacy localStorage items just in case
+  const logout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userData");
+    setUser(null);
   };
 
   return React.createElement(
     AuthContext.Provider,
-    { value: { user, login, logout, isLoading, getUserRole, hasPermission } },
+    {
+      value: {
+        user,
+        login,
+        adminLogin,
+        adminRegister,
+        logout,
+        isLoading,
+        getUserRole,
+        hasPermission,
+      },
+    },
     children
   );
 };

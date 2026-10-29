@@ -37,7 +37,6 @@ export default function LoginPage() {
       }
 
       const success = await login(email, password);
-
       if (success) {
         toast({ title: "Login Successful", description: "Welcome back!" });
         router.push("/dashboard");
@@ -49,7 +48,7 @@ export default function LoginPage() {
           variant: "destructive",
         });
       }
-    } catch {
+    } catch (_err) {
       setError("An error occurred during login");
       toast({
         title: "Login Failed",
@@ -112,7 +111,10 @@ export default function LoginPage() {
             />
             <span>Remember me</span>
           </label>
-          <a href="#" className="text-sm text-primary hover:underline">
+          <a
+            href="/forgot-password"
+            className="text-sm text-primary hover:underline"
+          >
             Forgot password?
           </a>
         </div>
@@ -134,7 +136,7 @@ export default function LoginPage() {
         <p className="text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
           <a
-            href="/admin/signup"
+            href="/signup"
             className="text-primary hover:underline font-medium"
           >
             Sign Up

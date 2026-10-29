@@ -11,84 +11,59 @@ import {
   Shield,
   TrendingUp,
   AlertTriangle,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAnalyticsOverview, useActivityFeed } from "@/hooks/useAnalytics";
 
-const superAdminStats = {
-  totalUsers: 1250,
-  totalEmployees: 45,
-  systemHealth: "Excellent",
-  totalRevenue: 125000,
-  activeTickets: 23,
-  auditLogs: 1250,
-  securityAlerts: 3,
-  systemUptime: 99.9,
-};
-
-const systemMetrics = [
-  {
-    category: "Users",
-    total: 1250,
-    active: 1180,
-    suspended: 15,
-    flagged: 8,
-  },
-  {
-    category: "Employees",
-    total: 45,
-    active: 42,
-    suspended: 1,
-    flagged: 2,
-  },
-  {
-    category: "Revenue",
-    monthly: 15000,
-    yearly: 125000,
-    growth: 12.5,
-    transactions: 245,
-  },
-];
-
-const recentSystemEvents = [
-  {
-    id: "#EVT001",
-    type: "Security",
-    event: "Employee Account Flagged",
-    user: "john.employee@company.com",
-    timestamp: "2 hours ago",
-    severity: "High",
-  },
-  {
-    id: "#EVT002",
-    type: "User",
-    event: "Bulk User Suspension",
-    user: "System Admin",
-    timestamp: "4 hours ago",
-    severity: "Medium",
-  },
-  {
-    id: "#EVT003",
-    type: "System",
-    event: "Database Backup Completed",
-    user: "System",
-    timestamp: "6 hours ago",
-    severity: "Low",
-  },
-];
-
-const getSeverityBadgeClass = (severity: string) => {
-  switch (severity.toLowerCase()) {
-    case "high":
-      return "bg-red-100 text-red-800 border-red-200";
-    case "medium":
-      return "bg-orange-100 text-orange-800 border-orange-200";
-    case "low":
+const getTypeBadgeClass = (type: string) => {
+  switch (type) {
+    case "PAYMENT":
+    case "SUBSCRIPTION":
       return "bg-green-100 text-green-800 border-green-200";
+    case "KYC":
+      return "bg-blue-100 text-blue-800 border-blue-200";
     default:
       return "bg-gray-100 text-gray-800 border-gray-200";
   }
 };
 
+function formatTimestamp(value: string): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString();
+}
+
 export default function SuperAdminDashboard() {
+  const router = useRouter();
+  const { overview, loading, error } = useAnalyticsOverview();
+  const {
+    activities,
+    loading: activitiesLoading,
+    error: activitiesError,
+  } = useActivityFeed(10);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-12">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        <span className="ml-2 text-muted-foreground">Loading dashboard...</span>
+      </div>
+    );
+  }
+
+  if (error || !overview) {
+    return (
+      <div className="flex items-center justify-center p-12">
+        <AlertCircle className="h-6 w-6 text-red-500" />
+        <span className="ml-2 text-red-500">
+          {error ?? "Failed to load dashboard"}
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
@@ -110,9 +85,27 @@ export default function SuperAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {superAdminStats.totalUsers.toLocaleString()}
+              {overview.totalUsers.toLocaleString()}
             </div>
-            <p className="text-xs text-muted-foreground">+25 new this week</p>
+            <p className="text-xs text-muted-foreground">
+              {overview.userGrowthPercent >= 0 ? "+" : ""}
+              {overview.userGrowthPercent}% growth
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Surrogates</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {overview.totalSurrogates.toLocaleString()}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Registered surrogate users
+            </p>
           </CardContent>
         </Card>
 
@@ -123,10 +116,10 @@ export default function SuperAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {superAdminStats.systemHealth}
+              {overview.systemHealth}
             </div>
             <p className="text-xs text-muted-foreground">
-              {superAdminStats.systemUptime}% uptime
+              {overview.totalEmployees} employees on platform
             </p>
           </CardContent>
         </Card>
@@ -138,25 +131,21 @@ export default function SuperAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              ${superAdminStats.totalRevenue.toLocaleString()}
+              ${overview.totalRevenue.toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
-              +8.2% from last month
+              {overview.pendingApprovals} pending approvals
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Security Alerts
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Open Tickets</CardTitle>
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {superAdminStats.securityAlerts}
-            </div>
+            <div className="text-2xl font-bold">{overview.openTickets}</div>
             <p className="text-xs text-muted-foreground">Requires attention</p>
           </CardContent>
         </Card>
@@ -169,30 +158,44 @@ export default function SuperAdminDashboard() {
             <CardTitle>System Metrics</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {systemMetrics.map((metric, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">{metric.category}</span>
-                  <span className="text-sm text-gray-600">
-                    Total: {metric.total}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="font-medium">Users</span>
+                <span className="text-sm text-gray-600">
+                  Total: {overview.totalUsers.toLocaleString()}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="flex justify-between">
+                  <span>Pending approval:</span>
+                  <span className="font-medium text-orange-600">
+                    {overview.pendingApprovals}
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div className="flex justify-between">
-                    <span>Active:</span>
-                    <span className="font-medium text-green-600">
-                      {metric.active}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Suspended:</span>
-                    <span className="font-medium text-orange-600">
-                      {metric.suspended}
-                    </span>
-                  </div>
+                <div className="flex justify-between">
+                  <span>Growth:</span>
+                  <span className="font-medium text-green-600">
+                    {overview.userGrowthPercent}%
+                  </span>
                 </div>
               </div>
-            ))}
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="font-medium">Employees</span>
+                <span className="text-sm text-gray-600">
+                  Total: {overview.totalEmployees}
+                </span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="font-medium">Revenue</span>
+                <span className="text-sm text-gray-600">
+                  Total: ${overview.totalRevenue.toLocaleString()}
+                </span>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -209,7 +212,12 @@ export default function SuperAdminDashboard() {
                   <p className="text-sm text-gray-600">Manage all employees</p>
                 </div>
               </div>
-              <Button size="sm">Manage</Button>
+              <Button
+                size="sm"
+                onClick={() => router.push("/employee-management")}
+              >
+                Manage
+              </Button>
             </div>
 
             <div className="flex items-center justify-between">
@@ -220,7 +228,11 @@ export default function SuperAdminDashboard() {
                   <p className="text-sm text-gray-600">View detailed metrics</p>
                 </div>
               </div>
-              <Button size="sm" variant="outline">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => router.push("/analytics")}
+              >
                 View
               </Button>
             </div>
@@ -233,7 +245,11 @@ export default function SuperAdminDashboard() {
                   <p className="text-sm text-gray-600">Configure system</p>
                 </div>
               </div>
-              <Button size="sm" variant="outline">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => router.push("/settings")}
+              >
                 Configure
               </Button>
             </div>
@@ -247,36 +263,57 @@ export default function SuperAdminDashboard() {
           <CardTitle>Recent System Events</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {recentSystemEvents.map((event, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-3 border rounded-lg"
-              >
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-medium text-sm">{event.id}</span>
-                    <Badge variant="outline" className="text-xs">
-                      {event.type}
-                    </Badge>
-                    <Badge
-                      variant="secondary"
-                      className={getSeverityBadgeClass(event.severity)}
-                    >
-                      {event.severity}
-                    </Badge>
+          {activitiesLoading ? (
+            <div className="flex items-center justify-center p-8">
+              <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              <span className="ml-2 text-muted-foreground text-sm">
+                Loading events...
+              </span>
+            </div>
+          ) : activitiesError ? (
+            <div className="flex items-center justify-center p-8">
+              <AlertCircle className="h-5 w-5 text-red-500" />
+              <span className="ml-2 text-red-500 text-sm">{activitiesError}</span>
+            </div>
+          ) : activities.length === 0 ? (
+            <p className="text-center text-sm text-muted-foreground p-8">
+              No recent events
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {activities.map((event) => (
+                <div
+                  key={event.id}
+                  className="flex items-center justify-between p-3 border rounded-lg"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge
+                        variant="outline"
+                        className={`text-xs ${getTypeBadgeClass(event.type)}`}
+                      >
+                        {event.type.replace(/_/g, " ")}
+                      </Badge>
+                      <Badge variant="secondary" className="text-xs">
+                        {event.status}
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-gray-600">{event.action}</p>
+                    <p className="text-xs text-gray-500">
+                      {event.user} • {formatTimestamp(event.timestamp)}
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-600">{event.event}</p>
-                  <p className="text-xs text-gray-500">
-                    {event.user} • {event.timestamp}
-                  </p>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => router.push("/audit-logs")}
+                  >
+                    View Details
+                  </Button>
                 </div>
-                <Button size="sm" variant="ghost">
-                  View Details
-                </Button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

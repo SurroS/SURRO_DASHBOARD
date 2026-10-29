@@ -6,20 +6,34 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { authService } from "@/lib/api/auth";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // In a real app, call API then route on success
-    setTimeout(() => {
+    try {
+      await authService.forgotPassword({ email });
+      toast({
+        title: "Email Sent",
+        description: "Check your email for reset instructions",
+      });
       router.push(`/forgot-password/verify?email=${encodeURIComponent(email)}`);
+    } catch {
+      toast({
+        title: "Failed",
+        description: "Could not send reset email. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsLoading(false);
-    }, 400);
+    }
   };
 
   return (
@@ -58,7 +72,7 @@ export default function ForgotPasswordPage() {
             type="button"
             variant="secondary"
             className="w-full h-12 bg-[#EBF4FE]"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/login")}
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Log in
           </Button>

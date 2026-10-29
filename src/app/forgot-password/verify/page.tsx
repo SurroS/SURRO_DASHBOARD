@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/input-otp";
 import { ArrowLeft } from "lucide-react";
 import { useState, Suspense } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { authService } from "@/lib/api/auth";
 
 function VerifyCodeContent() {
   const searchParams = useSearchParams();
@@ -16,13 +18,36 @@ function VerifyCodeContent() {
   const router = useRouter();
   const [code, setCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const onContinue = async () => {
+    if (code.length < 5) return;
     setIsLoading(true);
-    setTimeout(() => {
-      router.push("/forgot-password/reset");
+    try {
+      await authService.resetPassword({ email, otp: code, newPassword: "" });
+      router.push(`/forgot-password/reset?email=${encodeURIComponent(email)}&otp=${code}`);
+    } catch {
+      toast({
+        title: "Verification Failed",
+        description: "Invalid or expired code",
+        variant: "destructive",
+      });
+    } finally {
       setIsLoading(false);
-    }, 400);
+    }
+  };
+
+  const resendOtp = async () => {
+    try {
+      await authService.resendOtp({ email });
+      toast({ title: "Code Resent", description: "Check your email" });
+    } catch {
+      toast({
+        title: "Failed",
+        description: "Could not resend code",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -79,7 +104,11 @@ function VerifyCodeContent() {
 
           <div className="text-center text-sm">
             Didn&apos;t receive the email?{" "}
-            <button className="font-semibold underline-offset-2 hover:underline">
+            <button
+              type="button"
+              onClick={resendOtp}
+              className="font-semibold underline-offset-2 hover:underline"
+            >
               Click to resend
             </button>
           </div>
