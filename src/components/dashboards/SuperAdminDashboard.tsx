@@ -85,7 +85,7 @@ export default function SuperAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {overview.totalUsers.toLocaleString()}
+              {Number(overview.totalUsers || 0).toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
               {overview.userGrowthPercent >= 0 ? "+" : ""}
@@ -101,7 +101,7 @@ export default function SuperAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {overview.totalSurrogates.toLocaleString()}
+              {Number(overview.totalSurrogates || 0).toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
               Registered surrogate users
@@ -131,7 +131,7 @@ export default function SuperAdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              ${overview.totalRevenue.toLocaleString()}
+              ${Number(overview.totalRevenue || 0).toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
               {overview.pendingApprovals} pending approvals
@@ -162,7 +162,7 @@ export default function SuperAdminDashboard() {
               <div className="flex justify-between items-center">
                 <span className="font-medium">Users</span>
                 <span className="text-sm text-gray-600">
-                  Total: {overview.totalUsers.toLocaleString()}
+                  Total: {Number(overview.totalUsers || 0).toLocaleString()}
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-4 text-sm">
@@ -192,7 +192,7 @@ export default function SuperAdminDashboard() {
               <div className="flex justify-between items-center">
                 <span className="font-medium">Revenue</span>
                 <span className="text-sm text-gray-600">
-                  Total: ${overview.totalRevenue.toLocaleString()}
+                  Total: ${Number(overview.totalRevenue || 0).toLocaleString()}
                 </span>
               </div>
             </div>

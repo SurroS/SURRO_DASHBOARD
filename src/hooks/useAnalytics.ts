@@ -32,6 +32,25 @@ function getErrorMessage(err: unknown, fallback: string): string {
     if (typeof message === "string") return message;
     if (Array.isArray(message)) return message.join(", ");
   }
+
+  function normalizeOverview(
+    overview: AnalyticsOverview & Partial<AnalyticsOverview>,
+  ): AnalyticsOverview {
+    return {
+      ...overview,
+      totalUsers: Number(overview.totalUsers) || 0,
+      totalSurrogates: Number(overview.totalSurrogates) || 0,
+      totalIntendedParents: Number(overview.totalIntendedParents) || 0,
+      totalAgents: Number(overview.totalAgents) || 0,
+      totalClinics: Number(overview.totalClinics) || 0,
+      totalEmployees: Number(overview.totalEmployees) || 0,
+      pendingApprovals: Number(overview.pendingApprovals) || 0,
+      openTickets: Number(overview.openTickets) || 0,
+      totalRevenue: Number(overview.totalRevenue) || 0,
+      userGrowthPercent: Number(overview.userGrowthPercent) || 0,
+      systemUptime: Number(overview.systemUptime) || 0,
+    };
+  }
   return fallback;
 }
 
@@ -46,7 +65,7 @@ export function useAnalyticsOverview(period = "month") {
       .getOverview({ period })
       .then((data) => {
         if (cancelled) return;
-        setOverview(data);
+        setOverview(normalizeOverview(data));
         setLoading(false);
       })
       .catch((err: unknown) => {
@@ -112,7 +131,7 @@ export function useAnalyticsDashboard() {
       .then(([overview, growth, revenue, geo, activeUsers]) => {
         if (cancelled) return;
         setData({
-          overview,
+          overview: normalizeOverview(overview),
           growth: growth.data,
           revenue,
           geo: geo.data,
