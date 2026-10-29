@@ -1,9 +1,38 @@
 import apiClient from "./client";
-import type { User, KycDocument, PaginatedResponse, MessageResponse, SubscriptionPlan, SubscriptionPlanWithRegions } from "./types";
+import type { User, KycDocument, PaginatedResponse, AdminUsersResponse, MessageResponse, SubscriptionPlan, SubscriptionPlanWithRegions } from "./types";
+
+/**
+ * Normalize GET /admin/users responses into PaginatedResponse<T>.
+ * Server returns top-level `{ data, users?, total, page, limit, totalPages }`;
+ * older mocks/clients use `{ data, meta: {...} }`.
+ */
+export function normalizePaginatedResponse<T>(
+  raw: PaginatedResponse<T> | AdminUsersResponse<T>
+): PaginatedResponse<T> {
+  if (raw && typeof raw === "object" && "meta" in raw && raw.meta) {
+    return raw as PaginatedResponse<T>;
+  }
+  const wire = raw as AdminUsersResponse<T>;
+  const data = Array.isArray(wire.data)
+    ? wire.data
+    : Array.isArray(wire.users)
+      ? wire.users
+      : [];
+  const total = typeof wire.total === "number" ? wire.total : data.length;
+  const page = typeof wire.page === "number" ? wire.page : 1;
+  const limit = typeof wire.limit === "number" ? wire.limit : data.length || 20;
+  const totalPages =
+    typeof wire.totalPages === "number"
+      ? wire.totalPages
+      : Math.max(1, Math.ceil(total / Math.max(1, limit)));
+  return { data, meta: { total, page, limit, totalPages } };
+}
 
 export const adminService = {
-  getUsers: (params?: { page?: number; limit?: number; isApproved?: boolean; role?: string }) =>
-    apiClient.get<PaginatedResponse<User>>("/admin/users", { params }).then((r) => r.data),
+  getUsers: (params?: { page?: number; limit?: number; isApproved?: boolean; isVerified?: boolean; role?: string }) =>
+    apiClient
+      .get<PaginatedResponse<User> | AdminUsersResponse<User>>("/admin/users", { params })
+      .then((r) => normalizePaginatedResponse<User>(r.data)),
 
   getUser: (id: string) =>
     apiClient.get<User>(`/admin/users/${id}`).then((r) => r.data),
